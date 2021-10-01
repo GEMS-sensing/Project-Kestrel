@@ -2527,6 +2527,25 @@ C&amp;K, Non-Shorting (BBM), 100mA, 12V&lt;br&gt;
 <circle x="-1.27" y="-1.27" radius="0.127" width="0.127" layer="21"/>
 <text x="1.524" y="0" size="0.6096" layer="25" font="vector" ratio="15" rot="R270" align="center">&gt;NAME</text>
 </package>
+<package name="VEML6075">
+<description>&lt;b&gt;VEML6075 Land Pattern, 4 pos&lt;/b&gt;&lt;br&gt;Also compatible with VEML3328&lt;br&gt;&lt;a href = "https://www.vishay.com/docs/84968/veml3328.pdf"&gt;Datasheet&lt;/a&gt;</description>
+<smd name="1" x="-0.95" y="0.35" dx="0.9" dy="0.35" layer="1"/>
+<smd name="2" x="-0.95" y="-0.35" dx="0.9" dy="0.35" layer="1"/>
+<smd name="4" x="0.95" y="0.35" dx="0.9" dy="0.35" layer="1"/>
+<smd name="3" x="0.9" y="-0.35" dx="1" dy="0.35" layer="1"/>
+<wire x1="-1" y1="0.625" x2="-1" y2="-0.625" width="0.127" layer="21"/>
+<wire x1="-1" y1="-0.625" x2="1" y2="-0.625" width="0.127" layer="21"/>
+<wire x1="1" y1="-0.625" x2="1" y2="0.625" width="0.127" layer="21"/>
+<wire x1="1" y1="0.625" x2="-1" y2="0.625" width="0.127" layer="21"/>
+<polygon width="0.127" layer="21">
+<vertex x="-1" y="0.127"/>
+<vertex x="-0.254" y="0.127"/>
+<vertex x="-0.254" y="0.625"/>
+<vertex x="-1" y="0.625"/>
+</polygon>
+<text x="0" y="1.27" size="0.6096" layer="25" font="vector" ratio="15" align="center">&gt;NAME</text>
+<text x="0.127" y="-1.27" size="0.6096" layer="27" font="vector" ratio="15" align="center">&gt;VALUE</text>
+</package>
 </packages>
 <symbols>
 <symbol name="10118194-0001LF_10118194-0001LF">
@@ -5709,6 +5728,41 @@ Digikey: &lt;br&gt;&lt;a href = "https://www.digikey.com/product-detail/en/texas
 <attribute name="DISP" value="MXC6655" constant="no"/>
 <attribute name="MF" value="Memsic" constant="no"/>
 <attribute name="MPN" value="MXC6655XA" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="VEML3328" prefix="U">
+<description>&lt;b&gt;VEML3328&lt;/b&gt; - RGBCIR Color Sensor with I&lt;sup&gt;2&lt;/sup&gt;C Interface
+ 
+&lt;p&gt;Characteristics:
+&lt;ul&gt;
+&lt;li&gt;VCC: 2.6~3.6V&lt;/li&gt;
+&lt;li&gt;Operating Temperature: -40°C to 85°C&lt;/li&gt;
+&lt;li&gt;Resolution: 16 Bit &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/p&gt;
+ 
+&lt;p&gt;Digikey: &lt;a href = "https://www.digikey.com/en/products/detail/vishay-semiconductor-opto-division/VEML3328/10673129"&gt; 751-VEML3328CT-ND &lt;/a&gt;&lt;br/&gt;
+&lt;/p&gt;</description>
+<gates>
+<gate name="G$1" symbol="SENSOR_I2C" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="VEML6075">
+<connects>
+<connect gate="G$1" pin="GND" pad="1"/>
+<connect gate="G$1" pin="SCL" pad="3"/>
+<connect gate="G$1" pin="SDA" pad="2"/>
+<connect gate="G$1" pin="VCC" pad="4"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="DIGIKEY" value="751-VEML3328CT-ND" constant="no"/>
+<attribute name="DISP" value="VEML3328" constant="no"/>
+<attribute name="MF" value="Vishay" constant="no"/>
+<attribute name="MPN" value="VEML3328" constant="no"/>
 </technology>
 </technologies>
 </device>
@@ -12622,6 +12676,9 @@ Key = E&lt;br&gt;</description>
 <part name="C35" library="bschulz_passives" deviceset="C-EU" device="C0603" technology="2.2UF" value="2.2uF"/>
 <part name="C36" library="bschulz_passives" deviceset="C-EU" device="C0603" technology="2.2UF" value="2.2uF"/>
 <part name="R6" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="10K" value="10k"/>
+<part name="U20" library="bschulz" deviceset="VEML3328" device=""/>
+<part name="GND41" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="C37" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="0.1UF"/>
 </parts>
 <sheets>
 <sheet>
@@ -12762,6 +12819,17 @@ Key = E&lt;br&gt;</description>
 <attribute name="NAME" x="64.5414" y="148.59" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="69.342" y="148.59" size="1.778" layer="96" rot="R90"/>
 </instance>
+<instance part="U20" gate="G$1" x="50.8" y="193.04" smashed="yes">
+<attribute name="DISP" x="50.8" y="202.184" size="1.778" layer="95" ratio="15" align="center"/>
+<attribute name="NAME" x="50.8" y="183.896" size="1.778" layer="95" ratio="15" align="center"/>
+</instance>
+<instance part="GND41" gate="1" x="35.56" y="182.88" smashed="yes">
+<attribute name="VALUE" x="33.02" y="180.34" size="1.778" layer="96"/>
+</instance>
+<instance part="C37" gate="G$1" x="33.02" y="195.58" smashed="yes">
+<attribute name="NAME" x="34.544" y="195.961" size="1.778" layer="95"/>
+<attribute name="VALUE" x="34.544" y="190.881" size="1.778" layer="96"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -12857,6 +12925,16 @@ Key = E&lt;br&gt;</description>
 <wire x1="33.02" y1="139.7" x2="33.02" y2="137.16" width="0.1524" layer="91"/>
 <wire x1="33.02" y1="137.16" x2="35.56" y2="137.16" width="0.1524" layer="91"/>
 <junction x="35.56" y="137.16"/>
+</segment>
+<segment>
+<pinref part="U20" gate="G$1" pin="GND"/>
+<wire x1="38.1" y1="187.96" x2="35.56" y2="187.96" width="0.1524" layer="91"/>
+<wire x1="35.56" y1="187.96" x2="35.56" y2="185.42" width="0.1524" layer="91"/>
+<pinref part="GND41" gate="1" pin="GND"/>
+<pinref part="C37" gate="G$1" pin="2"/>
+<wire x1="33.02" y1="190.5" x2="33.02" y2="187.96" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="187.96" x2="35.56" y2="187.96" width="0.1524" layer="91"/>
+<junction x="35.56" y="187.96"/>
 </segment>
 </net>
 <net name="VUSB" class="0">
@@ -13116,6 +13194,11 @@ Key = E&lt;br&gt;</description>
 <wire x1="60.96" y1="119.38" x2="63.5" y2="119.38" width="0.1524" layer="91"/>
 <label x="63.5" y="119.38" size="1.016" layer="95" xref="yes"/>
 </segment>
+<segment>
+<pinref part="U20" gate="G$1" pin="SDA"/>
+<wire x1="63.5" y1="190.5" x2="66.04" y2="190.5" width="0.1524" layer="91"/>
+<label x="66.04" y="190.5" size="1.016" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="SCL_OB" class="0">
 <segment>
@@ -13132,6 +13215,11 @@ Key = E&lt;br&gt;</description>
 <pinref part="U11" gate="G$1" pin="B2"/>
 <wire x1="63.5" y1="116.84" x2="60.96" y2="116.84" width="0.1524" layer="91"/>
 <label x="63.5" y="116.84" size="1.016" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U20" gate="G$1" pin="SCL"/>
+<wire x1="63.5" y1="187.96" x2="66.04" y2="187.96" width="0.1524" layer="91"/>
+<label x="66.04" y="187.96" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="I2C_OB_EN" class="0">
@@ -13193,6 +13281,15 @@ Key = E&lt;br&gt;</description>
 <label x="30.48" y="172.72" size="1.016" layer="95" rot="R180" xref="yes"/>
 <pinref part="C36" gate="G$1" pin="1"/>
 <junction x="33.02" y="172.72"/>
+<wire x1="33.02" y1="172.72" x2="30.48" y2="172.72" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="U20" gate="G$1" pin="VCC"/>
+<wire x1="38.1" y1="198.12" x2="33.02" y2="198.12" width="0.1524" layer="91"/>
+<pinref part="C37" gate="G$1" pin="1"/>
+<wire x1="33.02" y1="198.12" x2="30.48" y2="198.12" width="0.1524" layer="91"/>
+<junction x="33.02" y="198.12"/>
+<label x="30.48" y="198.12" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 </nets>
