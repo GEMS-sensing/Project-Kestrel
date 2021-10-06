@@ -3014,10 +3014,10 @@ Soure: &lt;a href="http://www.ti.com/lit/ds/symlink/ads7042.pdf"&gt; Data sheet 
 <vertex x="8.45" y="-1.49"/>
 </polygon>
 <polygon width="0.127" layer="41">
-<vertex x="-0.75" y="-1.49"/>
+<vertex x="-0.75" y="-6.25"/>
 <vertex x="-0.75" y="-9.65"/>
 <vertex x="8.45" y="-9.65"/>
-<vertex x="8.45" y="-1.49"/>
+<vertex x="8.45" y="-6.25"/>
 </polygon>
 <wire x1="-1.016" y1="-13.7" x2="-1.016" y2="-13.208" width="0.127" layer="21"/>
 <wire x1="-1.016" y1="-13.208" x2="8.763" y2="-13.208" width="0.127" layer="21"/>
@@ -3896,8 +3896,8 @@ Switches electrical signals</description>
 <pin name="DAT1" x="-17.78" y="-2.54" length="short"/>
 <pin name="DAT2" x="-17.78" y="-5.08" length="short"/>
 <pin name="CARD_DETECT" x="-17.78" y="17.78" length="short" direction="pas"/>
-<pin name="GND" x="-17.78" y="-20.32" length="short" direction="sup"/>
-<pin name="GND1" x="-17.78" y="-17.78" length="short" direction="sup"/>
+<pin name="GND" x="-17.78" y="-20.32" visible="pin" length="short" direction="sup"/>
+<pin name="GND1" x="-17.78" y="-17.78" visible="pin" length="short" direction="sup"/>
 <pin name="CARD_DETECT1" x="-17.78" y="15.24" length="short" direction="pas"/>
 </symbol>
 </symbols>
@@ -6096,7 +6096,7 @@ Digikey: &lt;br&gt;&lt;a href = "https://www.digikey.com/product-detail/en/texas
 <technologies>
 <technology name="">
 <attribute name="DIGIKEY" value="" constant="no"/>
-<attribute name="DISP" value="" constant="no"/>
+<attribute name="DISP" value="LP5907" constant="no"/>
 <attribute name="MF" value="" constant="no"/>
 <attribute name="MPN" value="" constant="no"/>
 </technology>
@@ -13283,19 +13283,21 @@ Key = E&lt;br&gt;</description>
 </class>
 </classes>
 <modules>
-<module name="TALON" prefix="" dx="25.4" dy="40.64">
+<module name="TALON" prefix="" dx="25.4" dy="50.8">
 <ports>
-<port name="3V3" side="right" coord="17.78" direction="pwr"/>
-<port name="RX" side="right" coord="12.7" direction="io"/>
-<port name="TX" side="right" coord="10.16" direction="io"/>
-<port name="SEL" side="right" coord="-5.08" direction="in"/>
-<port name="EN" side="right" coord="-7.62" direction="in"/>
-<port name="!FAULT" side="right" coord="-2.54" direction="out"/>
-<port name="SDA" side="right" coord="5.08" direction="in"/>
-<port name="SCL" side="right" coord="2.54" direction="io"/>
-<port name="GND" side="right" coord="-17.78" direction="pwr"/>
-<port name="I2C_EN" side="right" coord="-10.16" direction="in"/>
-<port name="I2C_EN_GLOBAL" side="right" coord="-12.7" direction="in"/>
+<port name="3V3" side="right" coord="20.32" direction="pwr"/>
+<port name="RX" side="right" coord="7.62" direction="io"/>
+<port name="TX" side="right" coord="5.08" direction="io"/>
+<port name="SEL" side="right" coord="-10.16" direction="in"/>
+<port name="EN" side="right" coord="-12.7" direction="in"/>
+<port name="!FAULT" side="right" coord="-7.62" direction="out"/>
+<port name="SDA" side="right" coord="0" direction="in"/>
+<port name="SCL" side="right" coord="-2.54" direction="io"/>
+<port name="GND" side="right" coord="-22.86" direction="pwr"/>
+<port name="I2C_EN" side="right" coord="-15.24" direction="in"/>
+<port name="I2C_EN_GLOBAL" side="right" coord="-17.78" direction="in"/>
+<port name="GPIOB" side="right" coord="12.7" direction="io"/>
+<port name="GPIOA" side="right" coord="15.24" direction="io"/>
 </ports>
 <variantdefs>
 </variantdefs>
@@ -13325,6 +13327,8 @@ Key = E&lt;br&gt;</description>
 <sheets>
 <sheet>
 <plain>
+<text x="10.16" y="91.44" size="1.016" layer="91" align="center-left">Have both sides powered by 3V3_TALON for ease of routing
+If either side is low, device is in tri-state anyway</text>
 </plain>
 <instances>
 <instance part="U9" gate="G$1" x="60.96" y="53.34" smashed="yes">
@@ -13622,13 +13626,13 @@ Key = E&lt;br&gt;</description>
 <wire x1="114.3" y1="48.26" x2="119.38" y2="48.26" width="0.1524" layer="91"/>
 <label x="119.38" y="48.26" size="1.016" layer="95" xref="yes"/>
 </segment>
-</net>
-<net name="3V3" class="0">
 <segment>
 <wire x1="48.26" y1="83.82" x2="45.72" y2="83.82" width="0.1524" layer="91"/>
 <label x="45.72" y="83.82" size="1.016" layer="95" rot="R180" xref="yes"/>
 <pinref part="U10" gate="G$1" pin="VA"/>
 </segment>
+</net>
+<net name="3V3" class="0">
 <segment>
 <wire x1="22.86" y1="83.82" x2="22.86" y2="86.36" width="0.1524" layer="91"/>
 <wire x1="22.86" y1="86.36" x2="20.32" y2="86.36" width="0.1524" layer="91"/>
@@ -13907,9 +13911,9 @@ Key = E&lt;br&gt;</description>
 <part name="C39" library="bschulz_passives" deviceset="C-EU" device="C0603" technology="1UF" value="1uF"/>
 <part name="GND72" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND73" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="C40" library="bschulz_passives" deviceset="C-EU" device="C0603" technology="0.1UF" value="0.1uF"/>
+<part name="C40" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="0.1UF" value="0.1uF"/>
 <part name="GND74" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="R54" library="bschulz_passives" deviceset="R-EU_" device="R0603" technology="100K" value="100k"/>
+<part name="R54" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="100K" value="100k"/>
 <part name="GND83" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="U26" library="bschulz" deviceset="PAC1934" device="QFN"/>
 <part name="R60" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="0.0" value="0R"/>
@@ -13956,7 +13960,7 @@ Key = E&lt;br&gt;</description>
 <part name="H4" library="bschulz" deviceset="MOUNTING_HOLE" device="4_NP"/>
 <part name="SD2" library="bschulz" deviceset="MICROSD" device="MOLEX_503182"/>
 <part name="GND42" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="R20" library="bschulz_passives" deviceset="R-EU_" device="R0603" technology="100K" value="100k"/>
+<part name="R20" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="100K" value="100k"/>
 <part name="GND43" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="U14" library="bschulz" deviceset="FXMAR2102" device="UMLP"/>
 <part name="GND51" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
@@ -13979,6 +13983,11 @@ Key = E&lt;br&gt;</description>
 <text x="5.08" y="55.88" size="1.016" layer="91">Use IO Expander push/pull/pullup instead for CSA_EN?</text>
 <text x="299.72" y="127" size="1.778" layer="91">Change to load switch with lower limit and/or fault status indication??</text>
 <text x="43.18" y="-7.62" size="1.016" layer="91">To be placed at Vdd and Vdd_IO Pins</text>
+<text x="71.12" y="198.12" size="2.54" layer="91" align="center">ADR: 0x10</text>
+<text x="71.12" y="170.18" size="2.54" layer="91" align="center">ADR: 0x30</text>
+<text x="91.44" y="142.24" size="2.54" layer="91" align="center">ADR: 0x15</text>
+<text x="81.28" y="12.7" size="2.54" layer="91" align="center">ADR: 0x10 ~ 0x1F</text>
+<text x="83.82" y="-68.58" size="2.54" layer="91" align="center">ADR: 0x10 ~ 0x1F</text>
 </plain>
 <instances>
 <instance part="USB1" gate="G$1" x="228.6" y="53.34" smashed="yes">
@@ -14395,6 +14404,11 @@ Key = E&lt;br&gt;</description>
 <wire x1="154.94" y1="116.84" x2="154.94" y2="114.3" width="0.1524" layer="91"/>
 <pinref part="GND53" gate="1" pin="GND"/>
 </segment>
+<segment>
+<pinref part="J9" gate="G$1" pin="2"/>
+<wire x1="210.82" y1="96.52" x2="213.36" y2="96.52" width="0.1524" layer="91"/>
+<label x="213.36" y="96.52" size="1.016" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="VUSB" class="0">
 <segment>
@@ -14437,6 +14451,11 @@ Key = E&lt;br&gt;</description>
 <pinref part="U2" gate="G$1" pin="SENSE4+"/>
 <wire x1="96.52" y1="33.02" x2="99.06" y2="33.02" width="0.1524" layer="91"/>
 <label x="99.06" y="33.02" size="1.016" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="J9" gate="G$1" pin="1"/>
+<wire x1="210.82" y1="93.98" x2="213.36" y2="93.98" width="0.1524" layer="91"/>
+<label x="213.36" y="93.98" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="SOLAR-" class="0">
@@ -14869,6 +14888,11 @@ Key = E&lt;br&gt;</description>
 <label x="182.88" y="177.8" size="0.8128" layer="95" rot="R90" xref="yes"/>
 <pinref part="R20" gate="G$1" pin="2"/>
 </segment>
+<segment>
+<wire x1="218.44" y1="165.1" x2="218.44" y2="162.56" width="0.1524" layer="91"/>
+<label x="218.44" y="162.56" size="0.8128" layer="95" rot="R270" xref="yes"/>
+<pinref part="SD2" gate="G$1" pin="VDD"/>
+</segment>
 </net>
 <net name="MOSI" class="0">
 <segment>
@@ -14987,13 +15011,6 @@ Key = E&lt;br&gt;</description>
 <label x="223.52" y="109.22" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="VDD" class="0">
-<segment>
-<wire x1="218.44" y1="165.1" x2="218.44" y2="162.56" width="0.1524" layer="91"/>
-<label x="218.44" y="162.56" size="0.8128" layer="95" rot="R270" xref="yes"/>
-<pinref part="SD2" gate="G$1" pin="VDD"/>
-</segment>
-</net>
 <net name="I2C_EXT_EN" class="0">
 <segment>
 <pinref part="U15" gate="G$1" pin="B"/>
@@ -15001,7 +15018,7 @@ Key = E&lt;br&gt;</description>
 <label x="154.94" y="121.92" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="I2C_EN_GLOBAL" class="0">
+<net name="I2C_GLOBAL_EN" class="0">
 <segment>
 <pinref part="U15" gate="G$1" pin="A"/>
 <wire x1="157.48" y1="124.46" x2="154.94" y2="124.46" width="0.1524" layer="91"/>
@@ -16226,6 +16243,10 @@ Test 4.7k (or more) for reduced power consumption </text>
 <text x="307.34" y="373.38" size="1.016" layer="91" rot="R90" align="center-left">Cell</text>
 <text x="317.5" y="373.38" size="1.016" layer="91" rot="R90" align="center-left">Other</text>
 <text x="104.14" y="165.1" size="1.27" layer="91" align="center-left">Should this be used?</text>
+<text x="68.58" y="55.88" size="2.54" layer="91" align="center">ADR: 0x42</text>
+<text x="-38.1" y="269.24" size="2.54" layer="91" align="center">ADR: 0x20 ~ 0x27</text>
+<text x="66.04" y="269.24" size="2.54" layer="91" align="center">ADR: 0x20 ~ 0x27</text>
+<text x="226.06" y="353.06" size="2.54" layer="91" align="center">ADR: 0x29</text>
 </plain>
 <instances>
 <instance part="U6" gate="G$1" x="68.58" y="78.74" smashed="yes">
@@ -16785,6 +16806,31 @@ Test 4.7k (or more) for reduced power consumption </text>
 <wire x1="208.28" y1="314.96" x2="208.28" y2="312.42" width="0.1524" layer="91"/>
 <pinref part="GND22" gate="1" pin="GND"/>
 </segment>
+<segment>
+<pinref part="U28" gate="G$1" pin="A5"/>
+<wire x1="210.82" y1="325.12" x2="208.28" y2="325.12" width="0.1524" layer="91"/>
+<label x="208.28" y="325.12" size="0.8128" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U28" gate="G$1" pin="A3"/>
+<wire x1="210.82" y1="330.2" x2="208.28" y2="330.2" width="0.1524" layer="91"/>
+<label x="208.28" y="330.2" size="0.8128" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U28" gate="G$1" pin="A2"/>
+<wire x1="210.82" y1="332.74" x2="208.28" y2="332.74" width="0.1524" layer="91"/>
+<label x="208.28" y="332.74" size="0.8128" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U28" gate="G$1" pin="A1"/>
+<wire x1="210.82" y1="335.28" x2="208.28" y2="335.28" width="0.1524" layer="91"/>
+<label x="208.28" y="335.28" size="0.8128" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U28" gate="G$1" pin="A0"/>
+<wire x1="210.82" y1="337.82" x2="208.28" y2="337.82" width="0.1524" layer="91"/>
+<label x="208.28" y="337.82" size="0.8128" layer="95" rot="R180" xref="yes"/>
+</segment>
 </net>
 <net name="GPS_ANT" class="0">
 <segment>
@@ -17135,6 +17181,16 @@ Test 4.7k (or more) for reduced power consumption </text>
 <pinref part="U12" gate="G$1" pin="VCC"/>
 <wire x1="112.522" y1="243.84" x2="104.14" y2="243.84" width="0.1524" layer="91"/>
 <label x="104.14" y="243.84" size="1.27" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U28" gate="G$1" pin="A6"/>
+<wire x1="210.82" y1="322.58" x2="208.28" y2="322.58" width="0.1524" layer="91"/>
+<label x="208.28" y="322.58" size="0.8128" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U28" gate="G$1" pin="A4"/>
+<wire x1="210.82" y1="327.66" x2="208.28" y2="327.66" width="0.1524" layer="91"/>
+<label x="208.28" y="327.66" size="0.8128" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="TEST" class="0">
@@ -17505,60 +17561,32 @@ Test 4.7k (or more) for reduced power consumption </text>
 <pinref part="U27" gate="G$1" pin="GPA4"/>
 </segment>
 </net>
-<net name="TALON1_GPIOA" class="0">
-<segment>
-<pinref part="U7" gate="U1" pin="ADC0"/>
-<wire x1="40.64" y1="193.04" x2="38.1" y2="193.04" width="0.1524" layer="91"/>
-<label x="38.1" y="193.04" size="1.016" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
-<net name="TALON2_GPIOA" class="0">
+<net name="TALON3_GPIOA" class="0">
 <segment>
 <pinref part="U7" gate="U1" pin="ADC1"/>
 <wire x1="40.64" y1="180.34" x2="38.1" y2="180.34" width="0.1524" layer="91"/>
 <label x="38.1" y="180.34" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="TALON3_GPIOA" class="0">
-<segment>
-<pinref part="U7" gate="U1" pin="ADC2"/>
-<wire x1="40.64" y1="177.8" x2="38.1" y2="177.8" width="0.1524" layer="91"/>
-<label x="38.1" y="177.8" size="1.016" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
 <net name="TALON4_GPIOA" class="0">
 <segment>
-<pinref part="U7" gate="U1" pin="ADC3"/>
-<wire x1="40.64" y1="175.26" x2="38.1" y2="175.26" width="0.1524" layer="91"/>
-<label x="38.1" y="175.26" size="1.016" layer="95" rot="R180" xref="yes"/>
+<pinref part="U7" gate="U1" pin="ADC0"/>
+<wire x1="40.64" y1="193.04" x2="38.1" y2="193.04" width="0.1524" layer="91"/>
+<label x="38.1" y="193.04" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="TALON1_GPIOB" class="0">
-<segment>
-<pinref part="U7" gate="U1" pin="PWM0"/>
-<wire x1="91.44" y1="139.7" x2="93.98" y2="139.7" width="0.1524" layer="91"/>
-<label x="93.98" y="139.7" size="1.016" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="TALON2_GPIOB" class="0">
+<net name="TALON3_GPIOB" class="0">
 <segment>
 <pinref part="U7" gate="U1" pin="PWM1"/>
 <wire x1="91.44" y1="137.16" x2="93.98" y2="137.16" width="0.1524" layer="91"/>
 <label x="93.98" y="137.16" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="TALON3_GPIOB" class="0">
-<segment>
-<pinref part="U7" gate="U1" pin="PWM2"/>
-<wire x1="91.44" y1="134.62" x2="93.98" y2="134.62" width="0.1524" layer="91"/>
-<label x="93.98" y="134.62" size="1.016" layer="95" xref="yes"/>
-</segment>
-</net>
 <net name="TALON4_GPIOB" class="0">
 <segment>
-<pinref part="U7" gate="U1" pin="PWM3"/>
-<wire x1="91.44" y1="132.08" x2="93.98" y2="132.08" width="0.1524" layer="91"/>
-<label x="93.98" y="132.08" size="1.016" layer="95" xref="yes"/>
+<pinref part="U7" gate="U1" pin="PWM0"/>
+<wire x1="91.44" y1="139.7" x2="93.98" y2="139.7" width="0.1524" layer="91"/>
+<label x="93.98" y="139.7" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="I2C_GLOBAL_EN" class="0">
@@ -17577,86 +17605,58 @@ Test 4.7k (or more) for reduced power consumption </text>
 </net>
 <net name="TALON1_EN" class="0">
 <segment>
-<wire x1="81.28" y1="292.1" x2="83.82" y2="292.1" width="0.1524" layer="91"/>
-<label x="83.82" y="292.1" size="1.016" layer="95" xref="yes"/>
-<pinref part="U5" gate="G$1" pin="GPA4"/>
+<pinref part="U5" gate="G$1" pin="GPA3"/>
+<wire x1="81.28" y1="289.56" x2="83.82" y2="289.56" width="0.1524" layer="91"/>
+<label x="83.82" y="289.56" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="TALON2_EN" class="0">
+<net name="TALON1_I2C_EN" class="0">
+<segment>
+<pinref part="U5" gate="G$1" pin="GPA1"/>
+<wire x1="81.28" y1="284.48" x2="83.82" y2="284.48" width="0.1524" layer="91"/>
+<label x="83.82" y="284.48" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON2_I2C_EN" class="0">
 <segment>
 <wire x1="81.28" y1="294.64" x2="83.82" y2="294.64" width="0.1524" layer="91"/>
 <label x="83.82" y="294.64" size="1.016" layer="95" xref="yes"/>
 <pinref part="U5" gate="G$1" pin="GPA5"/>
 </segment>
 </net>
-<net name="TALON3_EN" class="0">
-<segment>
-<wire x1="81.28" y1="297.18" x2="83.82" y2="297.18" width="0.1524" layer="91"/>
-<label x="83.82" y="297.18" size="1.016" layer="95" xref="yes"/>
-<pinref part="U5" gate="G$1" pin="GPA6"/>
-</segment>
-</net>
-<net name="TALON4_EN" class="0">
-<segment>
-<wire x1="81.28" y1="299.72" x2="83.82" y2="299.72" width="0.1524" layer="91"/>
-<label x="83.82" y="299.72" size="1.016" layer="95" xref="yes"/>
-<pinref part="U5" gate="G$1" pin="GPA7"/>
-</segment>
-</net>
-<net name="TALON1_I2C_EN" class="0">
-<segment>
-<pinref part="U5" gate="G$1" pin="GPB0"/>
-<wire x1="81.28" y1="304.8" x2="83.82" y2="304.8" width="0.1524" layer="91"/>
-<label x="83.82" y="304.8" size="1.016" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="TALON2_I2C_EN" class="0">
+<net name="TALON3_I2C_EN" class="0">
 <segment>
 <pinref part="U5" gate="G$1" pin="GPB1"/>
 <wire x1="81.28" y1="307.34" x2="83.82" y2="307.34" width="0.1524" layer="91"/>
 <label x="83.82" y="307.34" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="TALON3_I2C_EN" class="0">
+<net name="!TALON1_FAULT" class="0">
+<segment>
+<pinref part="U5" gate="G$1" pin="GPA2"/>
+<wire x1="81.28" y1="287.02" x2="83.82" y2="287.02" width="0.1524" layer="91"/>
+<label x="83.82" y="287.02" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="!TALON2_FAULT" class="0">
+<segment>
+<wire x1="81.28" y1="297.18" x2="83.82" y2="297.18" width="0.1524" layer="91"/>
+<label x="83.82" y="297.18" size="1.016" layer="95" xref="yes"/>
+<pinref part="U5" gate="G$1" pin="GPA6"/>
+</segment>
+</net>
+<net name="!TALON3_FAULT" class="0">
 <segment>
 <pinref part="U5" gate="G$1" pin="GPB2"/>
 <wire x1="81.28" y1="309.88" x2="83.82" y2="309.88" width="0.1524" layer="91"/>
 <label x="83.82" y="309.88" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="TALON4_I2C_EN" class="0">
-<segment>
-<pinref part="U5" gate="G$1" pin="GPB3"/>
-<wire x1="81.28" y1="312.42" x2="83.82" y2="312.42" width="0.1524" layer="91"/>
-<label x="83.82" y="312.42" size="1.016" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="!TALON1_FAULT" class="0">
-<segment>
-<pinref part="U5" gate="G$1" pin="GPB4"/>
-<wire x1="81.28" y1="314.96" x2="83.82" y2="314.96" width="0.1524" layer="91"/>
-<label x="83.82" y="314.96" size="1.016" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="!TALON2_FAULT" class="0">
-<segment>
-<pinref part="U5" gate="G$1" pin="GPB5"/>
-<wire x1="81.28" y1="317.5" x2="83.82" y2="317.5" width="0.1524" layer="91"/>
-<label x="83.82" y="317.5" size="1.016" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="!TALON3_FAULT" class="0">
+<net name="!TALON4_FAULT" class="0">
 <segment>
 <pinref part="U5" gate="G$1" pin="GPB6"/>
 <wire x1="81.28" y1="320.04" x2="83.82" y2="320.04" width="0.1524" layer="91"/>
 <label x="83.82" y="320.04" size="1.016" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="!TALON4_FAULT" class="0">
-<segment>
-<pinref part="U5" gate="G$1" pin="GPB7"/>
-<wire x1="81.28" y1="322.58" x2="83.82" y2="322.58" width="0.1524" layer="91"/>
-<label x="83.82" y="322.58" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="TALON1_SEL" class="0">
@@ -17664,27 +17664,6 @@ Test 4.7k (or more) for reduced power consumption </text>
 <pinref part="U5" gate="G$1" pin="GPA0"/>
 <wire x1="81.28" y1="281.94" x2="83.82" y2="281.94" width="0.1524" layer="91"/>
 <label x="83.82" y="281.94" size="1.016" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="TALON2_SEL" class="0">
-<segment>
-<pinref part="U5" gate="G$1" pin="GPA1"/>
-<wire x1="81.28" y1="284.48" x2="83.82" y2="284.48" width="0.1524" layer="91"/>
-<label x="83.82" y="284.48" size="1.016" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="TALON3_SEL" class="0">
-<segment>
-<pinref part="U5" gate="G$1" pin="GPA2"/>
-<wire x1="81.28" y1="287.02" x2="83.82" y2="287.02" width="0.1524" layer="91"/>
-<label x="83.82" y="287.02" size="1.016" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="TALON4_SEL" class="0">
-<segment>
-<pinref part="U5" gate="G$1" pin="GPA3"/>
-<wire x1="81.28" y1="289.56" x2="83.82" y2="289.56" width="0.1524" layer="91"/>
-<label x="83.82" y="289.56" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="TALON_INT" class="0">
@@ -17784,11 +17763,6 @@ Test 4.7k (or more) for reduced power consumption </text>
 </segment>
 </net>
 <net name="LED_EN" class="0">
-<segment>
-<pinref part="U7" gate="U1" pin="ADC7"/>
-<wire x1="40.64" y1="162.56" x2="38.1" y2="162.56" width="0.1524" layer="91"/>
-<label x="38.1" y="162.56" size="1.016" layer="95" rot="R180" xref="yes"/>
-</segment>
 <segment>
 <pinref part="R32" gate="G$1" pin="1"/>
 <wire x1="236.22" y1="292.1" x2="236.22" y2="289.56" width="0.1524" layer="91"/>
@@ -17975,12 +17949,90 @@ Test 4.7k (or more) for reduced power consumption </text>
 <label x="-20.32" y="309.88" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
+<net name="TALON2_GPIOA" class="0">
+<segment>
+<pinref part="U7" gate="U1" pin="ADC2"/>
+<wire x1="40.64" y1="177.8" x2="38.1" y2="177.8" width="0.1524" layer="91"/>
+<label x="38.1" y="177.8" size="1.016" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="TALON1_GPIOA" class="0">
+<segment>
+<pinref part="U7" gate="U1" pin="ADC3"/>
+<wire x1="40.64" y1="175.26" x2="38.1" y2="175.26" width="0.1524" layer="91"/>
+<label x="38.1" y="175.26" size="1.016" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="TALON2_GPIOB" class="0">
+<segment>
+<pinref part="U7" gate="U1" pin="PWM2"/>
+<wire x1="91.44" y1="134.62" x2="93.98" y2="134.62" width="0.1524" layer="91"/>
+<label x="93.98" y="134.62" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON1_GPIOB" class="0">
+<segment>
+<pinref part="U7" gate="U1" pin="PWM3"/>
+<wire x1="91.44" y1="132.08" x2="93.98" y2="132.08" width="0.1524" layer="91"/>
+<label x="93.98" y="132.08" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON2_SEL" class="0">
+<segment>
+<wire x1="81.28" y1="292.1" x2="83.82" y2="292.1" width="0.1524" layer="91"/>
+<label x="83.82" y="292.1" size="1.016" layer="95" xref="yes"/>
+<pinref part="U5" gate="G$1" pin="GPA4"/>
+</segment>
+</net>
+<net name="TALON2_EN" class="0">
+<segment>
+<wire x1="81.28" y1="299.72" x2="83.82" y2="299.72" width="0.1524" layer="91"/>
+<label x="83.82" y="299.72" size="1.016" layer="95" xref="yes"/>
+<pinref part="U5" gate="G$1" pin="GPA7"/>
+</segment>
+</net>
+<net name="TALON3_SEL" class="0">
+<segment>
+<pinref part="U5" gate="G$1" pin="GPB0"/>
+<wire x1="81.28" y1="304.8" x2="83.82" y2="304.8" width="0.1524" layer="91"/>
+<label x="83.82" y="304.8" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON3_EN" class="0">
+<segment>
+<pinref part="U5" gate="G$1" pin="GPB3"/>
+<wire x1="81.28" y1="312.42" x2="83.82" y2="312.42" width="0.1524" layer="91"/>
+<label x="83.82" y="312.42" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON4_SEL" class="0">
+<segment>
+<pinref part="U5" gate="G$1" pin="GPB4"/>
+<wire x1="81.28" y1="314.96" x2="83.82" y2="314.96" width="0.1524" layer="91"/>
+<label x="83.82" y="314.96" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON4_I2C_EN" class="0">
+<segment>
+<pinref part="U5" gate="G$1" pin="GPB5"/>
+<wire x1="81.28" y1="317.5" x2="83.82" y2="317.5" width="0.1524" layer="91"/>
+<label x="83.82" y="317.5" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON4_EN" class="0">
+<segment>
+<pinref part="U5" gate="G$1" pin="GPB7"/>
+<wire x1="81.28" y1="322.58" x2="83.82" y2="322.58" width="0.1524" layer="91"/>
+<label x="83.82" y="322.58" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
 </nets>
 </sheet>
 <sheet>
 <plain>
 <text x="12.7" y="101.6" size="1.016" layer="91">Should this be 3V3_AUX?</text>
 <text x="20.32" y="40.64" size="1.016" layer="91">Connect Ax HIGH to avoid conflict with external EEPROMs</text>
+<text x="40.64" y="45.72" size="2.54" layer="91" align="center">ADR: 0x57</text>
 </plain>
 <instances>
 <instance part="U23" gate="G$1" x="40.64" y="60.96" smashed="yes">
@@ -18069,17 +18121,17 @@ Test 4.7k (or more) for reduced power consumption </text>
 <plain>
 </plain>
 <moduleinsts>
-<moduleinst name="TALON1" module="TALON" x="10.16" y="152.4">
-<attribute name="NAME" x="10.16" y="152.4" size="2.032" layer="95" align="bottom-center"/>
+<moduleinst name="TALON1" module="TALON" x="10.16" y="147.32">
+<attribute name="NAME" x="10.16" y="147.32" size="2.032" layer="95" align="bottom-center"/>
 </moduleinst>
 <moduleinst name="TALON2" module="TALON" x="10.16" y="200.66">
 <attribute name="NAME" x="10.16" y="200.66" size="2.032" layer="95" align="bottom-center"/>
 </moduleinst>
-<moduleinst name="TALON3" module="TALON" x="10.16" y="248.92">
-<attribute name="NAME" x="10.16" y="248.92" size="2.032" layer="95" align="bottom-center"/>
+<moduleinst name="TALON3" module="TALON" x="81.28" y="147.32">
+<attribute name="NAME" x="81.28" y="147.32" size="2.032" layer="95" align="bottom-center"/>
 </moduleinst>
-<moduleinst name="TALON4" module="TALON" x="10.16" y="297.18">
-<attribute name="NAME" x="10.16" y="297.18" size="2.032" layer="95" align="bottom-center"/>
+<moduleinst name="TALON4" module="TALON" x="81.28" y="200.66">
+<attribute name="NAME" x="81.28" y="200.66" size="2.032" layer="95" align="bottom-center"/>
 </moduleinst>
 </moduleinsts>
 <instances>
@@ -18090,243 +18142,323 @@ Test 4.7k (or more) for reduced power consumption </text>
 <net name="GND" class="0">
 <segment>
 <portref moduleinst="TALON1" port="GND"/>
-<wire x1="27.94" y1="134.62" x2="30.48" y2="134.62" width="0.1524" layer="91"/>
-<label x="30.48" y="134.62" size="1.016" layer="95" xref="yes"/>
+<wire x1="27.94" y1="124.46" x2="30.48" y2="124.46" width="0.1524" layer="91"/>
+<label x="30.48" y="124.46" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
 <portref moduleinst="TALON2" port="GND"/>
-<wire x1="27.94" y1="182.88" x2="30.48" y2="182.88" width="0.1524" layer="91"/>
-<label x="30.48" y="182.88" size="1.016" layer="95" xref="yes"/>
+<wire x1="27.94" y1="177.8" x2="30.48" y2="177.8" width="0.1524" layer="91"/>
+<label x="30.48" y="177.8" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
 <portref moduleinst="TALON3" port="GND"/>
-<wire x1="27.94" y1="231.14" x2="30.48" y2="231.14" width="0.1524" layer="91"/>
-<label x="30.48" y="231.14" size="1.016" layer="95" xref="yes"/>
+<wire x1="99.06" y1="124.46" x2="101.6" y2="124.46" width="0.1524" layer="91"/>
+<label x="101.6" y="124.46" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
 <portref moduleinst="TALON4" port="GND"/>
-<wire x1="27.94" y1="279.4" x2="30.48" y2="279.4" width="0.1524" layer="91"/>
-<label x="30.48" y="279.4" size="1.016" layer="95" xref="yes"/>
+<wire x1="99.06" y1="177.8" x2="101.6" y2="177.8" width="0.1524" layer="91"/>
+<label x="101.6" y="177.8" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="I2C_GLOBAL_EN" class="0">
 <segment>
 <portref moduleinst="TALON1" port="I2C_EN_GLOBAL"/>
-<wire x1="27.94" y1="139.7" x2="30.48" y2="139.7" width="0.1524" layer="91"/>
-<label x="30.48" y="139.7" size="1.016" layer="95" xref="yes"/>
+<wire x1="27.94" y1="129.54" x2="30.48" y2="129.54" width="0.1524" layer="91"/>
+<label x="30.48" y="129.54" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
 <portref moduleinst="TALON2" port="I2C_EN_GLOBAL"/>
-<wire x1="27.94" y1="187.96" x2="30.48" y2="187.96" width="0.1524" layer="91"/>
-<label x="30.48" y="187.96" size="1.016" layer="95" xref="yes"/>
+<wire x1="27.94" y1="182.88" x2="30.48" y2="182.88" width="0.1524" layer="91"/>
+<label x="30.48" y="182.88" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
 <portref moduleinst="TALON3" port="I2C_EN_GLOBAL"/>
-<wire x1="27.94" y1="236.22" x2="30.48" y2="236.22" width="0.1524" layer="91"/>
-<label x="30.48" y="236.22" size="1.016" layer="95" xref="yes"/>
+<wire x1="99.06" y1="129.54" x2="101.6" y2="129.54" width="0.1524" layer="91"/>
+<label x="101.6" y="129.54" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
 <portref moduleinst="TALON4" port="I2C_EN_GLOBAL"/>
-<wire x1="27.94" y1="284.48" x2="30.48" y2="284.48" width="0.1524" layer="91"/>
-<label x="30.48" y="284.48" size="1.016" layer="95" xref="yes"/>
+<wire x1="99.06" y1="182.88" x2="101.6" y2="182.88" width="0.1524" layer="91"/>
+<label x="101.6" y="182.88" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="TALON1_I2C_EN" class="0">
 <segment>
 <portref moduleinst="TALON1" port="I2C_EN"/>
-<wire x1="27.94" y1="142.24" x2="30.48" y2="142.24" width="0.1524" layer="91"/>
-<label x="30.48" y="142.24" size="1.016" layer="95" xref="yes"/>
-</segment>
-<segment>
-<portref moduleinst="TALON2" port="I2C_EN"/>
-<wire x1="27.94" y1="190.5" x2="30.48" y2="190.5" width="0.1524" layer="91"/>
-<label x="30.48" y="190.5" size="1.016" layer="95" xref="yes"/>
-</segment>
-<segment>
-<portref moduleinst="TALON3" port="I2C_EN"/>
-<wire x1="27.94" y1="238.76" x2="30.48" y2="238.76" width="0.1524" layer="91"/>
-<label x="30.48" y="238.76" size="1.016" layer="95" xref="yes"/>
-</segment>
-<segment>
-<portref moduleinst="TALON4" port="I2C_EN"/>
-<wire x1="27.94" y1="287.02" x2="30.48" y2="287.02" width="0.1524" layer="91"/>
-<label x="30.48" y="287.02" size="1.016" layer="95" xref="yes"/>
+<wire x1="27.94" y1="132.08" x2="30.48" y2="132.08" width="0.1524" layer="91"/>
+<label x="30.48" y="132.08" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="TALON1_EN" class="0">
 <segment>
 <portref moduleinst="TALON1" port="EN"/>
-<wire x1="27.94" y1="144.78" x2="30.48" y2="144.78" width="0.1524" layer="91"/>
-<label x="30.48" y="144.78" size="1.016" layer="95" xref="yes"/>
-</segment>
-<segment>
-<portref moduleinst="TALON2" port="EN"/>
-<wire x1="27.94" y1="193.04" x2="30.48" y2="193.04" width="0.1524" layer="91"/>
-<label x="30.48" y="193.04" size="1.016" layer="95" xref="yes"/>
-</segment>
-<segment>
-<portref moduleinst="TALON3" port="EN"/>
-<wire x1="27.94" y1="241.3" x2="30.48" y2="241.3" width="0.1524" layer="91"/>
-<label x="30.48" y="241.3" size="1.016" layer="95" xref="yes"/>
-</segment>
-<segment>
-<portref moduleinst="TALON4" port="EN"/>
-<wire x1="27.94" y1="289.56" x2="30.48" y2="289.56" width="0.1524" layer="91"/>
-<label x="30.48" y="289.56" size="1.016" layer="95" xref="yes"/>
+<wire x1="27.94" y1="134.62" x2="30.48" y2="134.62" width="0.1524" layer="91"/>
+<label x="30.48" y="134.62" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="TALON1_SEL" class="0">
 <segment>
 <portref moduleinst="TALON1" port="SEL"/>
-<wire x1="27.94" y1="147.32" x2="30.48" y2="147.32" width="0.1524" layer="91"/>
-<label x="30.48" y="147.32" size="1.016" layer="95" xref="yes"/>
-</segment>
-<segment>
-<portref moduleinst="TALON2" port="SEL"/>
-<wire x1="27.94" y1="195.58" x2="30.48" y2="195.58" width="0.1524" layer="91"/>
-<label x="30.48" y="195.58" size="1.016" layer="95" xref="yes"/>
-</segment>
-<segment>
-<portref moduleinst="TALON3" port="SEL"/>
-<wire x1="27.94" y1="243.84" x2="30.48" y2="243.84" width="0.1524" layer="91"/>
-<label x="30.48" y="243.84" size="1.016" layer="95" xref="yes"/>
-</segment>
-<segment>
-<portref moduleinst="TALON4" port="SEL"/>
-<wire x1="27.94" y1="292.1" x2="30.48" y2="292.1" width="0.1524" layer="91"/>
-<label x="30.48" y="292.1" size="1.016" layer="95" xref="yes"/>
+<wire x1="27.94" y1="137.16" x2="30.48" y2="137.16" width="0.1524" layer="91"/>
+<label x="30.48" y="137.16" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="!TALON1_FAULT" class="0">
 <segment>
 <portref moduleinst="TALON1" port="!FAULT"/>
-<wire x1="27.94" y1="149.86" x2="30.48" y2="149.86" width="0.1524" layer="91"/>
-<label x="30.48" y="149.86" size="1.016" layer="95" xref="yes"/>
-</segment>
-<segment>
-<portref moduleinst="TALON2" port="!FAULT"/>
-<wire x1="27.94" y1="198.12" x2="30.48" y2="198.12" width="0.1524" layer="91"/>
-<label x="30.48" y="198.12" size="1.016" layer="95" xref="yes"/>
-</segment>
-<segment>
-<portref moduleinst="TALON3" port="!FAULT"/>
-<wire x1="27.94" y1="246.38" x2="30.48" y2="246.38" width="0.1524" layer="91"/>
-<label x="30.48" y="246.38" size="1.016" layer="95" xref="yes"/>
-</segment>
-<segment>
-<portref moduleinst="TALON4" port="!FAULT"/>
-<wire x1="27.94" y1="294.64" x2="30.48" y2="294.64" width="0.1524" layer="91"/>
-<label x="30.48" y="294.64" size="1.016" layer="95" xref="yes"/>
+<wire x1="27.94" y1="139.7" x2="30.48" y2="139.7" width="0.1524" layer="91"/>
+<label x="30.48" y="139.7" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="SCL" class="0">
 <segment>
 <portref moduleinst="TALON1" port="SCL"/>
-<wire x1="27.94" y1="154.94" x2="30.48" y2="154.94" width="0.1524" layer="91"/>
-<label x="30.48" y="154.94" size="1.016" layer="95" xref="yes"/>
+<wire x1="27.94" y1="144.78" x2="30.48" y2="144.78" width="0.1524" layer="91"/>
+<label x="30.48" y="144.78" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
 <portref moduleinst="TALON2" port="SCL"/>
-<wire x1="27.94" y1="203.2" x2="30.48" y2="203.2" width="0.1524" layer="91"/>
-<label x="30.48" y="203.2" size="1.016" layer="95" xref="yes"/>
+<wire x1="27.94" y1="198.12" x2="30.48" y2="198.12" width="0.1524" layer="91"/>
+<label x="30.48" y="198.12" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
 <portref moduleinst="TALON3" port="SCL"/>
-<wire x1="27.94" y1="251.46" x2="30.48" y2="251.46" width="0.1524" layer="91"/>
-<label x="30.48" y="251.46" size="1.016" layer="95" xref="yes"/>
+<wire x1="99.06" y1="144.78" x2="101.6" y2="144.78" width="0.1524" layer="91"/>
+<label x="101.6" y="144.78" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
 <portref moduleinst="TALON4" port="SCL"/>
-<wire x1="27.94" y1="299.72" x2="30.48" y2="299.72" width="0.1524" layer="91"/>
-<label x="30.48" y="299.72" size="1.016" layer="95" xref="yes"/>
+<wire x1="99.06" y1="198.12" x2="101.6" y2="198.12" width="0.1524" layer="91"/>
+<label x="101.6" y="198.12" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="SDA" class="0">
 <segment>
 <portref moduleinst="TALON1" port="SDA"/>
-<wire x1="27.94" y1="157.48" x2="30.48" y2="157.48" width="0.1524" layer="91"/>
-<label x="30.48" y="157.48" size="1.016" layer="95" xref="yes"/>
+<wire x1="27.94" y1="147.32" x2="30.48" y2="147.32" width="0.1524" layer="91"/>
+<label x="30.48" y="147.32" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
 <portref moduleinst="TALON2" port="SDA"/>
-<wire x1="27.94" y1="205.74" x2="30.48" y2="205.74" width="0.1524" layer="91"/>
-<label x="30.48" y="205.74" size="1.016" layer="95" xref="yes"/>
+<wire x1="27.94" y1="200.66" x2="30.48" y2="200.66" width="0.1524" layer="91"/>
+<label x="30.48" y="200.66" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
 <portref moduleinst="TALON3" port="SDA"/>
-<wire x1="27.94" y1="254" x2="30.48" y2="254" width="0.1524" layer="91"/>
-<label x="30.48" y="254" size="1.016" layer="95" xref="yes"/>
+<wire x1="99.06" y1="147.32" x2="101.6" y2="147.32" width="0.1524" layer="91"/>
+<label x="101.6" y="147.32" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
 <portref moduleinst="TALON4" port="SDA"/>
-<wire x1="27.94" y1="302.26" x2="30.48" y2="302.26" width="0.1524" layer="91"/>
-<label x="30.48" y="302.26" size="1.016" layer="95" xref="yes"/>
+<wire x1="99.06" y1="200.66" x2="101.6" y2="200.66" width="0.1524" layer="91"/>
+<label x="101.6" y="200.66" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="TX" class="0">
 <segment>
 <portref moduleinst="TALON1" port="TX"/>
-<wire x1="27.94" y1="162.56" x2="30.48" y2="162.56" width="0.1524" layer="91"/>
-<label x="30.48" y="162.56" size="1.016" layer="95" xref="yes"/>
+<wire x1="27.94" y1="152.4" x2="30.48" y2="152.4" width="0.1524" layer="91"/>
+<label x="30.48" y="152.4" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
 <portref moduleinst="TALON2" port="TX"/>
-<wire x1="27.94" y1="210.82" x2="30.48" y2="210.82" width="0.1524" layer="91"/>
-<label x="30.48" y="210.82" size="1.016" layer="95" xref="yes"/>
+<wire x1="27.94" y1="205.74" x2="30.48" y2="205.74" width="0.1524" layer="91"/>
+<label x="30.48" y="205.74" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
 <portref moduleinst="TALON3" port="TX"/>
-<wire x1="27.94" y1="259.08" x2="30.48" y2="259.08" width="0.1524" layer="91"/>
-<label x="30.48" y="259.08" size="1.016" layer="95" xref="yes"/>
+<wire x1="99.06" y1="152.4" x2="101.6" y2="152.4" width="0.1524" layer="91"/>
+<label x="101.6" y="152.4" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
 <portref moduleinst="TALON4" port="TX"/>
-<wire x1="27.94" y1="307.34" x2="30.48" y2="307.34" width="0.1524" layer="91"/>
-<label x="30.48" y="307.34" size="1.016" layer="95" xref="yes"/>
+<wire x1="99.06" y1="205.74" x2="101.6" y2="205.74" width="0.1524" layer="91"/>
+<label x="101.6" y="205.74" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="RX" class="0">
 <segment>
 <portref moduleinst="TALON1" port="RX"/>
-<wire x1="27.94" y1="165.1" x2="30.48" y2="165.1" width="0.1524" layer="91"/>
-<label x="30.48" y="165.1" size="1.016" layer="95" xref="yes"/>
+<wire x1="27.94" y1="154.94" x2="30.48" y2="154.94" width="0.1524" layer="91"/>
+<label x="30.48" y="154.94" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
 <portref moduleinst="TALON2" port="RX"/>
-<wire x1="27.94" y1="213.36" x2="30.48" y2="213.36" width="0.1524" layer="91"/>
-<label x="30.48" y="213.36" size="1.016" layer="95" xref="yes"/>
+<wire x1="27.94" y1="208.28" x2="30.48" y2="208.28" width="0.1524" layer="91"/>
+<label x="30.48" y="208.28" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
 <portref moduleinst="TALON3" port="RX"/>
-<wire x1="27.94" y1="261.62" x2="30.48" y2="261.62" width="0.1524" layer="91"/>
-<label x="30.48" y="261.62" size="1.016" layer="95" xref="yes"/>
+<wire x1="99.06" y1="154.94" x2="101.6" y2="154.94" width="0.1524" layer="91"/>
+<label x="101.6" y="154.94" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
 <portref moduleinst="TALON4" port="RX"/>
-<wire x1="27.94" y1="309.88" x2="30.48" y2="309.88" width="0.1524" layer="91"/>
-<label x="30.48" y="309.88" size="1.016" layer="95" xref="yes"/>
+<wire x1="99.06" y1="208.28" x2="101.6" y2="208.28" width="0.1524" layer="91"/>
+<label x="101.6" y="208.28" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="3V3_BULK" class="0">
 <segment>
 <portref moduleinst="TALON1" port="3V3"/>
-<wire x1="27.94" y1="170.18" x2="30.48" y2="170.18" width="0.1524" layer="91"/>
-<label x="30.48" y="170.18" size="1.016" layer="95" xref="yes"/>
+<wire x1="27.94" y1="167.64" x2="30.48" y2="167.64" width="0.1524" layer="91"/>
+<label x="30.48" y="167.64" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
 <portref moduleinst="TALON2" port="3V3"/>
-<wire x1="27.94" y1="218.44" x2="30.48" y2="218.44" width="0.1524" layer="91"/>
-<label x="30.48" y="218.44" size="1.016" layer="95" xref="yes"/>
+<wire x1="27.94" y1="220.98" x2="30.48" y2="220.98" width="0.1524" layer="91"/>
+<label x="30.48" y="220.98" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
 <portref moduleinst="TALON3" port="3V3"/>
-<wire x1="27.94" y1="266.7" x2="30.48" y2="266.7" width="0.1524" layer="91"/>
-<label x="30.48" y="266.7" size="1.016" layer="95" xref="yes"/>
+<wire x1="99.06" y1="167.64" x2="101.6" y2="167.64" width="0.1524" layer="91"/>
+<label x="101.6" y="167.64" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
 <portref moduleinst="TALON4" port="3V3"/>
-<wire x1="27.94" y1="314.96" x2="30.48" y2="314.96" width="0.1524" layer="91"/>
-<label x="30.48" y="314.96" size="1.016" layer="95" xref="yes"/>
+<wire x1="99.06" y1="220.98" x2="101.6" y2="220.98" width="0.1524" layer="91"/>
+<label x="101.6" y="220.98" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON1_GPIOB" class="0">
+<segment>
+<portref moduleinst="TALON1" port="GPIOB"/>
+<wire x1="27.94" y1="160.02" x2="30.48" y2="160.02" width="0.1524" layer="91"/>
+<label x="30.48" y="160.02" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON1_GPIOA" class="0">
+<segment>
+<portref moduleinst="TALON1" port="GPIOA"/>
+<wire x1="27.94" y1="162.56" x2="30.48" y2="162.56" width="0.1524" layer="91"/>
+<label x="30.48" y="162.56" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON2_GPIOB" class="0">
+<segment>
+<portref moduleinst="TALON2" port="GPIOB"/>
+<wire x1="27.94" y1="213.36" x2="30.48" y2="213.36" width="0.1524" layer="91"/>
+<label x="30.48" y="213.36" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON2_GPIOA" class="0">
+<segment>
+<portref moduleinst="TALON2" port="GPIOA"/>
+<wire x1="27.94" y1="215.9" x2="30.48" y2="215.9" width="0.1524" layer="91"/>
+<label x="30.48" y="215.9" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON4_GPIOB" class="0">
+<segment>
+<portref moduleinst="TALON4" port="GPIOB"/>
+<wire x1="99.06" y1="213.36" x2="101.6" y2="213.36" width="0.1524" layer="91"/>
+<label x="101.6" y="213.36" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON4_GPIOA" class="0">
+<segment>
+<portref moduleinst="TALON4" port="GPIOA"/>
+<wire x1="99.06" y1="215.9" x2="101.6" y2="215.9" width="0.1524" layer="91"/>
+<label x="101.6" y="215.9" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON3_GPIOB" class="0">
+<segment>
+<portref moduleinst="TALON3" port="GPIOB"/>
+<wire x1="99.06" y1="160.02" x2="101.6" y2="160.02" width="0.1524" layer="91"/>
+<label x="101.6" y="160.02" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON3_GPIOA" class="0">
+<segment>
+<portref moduleinst="TALON3" port="GPIOA"/>
+<wire x1="99.06" y1="162.56" x2="101.6" y2="162.56" width="0.1524" layer="91"/>
+<label x="101.6" y="162.56" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="!TALON2_FAULT" class="0">
+<segment>
+<portref moduleinst="TALON2" port="!FAULT"/>
+<wire x1="27.94" y1="193.04" x2="30.48" y2="193.04" width="0.1524" layer="91"/>
+<label x="30.48" y="193.04" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON2_SEL" class="0">
+<segment>
+<portref moduleinst="TALON2" port="SEL"/>
+<wire x1="27.94" y1="190.5" x2="30.48" y2="190.5" width="0.1524" layer="91"/>
+<label x="30.48" y="190.5" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON2_EN" class="0">
+<segment>
+<portref moduleinst="TALON2" port="EN"/>
+<wire x1="27.94" y1="187.96" x2="30.48" y2="187.96" width="0.1524" layer="91"/>
+<label x="30.48" y="187.96" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON2_I2C_EN" class="0">
+<segment>
+<portref moduleinst="TALON2" port="I2C_EN"/>
+<wire x1="27.94" y1="185.42" x2="30.48" y2="185.42" width="0.1524" layer="91"/>
+<label x="30.48" y="185.42" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="!TALON4_FAULT" class="0">
+<segment>
+<portref moduleinst="TALON4" port="!FAULT"/>
+<wire x1="99.06" y1="193.04" x2="101.6" y2="193.04" width="0.1524" layer="91"/>
+<label x="101.6" y="193.04" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON4_SEL" class="0">
+<segment>
+<portref moduleinst="TALON4" port="SEL"/>
+<wire x1="99.06" y1="190.5" x2="101.6" y2="190.5" width="0.1524" layer="91"/>
+<label x="101.6" y="190.5" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON4_EN" class="0">
+<segment>
+<portref moduleinst="TALON4" port="EN"/>
+<wire x1="99.06" y1="187.96" x2="101.6" y2="187.96" width="0.1524" layer="91"/>
+<label x="101.6" y="187.96" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON4_I2C_EN" class="0">
+<segment>
+<portref moduleinst="TALON4" port="I2C_EN"/>
+<wire x1="99.06" y1="185.42" x2="101.6" y2="185.42" width="0.1524" layer="91"/>
+<label x="101.6" y="185.42" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="!TALON3_FAULT" class="0">
+<segment>
+<portref moduleinst="TALON3" port="!FAULT"/>
+<wire x1="99.06" y1="139.7" x2="101.6" y2="139.7" width="0.1524" layer="91"/>
+<label x="101.6" y="139.7" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON3_SEL" class="0">
+<segment>
+<portref moduleinst="TALON3" port="SEL"/>
+<wire x1="99.06" y1="137.16" x2="101.6" y2="137.16" width="0.1524" layer="91"/>
+<label x="101.6" y="137.16" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON3_EN" class="0">
+<segment>
+<portref moduleinst="TALON3" port="EN"/>
+<wire x1="99.06" y1="134.62" x2="101.6" y2="134.62" width="0.1524" layer="91"/>
+<label x="101.6" y="134.62" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TALON3_I2C_EN" class="0">
+<segment>
+<portref moduleinst="TALON3" port="I2C_EN"/>
+<wire x1="99.06" y1="132.08" x2="101.6" y2="132.08" width="0.1524" layer="91"/>
+<label x="101.6" y="132.08" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 </nets>
