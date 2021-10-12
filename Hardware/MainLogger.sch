@@ -1951,11 +1951,11 @@ https://www.digikey.com/products/en/inductors-coils-chokes/fixed-inductors/71?FV
 <wire x1="4.25" y1="-1.25" x2="4.25" y2="1.25" width="1.5" layer="16"/>
 <pad name="BODY@3" x="4.25" y="-1.1" drill="0.95" rot="R180"/>
 <pad name="BODY@4" x="4.25" y="1.1" drill="0.95" rot="R180"/>
-<pad name="1" x="-1.3" y="-0.8" drill="0.7"/>
-<pad name="3" x="0" y="-0.8" drill="0.7"/>
-<pad name="5" x="1.3" y="-0.8" drill="0.7"/>
-<pad name="4" x="0.65" y="0.8" drill="0.7"/>
-<pad name="2" x="-0.65" y="0.8" drill="0.7"/>
+<pad name="1" x="-1.3" y="0.8" drill="0.7"/>
+<pad name="3" x="0" y="0.8" drill="0.7"/>
+<pad name="5" x="1.3" y="0.8" drill="0.7"/>
+<pad name="4" x="0.65" y="-0.8" drill="0.7"/>
+<pad name="2" x="-0.65" y="-0.8" drill="0.7"/>
 <wire x1="-5.5" y1="2.25" x2="-5.5" y2="-3.55" width="0.254" layer="21"/>
 <wire x1="-5.5" y1="-3.55" x2="-5.25" y2="-3.8" width="0.254" layer="21" curve="90"/>
 <wire x1="-5.25" y1="-3.8" x2="5.25" y2="-3.8" width="0.254" layer="21"/>
@@ -1965,10 +1965,10 @@ https://www.digikey.com/products/en/inductors-coils-chokes/fixed-inductors/71?FV
 <wire x1="5.25" y1="2.5" x2="-5.25" y2="2.5" width="0.254" layer="21"/>
 <wire x1="-5.25" y1="2.5" x2="-5.5" y2="2.25" width="0.254" layer="21" curve="90"/>
 <text x="0" y="3.175" size="0.6096" layer="25" font="vector" ratio="15" align="center">&gt;NAME</text>
-<wire x1="10" y1="-3.8" x2="10" y2="2.46" width="0.15" layer="48" style="dashdot"/>
+<wire x1="10" y1="-4.03" x2="10" y2="2.46" width="0.15" layer="48" style="dashdot"/>
 <wire x1="10" y1="2.46" x2="-10" y2="2.46" width="0.15" layer="48" style="dashdot"/>
-<wire x1="-10" y1="2.46" x2="-10" y2="-3.8" width="0.15" layer="48" style="dashdot"/>
-<wire x1="-10" y1="-3.8" x2="10" y2="-3.8" width="0.15" layer="48" style="dashdot"/>
+<wire x1="-10" y1="2.46" x2="-10" y2="-4.03" width="0.15" layer="48" style="dashdot"/>
+<wire x1="-10" y1="-4.03" x2="10" y2="-4.03" width="0.15" layer="48" style="dashdot"/>
 <wire x1="-4.725" y1="-1.1" x2="-4.725" y2="1.1" width="0" layer="46"/>
 <wire x1="-3.775" y1="1.1" x2="-3.775" y2="-1.1" width="0" layer="46"/>
 <wire x1="-4.725" y1="1.1" x2="-3.775" y2="1.1" width="0" layer="46" curve="-180"/>
@@ -1981,10 +1981,10 @@ https://www.digikey.com/products/en/inductors-coils-chokes/fixed-inductors/71?FV
 <wire x1="4.825" y1="-0.925" x2="4.825" y2="0.925" width="1.1" layer="30"/>
 <wire x1="-4.825" y1="0.925" x2="-4.825" y2="-0.925" width="1.1" layer="29"/>
 <wire x1="4.825" y1="-0.925" x2="4.825" y2="0.925" width="1.1" layer="29"/>
-<wire x1="-10" y1="-3.81" x2="-10" y2="-6" width="0.127" layer="48"/>
-<wire x1="-10" y1="-6" x2="10" y2="-6" width="0.127" layer="48"/>
-<wire x1="10" y1="-6" x2="10" y2="-3.81" width="0.127" layer="48"/>
-<wire x1="10" y1="-3.81" x2="-10" y2="-3.81" width="0.127" layer="48"/>
+<wire x1="-10" y1="-4.03" x2="-10" y2="-6.26" width="0.127" layer="48"/>
+<wire x1="-10" y1="-6.26" x2="10" y2="-6.23" width="0.127" layer="48"/>
+<wire x1="10" y1="-6.23" x2="10" y2="-4.03" width="0.127" layer="48"/>
+<wire x1="10" y1="-4.03" x2="-10" y2="-4.03" width="0.127" layer="48"/>
 </package>
 <package name="WE-LQS(5X5)">
 <description>&lt;p&gt;LQS Series Inductor &lt;br&gt; Manufacturer: Wurth &lt;br&gt; &lt;br&gt; Size: 5x5mm &lt;br&gt;
@@ -3033,6 +3033,39 @@ Soure: &lt;a href="http://www.ti.com/lit/ds/symlink/ads7042.pdf"&gt; Data sheet 
 <wire x1="7.75" y1="7.45" x2="-1.45" y2="7.45" width="0.127" layer="48"/>
 <wire x1="-1.45" y1="7.45" x2="-2.35" y2="6.731" width="0.127" layer="48" curve="90"/>
 </package>
+<package name="TESTPOINT_0603">
+<description>&lt;b&gt;Test Point&lt;/b&gt;
+0603 size, RCU model</description>
+<wire x1="-1.002" y1="0.76" x2="1.002" y2="0.76" width="0.05" layer="39"/>
+<wire x1="1.002" y1="0.76" x2="1.002" y2="-0.76" width="0.05" layer="39"/>
+<wire x1="1.002" y1="-0.76" x2="-1.002" y2="-0.76" width="0.05" layer="39"/>
+<wire x1="-1.002" y1="-0.76" x2="-1.002" y2="0.76" width="0.05" layer="39"/>
+<wire x1="-0.9" y1="0.5" x2="0.9" y2="0.5" width="0.127" layer="51"/>
+<wire x1="-0.9" y1="-0.5" x2="0.9" y2="-0.5" width="0.127" layer="51"/>
+<text x="0" y="1.241615625" size="0.6096" layer="25" font="vector" ratio="15" align="center">&gt;NAME</text>
+<text x="-0.0713" y="-1.27828125" size="0.6096" layer="27" font="vector" ratio="15" align="center">&gt;VALUE</text>
+<wire x1="0.9" y1="0.5" x2="0.9" y2="-0.5" width="0.127" layer="51"/>
+<wire x1="-0.9" y1="0.5" x2="-0.9" y2="-0.5" width="0.127" layer="51"/>
+<wire x1="-0.8" y1="0.69" x2="0.8" y2="0.69" width="0.127" layer="21"/>
+<wire x1="-0.8" y1="-0.69" x2="0.8" y2="-0.69" width="0.127" layer="21"/>
+<smd name="1" x="0" y="0" dx="1.6" dy="0.8" layer="1" roundness="20"/>
+</package>
+<package name="DFN_6_1.6X1.6">
+<description>&lt;b&gt;DFN, 6 pos, 0.5mm pitch, 1.6x1.6mm body&lt;/b&gt;&lt;br&gt;&lt;a href = "https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/44000000MCjY/KELCmVZ._SHEhcBYnr7SP86m_lSRkEypjxHeVh5tAOE"&gt;Datasheet&lt;/a&gt;</description>
+<smd name="1" x="-0.5" y="-0.76" dx="0.63" dy="0.3" layer="1" rot="R90"/>
+<smd name="2" x="0" y="-0.76" dx="0.63" dy="0.3" layer="1" rot="R90"/>
+<smd name="3" x="0.5" y="-0.76" dx="0.63" dy="0.3" layer="1" rot="R90"/>
+<smd name="4" x="0.5" y="0.76" dx="0.63" dy="0.3" layer="1" rot="R270"/>
+<smd name="5" x="0" y="0.76" dx="0.63" dy="0.3" layer="1" rot="R270"/>
+<smd name="6" x="-0.5" y="0.76" dx="0.63" dy="0.3" layer="1" rot="R270"/>
+<smd name="EP" x="0" y="0" dx="0.45" dy="1.3" layer="1" rot="R90"/>
+<wire x1="-0.8" y1="0.8" x2="-0.8" y2="-0.8" width="0.127" layer="21"/>
+<wire x1="-0.8" y1="-0.8" x2="0.8" y2="-0.8" width="0.127" layer="21"/>
+<wire x1="0.8" y1="-0.8" x2="0.8" y2="0.8" width="0.127" layer="21"/>
+<wire x1="0.8" y1="0.8" x2="-0.8" y2="0.8" width="0.127" layer="21"/>
+<circle x="-1.143" y="-0.762" radius="0.127" width="0.127" layer="21"/>
+<text x="1.27" y="0" size="0.6096" layer="51" font="vector" ratio="15" rot="R90" align="center">&gt;NAME</text>
+</package>
 </packages>
 <symbols>
 <symbol name="10118194-0001LF_10118194-0001LF">
@@ -3900,6 +3933,27 @@ Switches electrical signals</description>
 <pin name="GND" x="-17.78" y="-20.32" visible="pin" length="short" direction="sup"/>
 <pin name="GND1" x="-17.78" y="-17.78" visible="pin" length="short" direction="sup"/>
 <pin name="CARD_DETECT1" x="-17.78" y="15.24" length="short" direction="pas"/>
+</symbol>
+<symbol name="TESTPOINT">
+<pin name="P$1" x="0" y="0" visible="off" length="middle" rot="R90"/>
+<wire x1="0" y1="5.08" x2="-1.27" y2="6.35" width="0.15" layer="94"/>
+<wire x1="-1.27" y1="6.35" x2="0" y2="7.62" width="0.15" layer="94"/>
+<wire x1="0" y1="7.62" x2="1.27" y2="6.35" width="0.15" layer="94"/>
+<wire x1="1.27" y1="6.35" x2="0" y2="5.08" width="0.15" layer="94"/>
+<text x="-2.54" y="3.81" size="1.27" layer="95" rot="R90" align="center">&gt;NAME</text>
+</symbol>
+<symbol name="D_ESD_USB">
+<pin name="D+" x="-12.7" y="2.54" visible="pin" length="middle" direction="pas"/>
+<pin name="D-" x="-12.7" y="0" visible="pin" length="middle" direction="pas"/>
+<pin name="ID" x="-12.7" y="-2.54" visible="pin" length="middle" direction="pas"/>
+<pin name="VBUS" x="12.7" y="2.54" visible="pin" length="middle" direction="pas" rot="R180"/>
+<pin name="GND" x="12.7" y="-2.54" visible="pin" length="middle" direction="pas" rot="R180"/>
+<wire x1="-7.62" y1="5.08" x2="-7.62" y2="-5.08" width="0.254" layer="94"/>
+<wire x1="-7.62" y1="-5.08" x2="7.62" y2="-5.08" width="0.254" layer="94"/>
+<wire x1="7.62" y1="-5.08" x2="7.62" y2="5.08" width="0.254" layer="94"/>
+<wire x1="7.62" y1="5.08" x2="-7.62" y2="5.08" width="0.254" layer="94"/>
+<text x="0" y="-6.604" size="1.778" layer="95" ratio="15" align="center">&gt;NAME</text>
+<text x="0" y="6.604" size="1.778" layer="95" ratio="15" align="center">&gt;DISP</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -5793,7 +5847,11 @@ Digikey: &lt;br&gt;&lt;a href = "https://www.digikey.com/product-detail/en/texas
 <connect gate="G$1" pin="S" pad="3"/>
 </connects>
 <technologies>
-<technology name=""/>
+<technology name="">
+<attribute name="DIGIKEY" value="7103K2CWAGE-ND" constant="no"/>
+<attribute name="MF" value="C&amp;K" constant="no"/>
+<attribute name="MPN" value="7103K2CWAGE" constant="no"/>
+</technology>
 </technologies>
 </device>
 </devices>
@@ -5976,7 +6034,12 @@ Digikey: &lt;br&gt;&lt;a href = "https://www.digikey.com/product-detail/en/texas
 <connect gate="G$1" pin="S" pad="1 2 3"/>
 </connects>
 <technologies>
-<technology name=""/>
+<technology name="">
+<attribute name="DIGIKEY" value="DMP2008UFG-7DICT-ND" constant="no"/>
+<attribute name="MF" value="Diodes Inc" constant="no"/>
+<attribute name="MPN" value="DMP2008UFG-7" constant="no"/>
+<attribute name="VALUE" value="DMP2008" constant="no"/>
+</technology>
 </technologies>
 </device>
 <device name="-DMP3036SFG" package="POWERDI3333-8">
@@ -6985,6 +7048,56 @@ push-push type</description>
 <attribute name="DIGIKEY" value="WM12834CT-ND" constant="no"/>
 <attribute name="MF" value="Molex" constant="no"/>
 <attribute name="MPN" value="5031821852" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="TESTPOINT" prefix="TP">
+<description>&lt;b&gt;Test Point&lt;/b&gt;</description>
+<gates>
+<gate name="G$1" symbol="TESTPOINT" x="0" y="0"/>
+</gates>
+<devices>
+<device name="RCU" package="TESTPOINT_0603">
+<connects>
+<connect gate="G$1" pin="P$1" pad="1"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="DIGIKEY" value="A106145CT-ND" constant="no"/>
+<attribute name="MF" value="TE Connectivity" constant="no"/>
+<attribute name="MPN" value="RCU-0C" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="RCLAMP3654" prefix="D">
+<description>&lt;b&gt;USB ESD Clamping Diode Array&lt;/b&gt;
+
+&lt;p&gt;
+Digikey:&lt;br&gt;
+&lt;a href = "https://www.digikey.com/en/products/detail/semtech-corporation/RCLAMP3654PATCT/2603582"&gt;RCLAMP3654PATCTCT-ND&lt;/a&gt;
+&lt;/p&gt;</description>
+<gates>
+<gate name="G$1" symbol="D_ESD_USB" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="DFN_6_1.6X1.6">
+<connects>
+<connect gate="G$1" pin="D+" pad="2"/>
+<connect gate="G$1" pin="D-" pad="1"/>
+<connect gate="G$1" pin="GND" pad="EP"/>
+<connect gate="G$1" pin="ID" pad="3"/>
+<connect gate="G$1" pin="VBUS" pad="6"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="DIGIKEY" value="RCLAMP3654PATCTCT-ND" constant="no"/>
+<attribute name="DISP" value="RClamp3654" constant="no"/>
+<attribute name="MF" value="Semtech" constant="no"/>
+<attribute name="MPN" value="RCLAMP3654PATCT" constant="no"/>
 </technology>
 </technologies>
 </device>
@@ -10292,6 +10405,12 @@ Source: AVX .. aphvc.pdf</description>
 <attribute name="MPN" value="RC0402JR-070RL" constant="no"/>
 <attribute name="VALUE_PART" value="0" constant="no"/>
 </technology>
+<technology name="10">
+<attribute name="DIGIKEY" value="A129603CT-ND" constant="no"/>
+<attribute name="MF" value="TE" constant="no"/>
+<attribute name="MPN" value="CRGCQ0402F10R" constant="no"/>
+<attribute name="VALUE_PART" value="10" constant="no"/>
+</technology>
 <technology name="100">
 <attribute name="DIGIKEY" value="311-100LRCT-ND" constant="no"/>
 <attribute name="MF" value="Yageo" constant="no"/>
@@ -10315,6 +10434,18 @@ Source: AVX .. aphvc.pdf</description>
 <attribute name="MF" value="Yageo" constant="no"/>
 <attribute name="MPN" value="RC0402FR-07120KL" constant="no"/>
 <attribute name="VALUE_PART" value="120k" constant="no"/>
+</technology>
+<technology name="130K">
+<attribute name="DIGIKEY" value="YAG2969CT-ND" constant="no"/>
+<attribute name="MF" value="Yageo" constant="no"/>
+<attribute name="MPN" value="RC0402FR-07130KL" constant="no"/>
+<attribute name="VALUE_PART" value="130k" constant="no"/>
+</technology>
+<technology name="150K">
+<attribute name="DIGIKEY" value="311-150KLRCT-ND" constant="no"/>
+<attribute name="MF" value="Yageo" constant="no"/>
+<attribute name="MPN" value="RC0402FR-07150KL" constant="no"/>
+<attribute name="VALUE_PART" value="150k" constant="no"/>
 </technology>
 <technology name="180K">
 <attribute name="DIGIKEY" value="311-180KLRCT-ND" constant="no"/>
@@ -10340,6 +10471,12 @@ Source: AVX .. aphvc.pdf</description>
 <attribute name="MPN" value="RC0402FR-072K2L" constant="no"/>
 <attribute name="VALUE_PART" value="2.2k" constant="no"/>
 </technology>
+<technology name="2.7K">
+<attribute name="DIGIKEY" value="CR0402-FX-2701GLFCT-ND" constant="no"/>
+<attribute name="MF" value="Bourns" constant="no"/>
+<attribute name="MPN" value="CR0402-FX-2701GLF" constant="no"/>
+<attribute name="VALUE_PART" value="2.7k" constant="no"/>
+</technology>
 <technology name="20">
 <attribute name="DIGIKEY" value="311-20LRCT-ND" constant="no"/>
 <attribute name="MF" value="Yageo" constant="no"/>
@@ -10351,6 +10488,18 @@ Source: AVX .. aphvc.pdf</description>
 <attribute name="MF" value="Yageo" constant="no"/>
 <attribute name="MPN" value="RC0402FR-07200KL" constant="no"/>
 <attribute name="VALUE_PART" value="200k" constant="no"/>
+</technology>
+<technology name="20K">
+<attribute name="DIGIKEY" value="CR0402-FX-2002GLFCT-ND" constant="no"/>
+<attribute name="MF" value="Bourns" constant="no"/>
+<attribute name="MPN" value="CR0402-FX-2002GLF" constant="no"/>
+<attribute name="VALUE_PART" value="20k" constant="no"/>
+</technology>
+<technology name="220">
+<attribute name="DIGIKEY" value="A129619CT-ND" constant="no"/>
+<attribute name="MF" value="TE" constant="no"/>
+<attribute name="MPN" value="CRGCQ0402F220R" constant="no"/>
+<attribute name="VALUE_PART" value="220" constant="no"/>
 </technology>
 <technology name="232">
 <attribute name="DIGIKEY" value="YAG3063CT-ND" constant="no"/>
@@ -10376,6 +10525,12 @@ Source: AVX .. aphvc.pdf</description>
 <attribute name="MPN" value="RC0402FR-072KL" constant="no"/>
 <attribute name="VALUE_PART" value="2k" constant="no"/>
 </technology>
+<technology name="30K">
+<attribute name="DIGIKEY" value="YAG3474CT-ND" constant="no"/>
+<attribute name="MF" value="Yageo" constant="no"/>
+<attribute name="MPN" value="AC0402FR-0730KL" constant="no"/>
+<attribute name="VALUE_PART" value="30k" constant="no"/>
+</technology>
 <technology name="330">
 <attribute name="DIGIKEY" value="311-330LRCT-ND" constant="no"/>
 <attribute name="MF" value="Yageo" constant="no"/>
@@ -10399,6 +10554,12 @@ Source: AVX .. aphvc.pdf</description>
 <attribute name="MF" value="Yageo" constant="no"/>
 <attribute name="MPN" value="RC0402FR-07453RL" constant="no"/>
 <attribute name="VALUE_PART" value="453" constant="no"/>
+</technology>
+<technology name="470">
+<attribute name="DIGIKEY" value="311-470LRCT-ND" constant="no"/>
+<attribute name="MF" value="Yageo" constant="no"/>
+<attribute name="MPN" value="RC0402FR-07470RL" constant="no"/>
+<attribute name="VALUE_PART" value="470" constant="no"/>
 </technology>
 </technologies>
 </device>
@@ -10474,6 +10635,12 @@ Source: AVX .. aphvc.pdf</description>
 <attribute name="MPN" value="RMCF0603FT10M0" constant="no"/>
 <attribute name="VALUE_PART" value="10M" constant="no"/>
 </technology>
+<technology name="110K">
+<attribute name="DIGIKEY" value="CR0603-FX-1103ELFCT-ND" constant="no"/>
+<attribute name="MF" value="Bourns" constant="no"/>
+<attribute name="MPN" value="CR0603-FX-1103ELF" constant="no"/>
+<attribute name="VALUE_PART" value="110k" constant="no"/>
+</technology>
 <technology name="115K">
 <attribute name="DIGIKEY" value="311-115KHRCT-ND" constant="no"/>
 <attribute name="MF" value="Yageo" constant="no"/>
@@ -10509,6 +10676,12 @@ Source: AVX .. aphvc.pdf</description>
 <attribute name="MF" value="Yageo" constant="no"/>
 <attribute name="MPN" value="RC0603FR-07150RL" constant="no"/>
 <attribute name="VALUE_PART" value="150" constant="no"/>
+</technology>
+<technology name="150K">
+<attribute name="DIGIKEY" value="311-150KHRCT-ND" constant="no"/>
+<attribute name="MF" value="Yageo" constant="no"/>
+<attribute name="MPN" value="RC0603FR-07150KL" constant="no"/>
+<attribute name="VALUE_PART" value="150k" constant="no"/>
 </technology>
 <technology name="180K">
 <attribute name="DIGIKEY" value="P180KHCT-ND" constant="no"/>
@@ -10648,6 +10821,12 @@ Source: AVX .. aphvc.pdf</description>
 <attribute name="MPN" value="RC0603FR-074K7L" constant="no"/>
 <attribute name="VALUE_PART" value="4.7k" constant="no"/>
 </technology>
+<technology name="40.2K">
+<attribute name="DIGIKEY" value="RMCF0603FT40K2CT-ND" constant="no"/>
+<attribute name="MF" value="Stackpole" constant="no"/>
+<attribute name="MPN" value="RMCF0603FT40K2" constant="no"/>
+<attribute name="VALUE_PART" value="40.2k" constant="no"/>
+</technology>
 <technology name="422K">
 <attribute name="DIGIKEY" value="311-422KHRCT-ND" constant="no"/>
 <attribute name="MF" value="Yageo" constant="no"/>
@@ -10678,6 +10857,18 @@ Source: AVX .. aphvc.pdf</description>
 <attribute name="MPN" value="RC0603JR-07470KL" constant="no"/>
 <attribute name="VALUE_PART" value="470k" constant="no"/>
 </technology>
+<technology name="49.9K">
+<attribute name="DIGIKEY" value="RMCF0603FG49K9CT-ND" constant="no"/>
+<attribute name="MF" value="Stackpole" constant="no"/>
+<attribute name="MPN" value="RMCF0603FG49K9" constant="no"/>
+<attribute name="VALUE_PART" value="49.9k" constant="no"/>
+</technology>
+<technology name="499K">
+<attribute name="DIGIKEY" value="311-499KHRCT-ND" constant="no"/>
+<attribute name="MF" value="Yageo" constant="no"/>
+<attribute name="MPN" value="RC0603FR-07499KL" constant="no"/>
+<attribute name="VALUE_PART" value="499k" constant="no"/>
+</technology>
 <technology name="51.1K">
 <attribute name="DIGIKEY" value="118-CR0603-FX-5112ELFCT-ND" constant="no"/>
 <attribute name="MF" value="Bourns" constant="no"/>
@@ -10701,6 +10892,12 @@ Source: AVX .. aphvc.pdf</description>
 <attribute name="MF" value="Yageo" constant="no"/>
 <attribute name="MPN" value="RC0603FR-07590KL" constant="no"/>
 <attribute name="VALUE_PART" value="590k" constant="no"/>
+</technology>
+<technology name="62K">
+<attribute name="DIGIKEY" value="RMCF0603FT62K0CT-ND" constant="no"/>
+<attribute name="MF" value="Stackpole" constant="no"/>
+<attribute name="MPN" value="RMCF0603FT62K0" constant="no"/>
+<attribute name="VALUE_PART" value="62k" constant="no"/>
 </technology>
 <technology name="750K">
 <attribute name="DIGIKEY" value="311-750KHRCT-ND" constant="no"/>
@@ -10804,6 +11001,11 @@ Source: AVX .. aphvc.pdf</description>
 <attribute name="DIGIKEY" value="P19308CT-ND" constant="no"/>
 <attribute name="MF" value="Panasonic" constant="no"/>
 <attribute name="MPN" value="ERJ-6DSFR10V" constant="no"/>
+</technology>
+<technology name="10">
+<attribute name="DIGIKEY" value="A129603CT-ND" constant="no"/>
+<attribute name="MF" value="TE" constant="no"/>
+<attribute name="MPN" value="CRGCQ0402F10R" constant="no"/>
 </technology>
 <technology name="100">
 <attribute name="DIGIKEY" value="311-100CRCT-ND" constant="no"/>
@@ -11643,15 +11845,40 @@ Source: AVX .. aphvc.pdf</description>
 <attribute name="MF" value="Murata" constant="no"/>
 <attribute name="MPN" value="GRT155R61E224KE01D" constant="no"/>
 </technology>
+<technology name="100PF">
+<attribute name="DIGIKEY" value="311-1024-1-ND" constant="no"/>
+<attribute name="MF" value="Yageo" constant="no"/>
+<attribute name="MPN" value="CC0402JRNPO9BN101" constant="no"/>
+</technology>
+<technology name="10NF">
+<attribute name="DIGIKEY" value="490-4762-1-ND" constant="no"/>
+<attribute name="MF" value="Murata" constant="no"/>
+<attribute name="MPN" value="GCM155R71H103KA55D" constant="no"/>
+</technology>
 <technology name="12PF">
 <attribute name="DIGIKEY" value="445-5585-1-ND" constant="no"/>
 <attribute name="MF" value="TDK" constant="no"/>
 <attribute name="MPN" value="CGA2B2C0G1H120J050BA" constant="no"/>
 </technology>
+<technology name="1NF">
+<attribute name="DIGIKEY" value="490-3244-1-ND" constant="no"/>
+<attribute name="MF" value="Murata" constant="no"/>
+<attribute name="MPN" value="GRM1555C1H102JA01D" constant="no"/>
+</technology>
 <technology name="220PF">
 <attribute name="DIGIKEY" value="587-1215-1-ND" constant="no"/>
 <attribute name="MF" value="Taiyo Yuden" constant="no"/>
 <attribute name="MPN" value="UMK105CG221JV-F" constant="no"/>
+</technology>
+<technology name="39PF">
+<attribute name="DIGIKEY" value="399-1018-1-ND" constant="no"/>
+<attribute name="MF" value="Kemet" constant="no"/>
+<attribute name="MPN" value="C0402C390J5GAC7867" constant="no"/>
+</technology>
+<technology name="47PF">
+<attribute name="DIGIKEY" value="490-3254-1-ND" constant="no"/>
+<attribute name="MF" value="Murata" constant="no"/>
+<attribute name="MPN" value="GRM155R71E473KA88D" constant="no"/>
 </technology>
 <technology name="56PF">
 <attribute name="DIGIKEY" value="311-1022-1-ND" constant="no"/>
@@ -13249,7 +13476,10 @@ Key = E&lt;br&gt;</description>
 </connects>
 <technologies>
 <technology name="">
+<attribute name="DIGIKEY" value="900-2059570671CT-ND" constant="no"/>
 <attribute name="DISP" value="Remote" constant="no"/>
+<attribute name="MF" value="Molex" constant="no"/>
+<attribute name="MPN" value="2059570671" constant="no"/>
 </technology>
 </technologies>
 </device>
@@ -13264,7 +13494,10 @@ Key = E&lt;br&gt;</description>
 </connects>
 <technologies>
 <technology name="">
+<attribute name="DIGIKEY" value="WM22471CT-ND" constant="no"/>
 <attribute name="DISP" value="Logger" constant="no"/>
+<attribute name="MF" value="Molex" constant="no"/>
+<attribute name="MPN" value="5055670681" constant="no"/>
 </technology>
 </technologies>
 </device>
@@ -13317,7 +13550,11 @@ Key = E&lt;br&gt;</description>
 <part name="GND41" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="R1" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="100K" value="100k"/>
 <part name="C3" library="bschulz_passives" deviceset="C-EU" device="C0603" technology="1UF" value="1uF"/>
-<part name="C4" library="bschulz_passives" deviceset="CTANT_EU" device="1411" value="100uF"/>
+<part name="C4" library="bschulz_passives" deviceset="CTANT_EU" device="1411" value="100uF">
+<attribute name="DIGIKEY" value="478-5231-1-ND"/>
+<attribute name="MF" value="Kyocera AVX"/>
+<attribute name="MPN" value="TPSB107M010R0400"/>
+</part>
 <part name="GND42" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND43" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="J1" library="GEMS_Plugs" deviceset="CONN_TALON" device="_LOGGER"/>
@@ -13385,6 +13622,9 @@ If either side is low, device is in tri-state anyway</text>
 <instance part="C4" gate="G$1" x="101.6" y="25.4" smashed="yes">
 <attribute name="NAME" x="102.743" y="25.8826" size="1.778" layer="95"/>
 <attribute name="VALUE" x="102.743" y="20.8026" size="1.778" layer="96"/>
+<attribute name="DIGIKEY" x="101.6" y="25.4" size="0.8128" layer="96" align="center" display="off"/>
+<attribute name="MF" x="101.6" y="25.4" size="0.8128" layer="96" align="center" display="off"/>
+<attribute name="MPN" x="101.6" y="25.4" size="0.8128" layer="96" align="center" display="off"/>
 </instance>
 <instance part="GND42" gate="1" x="88.9" y="15.24" smashed="yes">
 <attribute name="VALUE" x="86.36" y="12.7" size="1.778" layer="96"/>
@@ -13691,13 +13931,13 @@ If either side is low, device is in tri-state anyway</text>
 <part name="J2" library="bschulz" deviceset="CONN_02" device="3.5MM_ROUND_RESTRICT"/>
 <part name="Q1" library="bschulz" deviceset="MOSFET-NCH" device="-DMG3404L" value="DMG3404"/>
 <part name="GND9" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="R10" library="bschulz_passives" deviceset="R-EU_" device="R0805" value="2m"/>
+<part name="R10" library="bschulz_passives" deviceset="R-EU_" device="R0805" technology="0.002" value="2m"/>
 <part name="U15" library="bschulz" deviceset="BQ25616" device=""/>
-<part name="R23" library="bschulz_passives" deviceset="R-EU_" device="R0805" value="2m"/>
+<part name="R23" library="bschulz_passives" deviceset="R-EU_" device="R0805" technology="0.002" value="2m"/>
 <part name="C26" library="bschulz_passives" deviceset="C-EU" device="C0603" technology="1UF" value="1uF"/>
 <part name="GND10" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="R26" library="bschulz_passives" deviceset="R-EU_" device="R0603" value="220R"/>
-<part name="R25" library="bschulz_passives" deviceset="R-EU_" device="R0603" value="470R"/>
+<part name="R26" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="220" value="220R"/>
+<part name="R25" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="470" value="470R"/>
 <part name="R24" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="1M" value="1M"/>
 <part name="R22" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="0.0" value="0R"/>
 <part name="GND12" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
@@ -13707,16 +13947,20 @@ If either side is low, device is in tri-state anyway</text>
 <part name="GND11" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND15" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="C32" library="bschulz_passives" deviceset="C-EU" device="C0805" technology="4.7UF" value="4.7uF"/>
-<part name="L3" library="bschulz" deviceset="INDUCTOR" device="_MAIA_4.1X4.1" value="1uH"/>
+<part name="L3" library="bschulz" deviceset="INDUCTOR" device="_MAIA_4.1X4.1" value="1uH">
+<attribute name="DIGIKEY" value="732-11737-1-ND"/>
+<attribute name="MF" value="Wurth"/>
+<attribute name="MPN" value="78438357010"/>
+</part>
 <part name="R34" library="bschulz_passives" deviceset="R-EU_" device="R0805" technology="0.01" value="10m"/>
 <part name="C35" library="bschulz_passives" deviceset="C-EU" device="C0805" technology="10UF" value="10uF"/>
 <part name="GND16" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="C31" library="bschulz_passives" deviceset="C-EU" device="C0603" value="47nF"/>
+<part name="C31" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="47PF" value="47nF"/>
 <part name="R28" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="100K" value="100k"/>
 <part name="R29" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="100K" value="100k"/>
 <part name="GND17" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="D4" library="bschulz" deviceset="LED" device="0603"/>
-<part name="D5" library="bschulz" deviceset="LED" device="0603"/>
+<part name="D4" library="bschulz" deviceset="LED" device="0603" technology="GREEN" value="LEDGREEN0603"/>
+<part name="D5" library="bschulz" deviceset="LED" device="0603" technology="AMBER" value="LEDAMBER0603"/>
 <part name="R31" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="10K" value="10k"/>
 <part name="R35" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="10K" value="10k"/>
 <part name="R30" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="1M" value="1M"/>
@@ -13734,7 +13978,7 @@ If either side is low, device is in tri-state anyway</text>
 <part name="R1" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="1M" value="1M"/>
 <part name="R2" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="1M" value="1M"/>
 <part name="J3" library="bschulz" deviceset="GEMS_POWER_PLUG" device="INPUT"/>
-<part name="D1" library="bschulz" deviceset="LED" device="0603"/>
+<part name="D1" library="bschulz" deviceset="LED" device="0603" technology="RED" value="LEDRED0603"/>
 <part name="GND27" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND28" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="R11" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="1K" value="1k"/>
@@ -13775,15 +14019,19 @@ If either side is low, device is in tri-state anyway</text>
 <part name="GND4" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND5" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND6" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="C41" library="bschulz_passives" deviceset="C-EU" device="C0402" value="47pF"/>
-<part name="R44" library="bschulz_passives" deviceset="R-EU_" device="R0402" value="10"/>
+<part name="C41" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="47PF" value="47pF"/>
+<part name="R44" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="10" value="10"/>
 <part name="GND36" library="SparkFun-PowerSymbols" library_urn="urn:adsk.eagle:library:530" deviceset="GND" device=""/>
 <part name="FB5" library="SparkFun-Coils" library_urn="urn:adsk.eagle:library:512" deviceset="FERRITE_BEAD" device="-0603" package3d_urn="urn:adsk.eagle:package:37574/1" value="30Ω/1.8A">
 <attribute name="DIGIKEY" value="445-2986-1-ND"/>
 <attribute name="MF" value="TDK"/>
 <attribute name="MPN" value="MPZ1608D300BTA00"/>
 </part>
-<part name="$3_178_$_2021-10-08_21-38-43" library="Particle-Devices" library_urn="urn:adsk.eagle:library:5952892" deviceset="B_SERIES_M.2EKEY_" device="3042" package3d_urn="urn:adsk.eagle:package:10884869/8"/>
+<part name="J5" library="Particle-Devices" library_urn="urn:adsk.eagle:library:5952892" deviceset="B_SERIES_M.2EKEY_" device="3042" package3d_urn="urn:adsk.eagle:package:10884869/8">
+<attribute name="DIGIKEY" value="A115904CT-ND"/>
+<attribute name="MF" value="TE"/>
+<attribute name="MPN" value="2199230-4"/>
+</part>
 <part name="U12" library="bschulz" deviceset="TCR2L*" device="ESV" technology="E31"/>
 <part name="C13" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="0.1UF" value="0.1uF"/>
 <part name="C19" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="0.1UF" value="0.1uF"/>
@@ -13809,7 +14057,11 @@ If either side is low, device is in tri-state anyway</text>
 <part name="R43" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="100K" value="100k"/>
 <part name="U23" library="bschulz" deviceset="SN74LVC1G17" device="DCK"/>
 <part name="S3" library="bschulz" deviceset="SPDT" device="7103K2CWA"/>
-<part name="D7" library="bschulz" deviceset="DIODE_SCHOTTKY" device="SOD-323" value="BAT54WS"/>
+<part name="D7" library="bschulz" deviceset="DIODE_SCHOTTKY" device="SOD-323" value="BAT54WS">
+<attribute name="DIGIKEY" value="BAT54WS-TPCT-ND"/>
+<attribute name="MF" value="Micro Commercial"/>
+<attribute name="MPN" value="BAT54WS-TP"/>
+</part>
 <part name="R52" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="1M" value="1M"/>
 <part name="R51" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="10K" value="10k"/>
 <part name="R49" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="1M" value="1M"/>
@@ -13839,33 +14091,49 @@ If either side is low, device is in tri-state anyway</text>
 <part name="GND65" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND66" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="U14" library="bschulz" deviceset="MIC2260*" device="" technology="2"/>
-<part name="L1" library="bschulz" deviceset="INDUCTOR" device="_MAIA_4.1X4.1" value="1uF"/>
+<part name="L1" library="bschulz" deviceset="INDUCTOR" device="_MAIA_4.1X4.1" value="1uH">
+<attribute name="DIGIKEY" value="732-11737-1-ND"/>
+<attribute name="MF" value="Wurth"/>
+<attribute name="MPN" value="78438357010"/>
+</part>
 <part name="R19" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="100K" value="100k"/>
 <part name="R20" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="10K" value="10k"/>
-<part name="R21" library="bschulz_passives" deviceset="R-EU_" device="R0402" value="2.7k"/>
-<part name="C24" library="bschulz_passives" deviceset="C-EU" device="C0402" value="10nF"/>
-<part name="C25" library="bschulz_passives" deviceset="C-EU" device="C0402" value="100pF"/>
+<part name="R21" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="2.7K" value="2.7k"/>
+<part name="C24" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="10NF" value="10nF"/>
+<part name="C25" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="100PF" value="100pF"/>
 <part name="GND75" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="C27" library="bschulz_passives" deviceset="CTANT_EU" device="1411" value="100uF"/>
+<part name="C27" library="bschulz_passives" deviceset="CTANT_EU" device="1411" value="100uF">
+<attribute name="DIGIKEY" value="478-5231-1-ND"/>
+<attribute name="MF" value="Kyocera AVX"/>
+<attribute name="MPN" value="TPSB107M010R0400"/>
+</part>
 <part name="GND76" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND77" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="C23" library="bschulz_passives" deviceset="C-EU" device="C0402" value="39pF"/>
-<part name="R18" library="bschulz_passives" deviceset="R-EU_" device="R0402" value="20k"/>
+<part name="C23" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="39PF" value="39pF"/>
+<part name="R18" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="20K" value="20k"/>
 <part name="GND78" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="C17" library="bschulz_passives" deviceset="C-EU" device="C0805" technology="22UF" value="22uF"/>
 <part name="C16" library="bschulz_passives" deviceset="C-EU" device="C0805" technology="22UF" value="22uF"/>
 <part name="C15" library="bschulz_passives" deviceset="C-EU" device="C0805" technology="22UF" value="22uF"/>
 <part name="GND79" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="C18" library="bschulz_passives" deviceset="C-EU" device="C0402" value="1nF"/>
-<part name="C20" library="bschulz_passives" deviceset="C-EU" device="C0402" value="10nF"/>
+<part name="C18" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="1NF" value="1nF"/>
+<part name="C20" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="10NF" value="10nF"/>
 <part name="GND80" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND81" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="R13" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="100K" value="100k"/>
-<part name="D2" library="bschulz" deviceset="DIODE_SCHOTTKY" device="DO-214AC" value="CDBA3100"/>
+<part name="D2" library="bschulz" deviceset="DIODE_SCHOTTKY" device="DO-214AC" value="CDBA3100">
+<attribute name="DIGIKEY" value="641-1747-1-ND"/>
+<attribute name="MF" value="Comchip"/>
+<attribute name="MPN" value="CDBA3100-HF"/>
+</part>
 <part name="GND82" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="C12" library="bschulz_passives" deviceset="C-EU" device="C0805" technology="22UF" value="22uF"/>
 <part name="U16" library="bschulz" deviceset="TPS6128*" device="" technology="2D"/>
-<part name="L2" library="bschulz" deviceset="INDUCTOR" device="_MAPI_4.1X4.1" value="0.47uH"/>
+<part name="L2" library="bschulz" deviceset="INDUCTOR" device="_MAPI_4.1X4.1" value="0.47uH">
+<attribute name="DIGIKEY" value="732-744383560047HTCT-ND"/>
+<attribute name="MF" value="Wurth"/>
+<attribute name="MPN" value="744383560047HT"/>
+</part>
 <part name="C34" library="bschulz_passives" deviceset="C-EU" device="C0805" technology="10UF" value="10uF"/>
 <part name="C36" library="bschulz_passives" deviceset="C-EU" device="C0805" technology="10UF" value="10uF"/>
 <part name="GND31" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
@@ -13874,7 +14142,11 @@ If either side is low, device is in tri-state anyway</text>
 <part name="GND37" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND38" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND39" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="C29" library="bschulz_passives" deviceset="CTANT_EU" device="2917" value="220uF"/>
+<part name="C29" library="bschulz_passives" deviceset="CTANT_EU" device="2917" value="220uF">
+<attribute name="DIGIKEY" value="399-9744-1-ND"/>
+<attribute name="MF" value="Kemet"/>
+<attribute name="MPN" value="T491D227M010AT"/>
+</part>
 <part name="GND40" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="R38" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="1M" value="1M"/>
 <part name="U3" library="bschulz" deviceset="MMC5633" device=""/>
@@ -13926,10 +14198,10 @@ If either side is low, device is in tri-state anyway</text>
 <part name="R8" library="bschulz_passives" deviceset="R-EU_" device="R0805" technology="0.002" value="2m"/>
 <part name="R15" library="bschulz_passives" deviceset="R-EU_" device="R0805" technology="0.01" value="10m"/>
 <part name="U17" library="bschulz" deviceset="MCP23018" device="QFN"/>
-<part name="R37" library="bschulz_passives" deviceset="R-EU_" device="R0603"/>
-<part name="R36" library="bschulz_passives" deviceset="R-EU_" device="R0603"/>
-<part name="R40" library="bschulz_passives" deviceset="R-EU_" device="R0603"/>
-<part name="R39" library="bschulz_passives" deviceset="R-EU_" device="R0603"/>
+<part name="R37" library="bschulz_passives" deviceset="R-EU_" device="R0603" technology="10K" value="10k"/>
+<part name="R36" library="bschulz_passives" deviceset="R-EU_" device="R0603" technology="150K" value="150k"/>
+<part name="R40" library="bschulz_passives" deviceset="R-EU_" device="R0603" technology="30K" value="30k"/>
+<part name="R39" library="bschulz_passives" deviceset="R-EU_" device="R0603" technology="130K" value="130k"/>
 <part name="GND85" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND86" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="C37" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="0.1UF" value="0.1uF"/>
@@ -13939,14 +14211,14 @@ If either side is low, device is in tri-state anyway</text>
 <part name="R53" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="100K" value="100k"/>
 <part name="U22" library="bschulz" deviceset="PCA9634" device="QFN"/>
 <part name="GND22" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="D8" library="bschulz" deviceset="LED" device="0603"/>
-<part name="D9" library="bschulz" deviceset="LED" device="0603"/>
-<part name="D10" library="bschulz" deviceset="LED" device="0603"/>
-<part name="D11" library="bschulz" deviceset="LED" device="0603"/>
-<part name="D12" library="bschulz" deviceset="LED" device="0603"/>
-<part name="D13" library="bschulz" deviceset="LED" device="0603"/>
-<part name="D14" library="bschulz" deviceset="LED" device="0603"/>
-<part name="D15" library="bschulz" deviceset="LED" device="0603"/>
+<part name="D8" library="bschulz" deviceset="LED" device="0603" technology="GREEN" value="LEDGREEN0603"/>
+<part name="D9" library="bschulz" deviceset="LED" device="0603" technology="AMBER" value="LEDAMBER0603"/>
+<part name="D10" library="bschulz" deviceset="LED" device="0603" technology="RED" value="LEDRED0603"/>
+<part name="D11" library="bschulz" deviceset="LED" device="0603" technology="GREEN" value="LEDGREEN0603"/>
+<part name="D12" library="bschulz" deviceset="LED" device="0603" technology="AMBER" value="LEDAMBER0603"/>
+<part name="D13" library="bschulz" deviceset="LED" device="0603" technology="GREEN" value="LEDGREEN0603"/>
+<part name="D14" library="bschulz" deviceset="LED" device="0603" technology="AMBER" value="LEDAMBER0603"/>
+<part name="D15" library="bschulz" deviceset="LED" device="0603" technology="RED" value="LEDRED0603"/>
 <part name="R55" library="bschulz_passives" deviceset="R-EU_" device="R0603" technology="220" value="220R"/>
 <part name="R56" library="bschulz_passives" deviceset="R-EU_" device="R0603" technology="220" value="220R"/>
 <part name="R57" library="bschulz_passives" deviceset="R-EU_" device="R0603" technology="220" value="220R"/>
@@ -13969,6 +14241,19 @@ If either side is low, device is in tri-state anyway</text>
 <part name="GND52" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="U7" library="bschulz" deviceset="SN74AUP1G08" device="DCK"/>
 <part name="GND53" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="TP1" library="bschulz" deviceset="TESTPOINT" device="RCU"/>
+<part name="TP2" library="bschulz" deviceset="TESTPOINT" device="RCU"/>
+<part name="TP3" library="bschulz" deviceset="TESTPOINT" device="RCU"/>
+<part name="TP4" library="bschulz" deviceset="TESTPOINT" device="RCU"/>
+<part name="TP5" library="bschulz" deviceset="TESTPOINT" device="RCU"/>
+<part name="TP6" library="bschulz" deviceset="TESTPOINT" device="RCU"/>
+<part name="TP7" library="bschulz" deviceset="TESTPOINT" device="RCU"/>
+<part name="TP8" library="bschulz" deviceset="TESTPOINT" device="RCU"/>
+<part name="TP9" library="bschulz" deviceset="TESTPOINT" device="RCU"/>
+<part name="R63" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="27" value="27R"/>
+<part name="R64" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="27" value="27R"/>
+<part name="D16" library="bschulz" deviceset="RCLAMP3654" device=""/>
+<part name="GND54" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -14228,24 +14513,52 @@ If either side is low, device is in tri-state anyway</text>
 <instance part="GND53" gate="1" x="154.94" y="111.76" smashed="yes">
 <attribute name="VALUE" x="152.4" y="109.22" size="1.778" layer="96"/>
 </instance>
+<instance part="TP1" gate="G$1" x="251.46" y="170.18" smashed="yes" rot="R90">
+<attribute name="NAME" x="247.65" y="167.64" size="1.27" layer="95" rot="R180" align="center"/>
+</instance>
+<instance part="TP2" gate="G$1" x="251.46" y="165.1" smashed="yes" rot="R90">
+<attribute name="NAME" x="247.65" y="162.56" size="1.27" layer="95" rot="R180" align="center"/>
+</instance>
+<instance part="TP3" gate="G$1" x="251.46" y="160.02" smashed="yes" rot="R90">
+<attribute name="NAME" x="247.65" y="157.48" size="1.27" layer="95" rot="R180" align="center"/>
+</instance>
+<instance part="TP4" gate="G$1" x="251.46" y="154.94" smashed="yes" rot="R90">
+<attribute name="NAME" x="247.65" y="152.4" size="1.27" layer="95" rot="R180" align="center"/>
+</instance>
+<instance part="TP5" gate="G$1" x="251.46" y="149.86" smashed="yes" rot="R90">
+<attribute name="NAME" x="247.65" y="147.32" size="1.27" layer="95" rot="R180" align="center"/>
+</instance>
+<instance part="TP6" gate="G$1" x="251.46" y="144.78" smashed="yes" rot="R90">
+<attribute name="NAME" x="247.65" y="142.24" size="1.27" layer="95" rot="R180" align="center"/>
+</instance>
+<instance part="TP7" gate="G$1" x="251.46" y="139.7" smashed="yes" rot="R90">
+<attribute name="NAME" x="247.65" y="137.16" size="1.27" layer="95" rot="R180" align="center"/>
+</instance>
+<instance part="TP8" gate="G$1" x="259.08" y="134.62" smashed="yes" rot="R90">
+<attribute name="NAME" x="255.27" y="132.08" size="1.27" layer="95" rot="R180" align="center"/>
+</instance>
+<instance part="TP9" gate="G$1" x="259.08" y="129.54" smashed="yes" rot="R90">
+<attribute name="NAME" x="255.27" y="127" size="1.27" layer="95" rot="R180" align="center"/>
+</instance>
+<instance part="R63" gate="G$1" x="205.74" y="55.88" smashed="yes">
+<attribute name="NAME" x="201.93" y="57.3786" size="1.778" layer="95"/>
+<attribute name="VALUE" x="201.93" y="52.578" size="1.778" layer="96"/>
+</instance>
+<instance part="R64" gate="G$1" x="205.74" y="48.26" smashed="yes">
+<attribute name="NAME" x="201.93" y="49.7586" size="1.778" layer="95"/>
+<attribute name="VALUE" x="201.93" y="44.958" size="1.778" layer="96"/>
+</instance>
+<instance part="D16" gate="G$1" x="320.04" y="109.22" smashed="yes">
+<attribute name="NAME" x="320.04" y="102.616" size="1.778" layer="95" ratio="15" align="center"/>
+<attribute name="DISP" x="320.04" y="115.824" size="1.778" layer="95" ratio="15" align="center"/>
+</instance>
+<instance part="GND54" gate="1" x="335.28" y="101.6" smashed="yes">
+<attribute name="VALUE" x="332.74" y="99.06" size="1.778" layer="96"/>
+</instance>
 </instances>
 <busses>
 </busses>
 <nets>
-<net name="D+" class="0">
-<segment>
-<pinref part="USB1" gate="G$1" pin="D+"/>
-<wire x1="215.9" y1="55.88" x2="213.36" y2="55.88" width="0.1524" layer="91"/>
-<label x="213.36" y="55.88" size="1.016" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
-<net name="D-" class="0">
-<segment>
-<pinref part="USB1" gate="G$1" pin="D-"/>
-<wire x1="215.9" y1="53.34" x2="213.36" y2="53.34" width="0.1524" layer="91"/>
-<label x="213.36" y="53.34" size="1.016" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
 <net name="GND" class="0">
 <segment>
 <pinref part="USB1" gate="G$1" pin="GND"/>
@@ -14410,12 +14723,28 @@ If either side is low, device is in tri-state anyway</text>
 <wire x1="210.82" y1="96.52" x2="213.36" y2="96.52" width="0.1524" layer="91"/>
 <label x="213.36" y="96.52" size="1.016" layer="95" xref="yes"/>
 </segment>
+<segment>
+<pinref part="TP1" gate="G$1" pin="P$1"/>
+<wire x1="251.46" y1="170.18" x2="254" y2="170.18" width="0.1524" layer="91"/>
+<label x="254" y="170.18" size="0.8128" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="D16" gate="G$1" pin="GND"/>
+<wire x1="332.74" y1="106.68" x2="335.28" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="335.28" y1="106.68" x2="335.28" y2="104.14" width="0.1524" layer="91"/>
+<pinref part="GND54" gate="1" pin="GND"/>
+</segment>
 </net>
 <net name="VUSB" class="0">
 <segment>
 <pinref part="USB1" gate="G$1" pin="VDD"/>
 <wire x1="241.3" y1="55.88" x2="246.38" y2="55.88" width="0.1524" layer="91"/>
 <label x="246.38" y="55.88" size="1.778" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="D16" gate="G$1" pin="VBUS"/>
+<wire x1="332.74" y1="111.76" x2="335.28" y2="111.76" width="0.1524" layer="91"/>
+<label x="335.28" y="111.76" size="0.8128" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="VSOLAR" class="0">
@@ -14561,6 +14890,11 @@ If either side is low, device is in tri-state anyway</text>
 <wire x1="198.12" y1="111.76" x2="195.58" y2="111.76" width="0.1524" layer="91"/>
 <label x="195.58" y="111.76" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
+<segment>
+<pinref part="TP5" gate="G$1" pin="P$1"/>
+<wire x1="251.46" y1="149.86" x2="254" y2="149.86" width="0.1524" layer="91"/>
+<label x="254" y="149.86" size="0.8128" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="SCL" class="0">
 <segment>
@@ -14572,6 +14906,11 @@ If either side is low, device is in tri-state anyway</text>
 <pinref part="U8" gate="G$1" pin="A2"/>
 <wire x1="198.12" y1="109.22" x2="195.58" y2="109.22" width="0.1524" layer="91"/>
 <label x="195.58" y="109.22" size="1.016" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="TP6" gate="G$1" pin="P$1"/>
+<wire x1="251.46" y1="144.78" x2="254" y2="144.78" width="0.1524" layer="91"/>
+<label x="254" y="144.78" size="0.8128" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="FAULT_BUS" class="0">
@@ -14633,6 +14972,11 @@ If either side is low, device is in tri-state anyway</text>
 <wire x1="63.5" y1="58.42" x2="58.42" y2="58.42" width="0.1524" layer="91"/>
 <label x="58.42" y="58.42" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
+<segment>
+<pinref part="TP3" gate="G$1" pin="P$1"/>
+<wire x1="251.46" y1="160.02" x2="254" y2="160.02" width="0.1524" layer="91"/>
+<label x="254" y="160.02" size="0.8128" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="SCL_OB" class="0">
 <segment>
@@ -14664,6 +15008,11 @@ If either side is low, device is in tri-state anyway</text>
 <pinref part="U5" gate="G$1" pin="CLK"/>
 <wire x1="63.5" y1="60.96" x2="58.42" y2="60.96" width="0.1524" layer="91"/>
 <label x="58.42" y="60.96" size="1.016" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="TP4" gate="G$1" pin="P$1"/>
+<wire x1="251.46" y1="154.94" x2="254" y2="154.94" width="0.1524" layer="91"/>
+<label x="254" y="154.94" size="0.8128" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="I2C_OB_EN" class="0">
@@ -15038,6 +15387,76 @@ If either side is low, device is in tri-state anyway</text>
 <label x="223.52" y="111.76" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
+<net name="RTC_INT" class="0">
+<segment>
+<pinref part="TP2" gate="G$1" pin="P$1"/>
+<wire x1="251.46" y1="165.1" x2="254" y2="165.1" width="0.1524" layer="91"/>
+<label x="254" y="165.1" size="0.8128" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="OB_INT" class="0">
+<segment>
+<pinref part="TP7" gate="G$1" pin="P$1"/>
+<wire x1="251.46" y1="139.7" x2="254" y2="139.7" width="0.1524" layer="91"/>
+<label x="254" y="139.7" size="0.8128" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="TX" class="0">
+<segment>
+<pinref part="TP8" gate="G$1" pin="P$1"/>
+<wire x1="259.08" y1="134.62" x2="261.62" y2="134.62" width="0.1524" layer="91"/>
+<label x="261.62" y="134.62" size="0.8128" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="RX" class="0">
+<segment>
+<pinref part="TP9" gate="G$1" pin="P$1"/>
+<wire x1="259.08" y1="129.54" x2="261.62" y2="129.54" width="0.1524" layer="91"/>
+<label x="261.62" y="129.54" size="0.8128" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="D+_IN" class="0">
+<segment>
+<pinref part="R63" gate="G$1" pin="2"/>
+<pinref part="USB1" gate="G$1" pin="D+"/>
+<wire x1="210.82" y1="55.88" x2="215.9" y2="55.88" width="0.1524" layer="91"/>
+<label x="213.106" y="56.388" size="0.8128" layer="95"/>
+</segment>
+<segment>
+<pinref part="D16" gate="G$1" pin="D+"/>
+<wire x1="307.34" y1="111.76" x2="304.8" y2="111.76" width="0.1524" layer="91"/>
+<label x="304.8" y="111.76" size="0.8128" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="D-_IN" class="0">
+<segment>
+<pinref part="USB1" gate="G$1" pin="D-"/>
+<wire x1="215.9" y1="53.34" x2="213.36" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="213.36" y1="53.34" x2="213.36" y2="48.26" width="0.1524" layer="91"/>
+<pinref part="R64" gate="G$1" pin="2"/>
+<wire x1="213.36" y1="48.26" x2="210.82" y2="48.26" width="0.1524" layer="91"/>
+<label x="213.106" y="53.848" size="0.8128" layer="95"/>
+</segment>
+<segment>
+<pinref part="D16" gate="G$1" pin="D-"/>
+<wire x1="307.34" y1="109.22" x2="304.8" y2="109.22" width="0.1524" layer="91"/>
+<label x="304.8" y="109.22" size="0.8128" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="D+" class="0">
+<segment>
+<pinref part="R63" gate="G$1" pin="1"/>
+<wire x1="200.66" y1="55.88" x2="198.12" y2="55.88" width="0.1524" layer="91"/>
+<label x="198.12" y="55.88" size="0.8128" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="D-" class="0">
+<segment>
+<pinref part="R64" gate="G$1" pin="1"/>
+<wire x1="200.66" y1="48.26" x2="198.12" y2="48.26" width="0.1524" layer="91"/>
+<label x="198.12" y="48.26" size="0.8128" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
 </nets>
 </sheet>
 <sheet>
@@ -15108,6 +15527,9 @@ Low when using USB</text>
 <instance part="L3" gate="G$1" x="226.06" y="195.58" smashed="yes" rot="R90">
 <attribute name="NAME" x="231.14" y="194.31" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="231.14" y="199.39" size="1.778" layer="96" rot="R180"/>
+<attribute name="DIGIKEY" x="226.06" y="195.58" size="0.8128" layer="96" rot="R90" align="center" display="off"/>
+<attribute name="MPN" x="226.06" y="195.58" size="0.8128" layer="96" rot="R90" align="center" display="off"/>
+<attribute name="MF" x="226.06" y="195.58" size="0.8128" layer="96" rot="R90" align="center" display="off"/>
 </instance>
 <instance part="R34" gate="G$1" x="254" y="195.58" smashed="yes">
 <attribute name="NAME" x="250.19" y="197.0786" size="1.778" layer="95"/>
@@ -15278,6 +15700,9 @@ Low when using USB</text>
 <instance part="L2" gate="G$1" x="190.5" y="93.98" smashed="yes" rot="R90">
 <attribute name="NAME" x="195.58" y="92.71" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="195.58" y="97.79" size="1.778" layer="96" rot="R180"/>
+<attribute name="DIGIKEY" x="190.5" y="93.98" size="0.8128" layer="96" rot="R90" align="center" display="off"/>
+<attribute name="MF" x="190.5" y="93.98" size="0.8128" layer="96" rot="R90" align="center" display="off"/>
+<attribute name="MPN" x="190.5" y="93.98" size="0.8128" layer="96" rot="R90" align="center" display="off"/>
 </instance>
 <instance part="C34" gate="G$1" x="238.76" y="91.44" smashed="yes">
 <attribute name="NAME" x="240.284" y="91.821" size="1.778" layer="95"/>
@@ -15309,6 +15734,9 @@ Low when using USB</text>
 <instance part="C29" gate="G$1" x="167.64" y="88.9" smashed="yes">
 <attribute name="NAME" x="168.783" y="89.3826" size="1.778" layer="95"/>
 <attribute name="VALUE" x="168.783" y="84.3026" size="1.778" layer="96"/>
+<attribute name="DIGIKEY" x="167.64" y="88.9" size="0.8128" layer="96" align="center" display="off"/>
+<attribute name="MF" x="167.64" y="88.9" size="0.8128" layer="96" align="center" display="off"/>
+<attribute name="MPN" x="167.64" y="88.9" size="0.8128" layer="96" align="center" display="off"/>
 </instance>
 <instance part="GND40" gate="1" x="167.64" y="78.74" smashed="yes">
 <attribute name="VALUE" x="165.1" y="76.2" size="1.778" layer="96"/>
@@ -15320,6 +15748,9 @@ Low when using USB</text>
 <instance part="L1" gate="G$1" x="124.46" y="53.34" smashed="yes" rot="R90">
 <attribute name="NAME" x="129.54" y="52.07" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="129.54" y="57.15" size="1.778" layer="96" rot="R180"/>
+<attribute name="DIGIKEY" x="124.46" y="53.34" size="0.8128" layer="96" rot="R90" align="center" display="off"/>
+<attribute name="MF" x="124.46" y="53.34" size="0.8128" layer="96" rot="R90" align="center" display="off"/>
+<attribute name="MPN" x="124.46" y="53.34" size="0.8128" layer="96" rot="R90" align="center" display="off"/>
 </instance>
 <instance part="R19" gate="G$1" x="127" y="45.72" smashed="yes">
 <attribute name="NAME" x="123.19" y="47.2186" size="1.778" layer="95"/>
@@ -15347,6 +15778,9 @@ Low when using USB</text>
 <instance part="C27" gate="G$1" x="160.02" y="45.72" smashed="yes">
 <attribute name="NAME" x="161.163" y="46.2026" size="1.778" layer="95"/>
 <attribute name="VALUE" x="161.163" y="41.1226" size="1.778" layer="96"/>
+<attribute name="DIGIKEY" x="160.02" y="45.72" size="0.8128" layer="96" align="center" display="off"/>
+<attribute name="MF" x="160.02" y="45.72" size="0.8128" layer="96" align="center" display="off"/>
+<attribute name="MPN" x="160.02" y="45.72" size="0.8128" layer="96" align="center" display="off"/>
 </instance>
 <instance part="GND76" gate="1" x="160.02" y="33.02" smashed="yes">
 <attribute name="VALUE" x="157.48" y="30.48" size="1.778" layer="96"/>
@@ -15401,6 +15835,9 @@ Low when using USB</text>
 <instance part="D2" gate="G$1" x="104.14" y="58.42" smashed="yes">
 <attribute name="NAME" x="101.854" y="60.325" size="1.778" layer="95"/>
 <attribute name="VALUE" x="101.854" y="54.991" size="1.778" layer="96"/>
+<attribute name="DIGIKEY" x="104.14" y="58.42" size="0.8128" layer="96" align="center" display="off"/>
+<attribute name="MF" x="104.14" y="58.42" size="0.8128" layer="96" align="center" display="off"/>
+<attribute name="MPN" x="104.14" y="58.42" size="0.8128" layer="96" align="center" display="off"/>
 </instance>
 <instance part="GND82" gate="1" x="96.52" y="58.42" smashed="yes" rot="R270">
 <attribute name="VALUE" x="93.98" y="60.96" size="1.778" layer="96" rot="R270"/>
@@ -16245,8 +16682,8 @@ Test 4.7k (or more) for reduced power consumption </text>
 <text x="317.5" y="373.38" size="1.016" layer="91" rot="R90" align="center-left">Other</text>
 <text x="104.14" y="165.1" size="1.27" layer="91" align="center-left">Should this be used?</text>
 <text x="68.58" y="55.88" size="2.54" layer="91" align="center">ADR: 0x42</text>
-<text x="-38.1" y="269.24" size="2.54" layer="91" align="center">ADR: 0x20 ~ 0x27</text>
-<text x="66.04" y="269.24" size="2.54" layer="91" align="center">ADR: 0x20 ~ 0x27</text>
+<text x="-38.1" y="269.24" size="2.54" layer="91" align="center">ADR: 0x20</text>
+<text x="66.04" y="269.24" size="2.54" layer="91" align="center">ADR: 0x21</text>
 <text x="226.06" y="353.06" size="2.54" layer="91" align="center">ADR: 0x29</text>
 </plain>
 <instances>
@@ -16318,9 +16755,12 @@ Test 4.7k (or more) for reduced power consumption </text>
 <attribute name="MF" x="119.38" y="81.28" size="1.778" layer="96" display="off"/>
 <attribute name="MPN" x="119.38" y="81.28" size="1.778" layer="96" display="off"/>
 </instance>
-<instance part="$3_178_$_2021-10-08_21-38-43" gate="U1" x="66.04" y="170.18" smashed="yes">
+<instance part="J5" gate="U1" x="66.04" y="170.18" smashed="yes">
 <attribute name="NAME" x="45.72" y="116.84" size="1.778" layer="95"/>
 <attribute name="VALUE" x="45.72" y="114.3" size="1.778" layer="96"/>
+<attribute name="DIGIKEY" x="66.04" y="170.18" size="0.8128" layer="96" align="center" display="off"/>
+<attribute name="MF" x="66.04" y="170.18" size="0.8128" layer="96" align="center" display="off"/>
+<attribute name="MPN" x="66.04" y="170.18" size="0.8128" layer="96" align="center" display="off"/>
 </instance>
 <instance part="U20" gate="G$1" x="125.222" y="248.92" smashed="yes">
 <attribute name="DISP" x="125.222" y="258.318" size="1.778" layer="95" align="center"/>
@@ -16704,16 +17144,16 @@ Test 4.7k (or more) for reduced power consumption </text>
 <wire x1="213.36" y1="43.18" x2="213.36" y2="45.72" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="GND@9"/>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="GND@7"/>
+<pinref part="J5" gate="U1" pin="GND@9"/>
+<pinref part="J5" gate="U1" pin="GND@7"/>
 <wire x1="40.64" y1="210.82" x2="40.64" y2="213.36" width="0.1524" layer="91"/>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="GND@5"/>
+<pinref part="J5" gate="U1" pin="GND@5"/>
 <wire x1="40.64" y1="213.36" x2="40.64" y2="215.9" width="0.1524" layer="91"/>
 <junction x="40.64" y="213.36"/>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="GND@3"/>
+<pinref part="J5" gate="U1" pin="GND@3"/>
 <wire x1="40.64" y1="215.9" x2="40.64" y2="218.44" width="0.1524" layer="91"/>
 <junction x="40.64" y="215.9"/>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="GND@1"/>
+<pinref part="J5" gate="U1" pin="GND@1"/>
 <wire x1="40.64" y1="218.44" x2="40.64" y2="220.98" width="0.1524" layer="91"/>
 <junction x="40.64" y="218.44"/>
 <wire x1="40.64" y1="220.98" x2="38.1" y2="220.98" width="0.1524" layer="91"/>
@@ -16742,37 +17182,37 @@ Test 4.7k (or more) for reduced power consumption </text>
 <label x="48.26" y="320.04" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="GND@56"/>
+<pinref part="J5" gate="U1" pin="GND@56"/>
 <wire x1="91.44" y1="152.4" x2="93.98" y2="152.4" width="0.1524" layer="91"/>
 <label x="93.98" y="152.4" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="GND@15"/>
+<pinref part="J5" gate="U1" pin="GND@15"/>
 <wire x1="40.64" y1="203.2" x2="38.1" y2="203.2" width="0.1524" layer="91"/>
 <label x="38.1" y="203.2" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="GND@21"/>
+<pinref part="J5" gate="U1" pin="GND@21"/>
 <wire x1="40.64" y1="195.58" x2="38.1" y2="195.58" width="0.1524" layer="91"/>
 <label x="38.1" y="195.58" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="AGND@39"/>
+<pinref part="J5" gate="U1" pin="AGND@39"/>
 <wire x1="40.64" y1="172.72" x2="38.1" y2="172.72" width="0.1524" layer="91"/>
 <label x="38.1" y="172.72" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="AGND@49"/>
+<pinref part="J5" gate="U1" pin="AGND@49"/>
 <wire x1="40.64" y1="160.02" x2="38.1" y2="160.02" width="0.1524" layer="91"/>
 <label x="38.1" y="160.02" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="GND@77"/>
+<pinref part="J5" gate="U1" pin="GND@77"/>
 <wire x1="40.64" y1="121.92" x2="38.1" y2="121.92" width="0.1524" layer="91"/>
 <label x="38.1" y="121.92" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="GND@76"/>
+<pinref part="J5" gate="U1" pin="GND@76"/>
 <wire x1="91.44" y1="121.92" x2="93.98" y2="121.92" width="0.1524" layer="91"/>
 <label x="93.98" y="121.92" size="1.016" layer="95" xref="yes"/>
 </segment>
@@ -16861,28 +17301,28 @@ Test 4.7k (or more) for reduced power consumption </text>
 </net>
 <net name="SDA" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="SDA"/>
+<pinref part="J5" gate="U1" pin="SDA"/>
 <wire x1="91.44" y1="195.58" x2="93.98" y2="195.58" width="0.1524" layer="91"/>
 <label x="93.98" y="195.58" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="SCL" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="SCL"/>
+<pinref part="J5" gate="U1" pin="SCL"/>
 <wire x1="91.44" y1="198.12" x2="93.98" y2="198.12" width="0.1524" layer="91"/>
 <label x="93.98" y="198.12" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="RX" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="RX"/>
+<pinref part="J5" gate="U1" pin="RX"/>
 <wire x1="91.44" y1="175.26" x2="93.98" y2="175.26" width="0.1524" layer="91"/>
 <label x="93.98" y="175.26" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="TX" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="TX"/>
+<pinref part="J5" gate="U1" pin="TX"/>
 <wire x1="91.44" y1="177.8" x2="93.98" y2="177.8" width="0.1524" layer="91"/>
 <label x="93.98" y="177.8" size="1.016" layer="95" xref="yes"/>
 </segment>
@@ -16952,7 +17392,7 @@ Test 4.7k (or more) for reduced power consumption </text>
 <junction x="91.44" y="248.92"/>
 </segment>
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="GPIO0"/>
+<pinref part="J5" gate="U1" pin="GPIO0"/>
 <wire x1="91.44" y1="144.78" x2="93.98" y2="144.78" width="0.1524" layer="91"/>
 <label x="93.98" y="144.78" size="1.016" layer="95" xref="yes"/>
 </segment>
@@ -17067,8 +17507,8 @@ Test 4.7k (or more) for reduced power consumption </text>
 <label x="210.82" y="55.88" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="3V3@10"/>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="3V3@12"/>
+<pinref part="J5" gate="U1" pin="3V3@10"/>
+<pinref part="J5" gate="U1" pin="3V3@12"/>
 <wire x1="91.44" y1="210.82" x2="91.44" y2="208.28" width="0.1524" layer="91"/>
 <wire x1="91.44" y1="210.82" x2="93.98" y2="210.82" width="0.1524" layer="91"/>
 <junction x="91.44" y="210.82"/>
@@ -17201,7 +17641,7 @@ Test 4.7k (or more) for reduced power consumption </text>
 <label x="269.24" y="157.48" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="CTS"/>
+<pinref part="J5" gate="U1" pin="CTS"/>
 <wire x1="91.44" y1="172.72" x2="93.98" y2="172.72" width="0.1524" layer="91"/>
 <label x="93.98" y="172.72" size="1.016" layer="95" xref="yes"/>
 </segment>
@@ -17234,7 +17674,7 @@ Test 4.7k (or more) for reduced power consumption </text>
 </net>
 <net name="WDT_DONE" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="RTS"/>
+<pinref part="J5" gate="U1" pin="RTS"/>
 <wire x1="91.44" y1="170.18" x2="93.98" y2="170.18" width="0.1524" layer="91"/>
 <label x="93.98" y="170.18" size="1.016" layer="95" xref="yes"/>
 </segment>
@@ -17280,7 +17720,7 @@ Test 4.7k (or more) for reduced power consumption </text>
 </net>
 <net name="!RESET" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="RESET"/>
+<pinref part="J5" gate="U1" pin="RESET"/>
 <wire x1="91.44" y1="180.34" x2="93.98" y2="180.34" width="0.1524" layer="91"/>
 <label x="93.98" y="180.34" size="1.016" layer="95" xref="yes"/>
 </segment>
@@ -17318,7 +17758,7 @@ Test 4.7k (or more) for reduced power consumption </text>
 </net>
 <net name="!MODE" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="MODE"/>
+<pinref part="J5" gate="U1" pin="MODE"/>
 <wire x1="91.44" y1="182.88" x2="93.98" y2="182.88" width="0.1524" layer="91"/>
 <label x="93.98" y="182.88" size="1.016" layer="95" xref="yes"/>
 </segment>
@@ -17350,12 +17790,12 @@ Test 4.7k (or more) for reduced power consumption </text>
 <label x="7.62" y="307.34" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="UB_VBUS"/>
+<pinref part="J5" gate="U1" pin="UB_VBUS"/>
 <wire x1="91.44" y1="129.54" x2="93.98" y2="129.54" width="0.1524" layer="91"/>
 <label x="93.98" y="129.54" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="VBUS"/>
+<pinref part="J5" gate="U1" pin="VBUS"/>
 <wire x1="91.44" y1="203.2" x2="93.98" y2="203.2" width="0.1524" layer="91"/>
 <label x="93.98" y="203.2" size="1.016" layer="95" xref="yes"/>
 </segment>
@@ -17369,13 +17809,13 @@ Test 4.7k (or more) for reduced power consumption </text>
 </net>
 <net name="SYS" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="VCC@2"/>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="VCC@4"/>
+<pinref part="J5" gate="U1" pin="VCC@2"/>
+<pinref part="J5" gate="U1" pin="VCC@4"/>
 <wire x1="91.44" y1="220.98" x2="91.44" y2="218.44" width="0.1524" layer="91"/>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="VCC@6"/>
+<pinref part="J5" gate="U1" pin="VCC@6"/>
 <wire x1="91.44" y1="218.44" x2="91.44" y2="215.9" width="0.1524" layer="91"/>
 <junction x="91.44" y="218.44"/>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="VCC@8"/>
+<pinref part="J5" gate="U1" pin="VCC@8"/>
 <wire x1="91.44" y1="215.9" x2="91.44" y2="213.36" width="0.1524" layer="91"/>
 <junction x="91.44" y="215.9"/>
 <wire x1="91.44" y1="220.98" x2="93.98" y2="220.98" width="0.1524" layer="91"/>
@@ -17385,24 +17825,24 @@ Test 4.7k (or more) for reduced power consumption </text>
 </net>
 <net name="D+" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="UB_USB_P"/>
+<pinref part="J5" gate="U1" pin="UB_USB_P"/>
 <wire x1="91.44" y1="167.64" x2="93.98" y2="167.64" width="0.1524" layer="91"/>
 <label x="93.98" y="167.64" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="USB_P"/>
+<pinref part="J5" gate="U1" pin="USB_P"/>
 <wire x1="40.64" y1="208.28" x2="38.1" y2="208.28" width="0.1524" layer="91"/>
 <label x="38.1" y="208.28" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="D-" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="UB_USB_N"/>
+<pinref part="J5" gate="U1" pin="UB_USB_N"/>
 <wire x1="91.44" y1="165.1" x2="93.98" y2="165.1" width="0.1524" layer="91"/>
 <label x="93.98" y="165.1" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="USB_N"/>
+<pinref part="J5" gate="U1" pin="USB_N"/>
 <wire x1="40.64" y1="205.74" x2="38.1" y2="205.74" width="0.1524" layer="91"/>
 <label x="38.1" y="205.74" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -17439,7 +17879,7 @@ Test 4.7k (or more) for reduced power consumption </text>
 <label x="193.04" y="213.36" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="RGB_RED"/>
+<pinref part="J5" gate="U1" pin="RGB_RED"/>
 <wire x1="40.64" y1="144.78" x2="38.1" y2="144.78" width="0.1524" layer="91"/>
 <label x="38.1" y="144.78" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -17451,7 +17891,7 @@ Test 4.7k (or more) for reduced power consumption </text>
 <label x="193.04" y="205.74" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="RGB_GREEN"/>
+<pinref part="J5" gate="U1" pin="RGB_GREEN"/>
 <wire x1="40.64" y1="142.24" x2="38.1" y2="142.24" width="0.1524" layer="91"/>
 <label x="38.1" y="142.24" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -17463,7 +17903,7 @@ Test 4.7k (or more) for reduced power consumption </text>
 <label x="193.04" y="198.12" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="RGB_BLUE"/>
+<pinref part="J5" gate="U1" pin="RGB_BLUE"/>
 <wire x1="40.64" y1="139.7" x2="38.1" y2="139.7" width="0.1524" layer="91"/>
 <label x="38.1" y="139.7" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -17522,28 +17962,28 @@ Test 4.7k (or more) for reduced power consumption </text>
 </net>
 <net name="MISO" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="MISO"/>
+<pinref part="J5" gate="U1" pin="MISO"/>
 <wire x1="91.44" y1="160.02" x2="93.98" y2="160.02" width="0.1524" layer="91"/>
 <label x="93.98" y="160.02" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MOSI" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="MOSI"/>
+<pinref part="J5" gate="U1" pin="MOSI"/>
 <wire x1="91.44" y1="157.48" x2="93.98" y2="157.48" width="0.1524" layer="91"/>
 <label x="93.98" y="157.48" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="SCK" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="SCK"/>
+<pinref part="J5" gate="U1" pin="SCK"/>
 <wire x1="91.44" y1="154.94" x2="93.98" y2="154.94" width="0.1524" layer="91"/>
 <label x="93.98" y="154.94" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="SD_CS" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="CS"/>
+<pinref part="J5" gate="U1" pin="CS"/>
 <wire x1="91.44" y1="162.56" x2="93.98" y2="162.56" width="0.1524" layer="91"/>
 <label x="93.98" y="162.56" size="1.016" layer="95" xref="yes"/>
 </segment>
@@ -17564,42 +18004,42 @@ Test 4.7k (or more) for reduced power consumption </text>
 </net>
 <net name="TALON3_GPIOA" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="ADC1"/>
+<pinref part="J5" gate="U1" pin="ADC1"/>
 <wire x1="40.64" y1="180.34" x2="38.1" y2="180.34" width="0.1524" layer="91"/>
 <label x="38.1" y="180.34" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="TALON4_GPIOA" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="ADC0"/>
+<pinref part="J5" gate="U1" pin="ADC0"/>
 <wire x1="40.64" y1="193.04" x2="38.1" y2="193.04" width="0.1524" layer="91"/>
 <label x="38.1" y="193.04" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="TALON3_GPIOB" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="PWM1"/>
+<pinref part="J5" gate="U1" pin="PWM1"/>
 <wire x1="91.44" y1="137.16" x2="93.98" y2="137.16" width="0.1524" layer="91"/>
 <label x="93.98" y="137.16" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="TALON4_GPIOB" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="PWM0"/>
+<pinref part="J5" gate="U1" pin="PWM0"/>
 <wire x1="91.44" y1="139.7" x2="93.98" y2="139.7" width="0.1524" layer="91"/>
 <label x="93.98" y="139.7" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="I2C_GLOBAL_EN" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="GPIO1"/>
+<pinref part="J5" gate="U1" pin="GPIO1"/>
 <wire x1="91.44" y1="142.24" x2="93.98" y2="142.24" width="0.1524" layer="91"/>
 <label x="93.98" y="142.24" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="I2C_OB_EN" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="ADC6"/>
+<pinref part="J5" gate="U1" pin="ADC6"/>
 <wire x1="40.64" y1="165.1" x2="38.1" y2="165.1" width="0.1524" layer="91"/>
 <label x="38.1" y="165.1" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -17674,14 +18114,14 @@ Test 4.7k (or more) for reduced power consumption </text>
 <label x="48.26" y="294.64" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="ADC4"/>
+<pinref part="J5" gate="U1" pin="ADC4"/>
 <wire x1="40.64" y1="170.18" x2="38.1" y2="170.18" width="0.1524" layer="91"/>
 <label x="38.1" y="170.18" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="OB_INT" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="ADC5"/>
+<pinref part="J5" gate="U1" pin="ADC5"/>
 <wire x1="40.64" y1="167.64" x2="38.1" y2="167.64" width="0.1524" layer="91"/>
 <label x="38.1" y="167.64" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -17952,28 +18392,28 @@ Test 4.7k (or more) for reduced power consumption </text>
 </net>
 <net name="TALON2_GPIOA" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="ADC2"/>
+<pinref part="J5" gate="U1" pin="ADC2"/>
 <wire x1="40.64" y1="177.8" x2="38.1" y2="177.8" width="0.1524" layer="91"/>
 <label x="38.1" y="177.8" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="TALON1_GPIOA" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="ADC3"/>
+<pinref part="J5" gate="U1" pin="ADC3"/>
 <wire x1="40.64" y1="175.26" x2="38.1" y2="175.26" width="0.1524" layer="91"/>
 <label x="38.1" y="175.26" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="TALON2_GPIOB" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="PWM2"/>
+<pinref part="J5" gate="U1" pin="PWM2"/>
 <wire x1="91.44" y1="134.62" x2="93.98" y2="134.62" width="0.1524" layer="91"/>
 <label x="93.98" y="134.62" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="TALON1_GPIOB" class="0">
 <segment>
-<pinref part="$3_178_$_2021-10-08_21-38-43" gate="U1" pin="PWM3"/>
+<pinref part="J5" gate="U1" pin="PWM3"/>
 <wire x1="91.44" y1="132.08" x2="93.98" y2="132.08" width="0.1524" layer="91"/>
 <label x="93.98" y="132.08" size="1.016" layer="95" xref="yes"/>
 </segment>
