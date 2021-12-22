@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="mm" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -3094,56 +3094,23 @@ Soure: &lt;a href="http://www.ti.com/lit/ds/symlink/ads7042.pdf"&gt; Data sheet 
 <wire x1="3.175" y1="-1.6" x2="-3.175" y2="-1.6" width="0.127" layer="48" style="shortdash"/>
 <text x="-3.81" y="2.54" size="0.6096" layer="25" font="vector" ratio="15" rot="R90">&gt;NAME</text>
 </package>
-<package name="DFN_4_2X2">
-<description>4 Pad DFN package, based on Sensirion SHTC1 design
-&lt;br&gt; &lt;a href = "https://media.digikey.com/pdf/Data%20Sheets/Sensirion%20PDFs/HT_DS_SHTC3_D1.pdf"&gt;Referance Datasheet&lt;/a&gt;</description>
-<smd name="EP" x="0" y="0" dx="0.7" dy="1.6" layer="1" rot="R180" cream="no"/>
-<smd name="4" x="0.95" y="0.5" dx="0.35" dy="0.55" layer="1" rot="R90" cream="no"/>
-<smd name="3" x="0.95" y="-0.5" dx="0.35" dy="0.55" layer="1" rot="R90" cream="no"/>
-<smd name="2" x="-0.95" y="-0.5" dx="0.35" dy="0.55" layer="1" rot="R90" cream="no"/>
-<smd name="1" x="-0.95" y="0.5" dx="0.35" dy="0.55" layer="1" rot="R90" cream="no"/>
-<polygon width="0" layer="31">
-<vertex x="-0.25" y="0.7"/>
-<vertex x="-0.25" y="-0.7"/>
-<vertex x="0.25" y="-0.7"/>
-<vertex x="0.25" y="0.7"/>
+<package name="SHT4X">
+<description>&lt;b&gt;Footprint for SHT40/41&lt;/b&gt;&lt;br&gt;&lt;a href = "https://www.sensirion.com/fileadmin/user_upload/customers/sensirion/Dokumente/2_Humidity_Sensors/Datasheets/Sensirion_Humidity_Sensors_SHT4x_Datasheet.pdf"&gt;Datasheet&lt;/a&gt;</description>
+<smd name="2" x="-0.7" y="-0.4" dx="0.5" dy="0.3" layer="1"/>
+<smd name="3" x="0.7" y="-0.4" dx="0.5" dy="0.3" layer="1"/>
+<smd name="4" x="0.7" y="0.4" dx="0.5" dy="0.3" layer="1"/>
+<smd name="1" x="-0.7" y="0.4" dx="0.5" dy="0.3" layer="1"/>
+<wire x1="-0.75" y1="0.75" x2="-0.75" y2="-0.75" width="0.127" layer="21"/>
+<wire x1="-0.75" y1="-0.75" x2="0.75" y2="-0.75" width="0.127" layer="21"/>
+<wire x1="0.75" y1="-0.75" x2="0.75" y2="0.75" width="0.127" layer="21"/>
+<wire x1="0.75" y1="0.75" x2="-0.75" y2="0.75" width="0.127" layer="21"/>
+<polygon width="0.127" layer="21">
+<vertex x="-0.635" y="0.635"/>
+<vertex x="-0.635" y="0"/>
+<vertex x="0" y="0"/>
+<vertex x="0" y="0.635"/>
 </polygon>
-<polygon width="0" layer="31">
-<vertex x="-0.775" y="-0.325"/>
-<vertex x="-0.775" y="-0.675"/>
-<vertex x="-1.325" y="-0.675"/>
-<vertex x="-1.325" y="-0.325"/>
-</polygon>
-<polygon width="0" layer="31">
-<vertex x="-0.775" y="-0.325"/>
-<vertex x="-0.775" y="-0.675"/>
-<vertex x="-1.325" y="-0.675"/>
-<vertex x="-1.325" y="-0.325"/>
-</polygon>
-<polygon width="0" layer="31">
-<vertex x="-0.775" y="0.675"/>
-<vertex x="-0.775" y="0.325"/>
-<vertex x="-1.325" y="0.325"/>
-<vertex x="-1.325" y="0.675"/>
-</polygon>
-<polygon width="0" layer="31">
-<vertex x="0.775" y="-0.675"/>
-<vertex x="0.775" y="-0.325"/>
-<vertex x="1.325" y="-0.325"/>
-<vertex x="1.325" y="-0.675"/>
-</polygon>
-<polygon width="0" layer="31">
-<vertex x="0.775" y="0.325"/>
-<vertex x="0.775" y="0.675"/>
-<vertex x="1.325" y="0.675"/>
-<vertex x="1.325" y="0.325"/>
-</polygon>
-<wire x1="-1" y1="1" x2="-1" y2="-1" width="0.127" layer="21"/>
-<wire x1="-1" y1="-1" x2="1" y2="-1" width="0.127" layer="21"/>
-<wire x1="1" y1="-1" x2="1" y2="1" width="0.127" layer="21"/>
-<wire x1="1" y1="1" x2="-1" y2="1" width="0.127" layer="21"/>
-<circle x="-1.27" y="1.27" radius="0.127" width="0.127" layer="21"/>
-<text x="0" y="-1.524" size="0.6096" layer="25" font="vector" ratio="15" align="center">&gt;NAME</text>
+<text x="0" y="-1.27" size="0.6096" layer="25" font="vector" ratio="15" align="center">&gt;NAME</text>
 </package>
 <package name="WE-MAPI(2.5X2)">
 <description>Wurth MAPI series inductor, with 2.5mmx2mm package, shielded  
@@ -7292,16 +7259,16 @@ Digikey:&lt;br&gt;
 </device>
 </devices>
 </deviceset>
-<deviceset name="SHTC*" prefix="U">
-<description>&lt;b&gt;SHTCx&lt;/b&gt; - Digital Humidity and Temperature Sensor
+<deviceset name="SHT4*" prefix="U">
+<description>&lt;b&gt;SHT4x&lt;/b&gt; - Digital Humidity and Temperature Sensor
  
-&lt;p&gt;Characteristics (for SHTC3):
+&lt;p&gt;Characteristics (for SHT35):
 &lt;ul&gt;
-&lt;li&gt;Vcc: 1.62V ~ 3.6V&lt;/li&gt;
+&lt;li&gt;Vcc: 1.08V ~ 3.6V&lt;/li&gt;
 &lt;li&gt;Humidity Resolution: 0.01% RH &lt;/li&gt;
-&lt;li&gt;Humidity Accuracy: &amp;plusmn;2% RH &lt;/li&gt;
+&lt;li&gt;Humidity Accuracy: &amp;plusmn;1.5% RH &lt;/li&gt;
 &lt;li&gt;Temperature Resolution: 0.01°C&lt;/li&gt;
-&lt;li&gt;Temperature Accuracy: 0.2°C&lt;/li&gt;
+&lt;li&gt;Temperature Accuracy: 0.1°C&lt;/li&gt;
 &lt;li&gt;Operating Temperature: -40°C to 125°C &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/p&gt;
@@ -7309,20 +7276,20 @@ Digikey:&lt;br&gt;
 
 &lt;p&gt;Digikey: &lt;br&gt;
 &lt;ul&gt;
-&lt;a href = "https://www.digikey.com/product-detail/en/sensirion-ag/SHTC3/1649-1100-1-ND/8628149"&gt;1649-1100-1-ND (SHTC3)&lt;/a&gt;&lt;br/&gt;
+&lt;a href = "https://www.digikey.com/en/products/detail/sensirion-ag/SHT40-AD1B-R3/14322709"&gt;1649-SHT40-AD1B-R3CT-ND (SHT40)&lt;/a&gt;&lt;br/&gt;
 
-&lt;a href = "https://www.digikey.com/product-detail/en/sensirion-ag/SHTC1/1649-1015-1-ND/5872297"&gt;1649-1015-1-ND (SHTC1)&lt;/a&gt;&lt;br/&gt;
+&lt;a href = "https://www.digikey.com/en/products/detail/sensirion-ag/SHT41-AD1B-R2/15296591"&gt;1649-SHT41-AD1B-R2CT-ND (SHT41)&lt;/a&gt;&lt;br/&gt;
 &lt;/p&gt;</description>
 <gates>
 <gate name="G$1" symbol="SENSOR_I2C" x="0" y="0"/>
 </gates>
 <devices>
-<device name="DFN" package="DFN_4_2X2">
+<device name="" package="SHT4X">
 <connects>
-<connect gate="G$1" pin="GND" pad="4 EP"/>
+<connect gate="G$1" pin="GND" pad="4"/>
 <connect gate="G$1" pin="SCL" pad="2"/>
-<connect gate="G$1" pin="SDA" pad="3"/>
-<connect gate="G$1" pin="VCC" pad="1"/>
+<connect gate="G$1" pin="SDA" pad="1"/>
+<connect gate="G$1" pin="VCC" pad="3"/>
 </connects>
 <technologies>
 <technology name="">
@@ -7331,17 +7298,17 @@ Digikey:&lt;br&gt;
 <attribute name="MF" value="" constant="no"/>
 <attribute name="MPN" value="" constant="no"/>
 </technology>
-<technology name="1">
-<attribute name="DIGIKEY" value="1649-1015-1-ND" constant="no"/>
-<attribute name="DISP" value="SHTC1" constant="no"/>
+<technology name="0">
+<attribute name="DIGIKEY" value="1649-SHT40-AD1B-R3CT-ND" constant="no"/>
+<attribute name="DISP" value="SHT40" constant="no"/>
 <attribute name="MF" value="Sensirion" constant="no"/>
-<attribute name="MPN" value="SHTC1" constant="no"/>
+<attribute name="MPN" value="SHT40-AD1B-R3" constant="no"/>
 </technology>
-<technology name="3">
-<attribute name="DIGIKEY" value="1649-1100-1-ND" constant="no"/>
-<attribute name="DISP" value="SHTC3" constant="no"/>
+<technology name="1">
+<attribute name="DIGIKEY" value="1649-SHT41-AD1B-R2CT-ND" constant="no"/>
+<attribute name="DISP" value="SHT41" constant="no"/>
 <attribute name="MF" value="Sensirion" constant="no"/>
-<attribute name="MPN" value="SHTC3" constant="no"/>
+<attribute name="MPN" value="SHT41-AD1B-R2" constant="no"/>
 </technology>
 </technologies>
 </device>
@@ -14449,7 +14416,7 @@ If either side is low, device is in tri-state anyway</text>
 <part name="R10" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="27" value="27R"/>
 <part name="D2" library="bschulz" deviceset="RCLAMP3654" device=""/>
 <part name="GND54" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="U7" library="bschulz" deviceset="SHTC*" device="DFN" technology="3"/>
+<part name="U7" library="bschulz" deviceset="SHT4*" device="" technology="0"/>
 <part name="GND55" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="C9" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="0.1UF" value="0.1uF"/>
 <part name="D6" library="bschulz" deviceset="DIODE_CC" device="SOT23" technology="BAT54C"/>
@@ -14469,6 +14436,12 @@ If either side is low, device is in tri-state anyway</text>
 <part name="U24" library="bschulz" deviceset="SN74LVC1G17" device="DCK"/>
 <part name="R49" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="100K"/>
 <part name="GND45" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="U28" library="bschulz" deviceset="FXMAR2102" device="UMLP"/>
+<part name="GND48" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="C51" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="0.1UF" value="0.1uF"/>
+<part name="GND49" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="C52" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="0.1UF" value="0.1uF"/>
+<part name="GND56" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -14489,7 +14462,7 @@ If either side is low, device is in tri-state anyway</text>
 <text x="91.44" y="142.24" size="2.54" layer="91" align="center">ADR: 0x15</text>
 <text x="81.28" y="12.7" size="2.54" layer="91" align="center">ADR: 0x10 ~ 0x1F</text>
 <text x="83.82" y="-68.58" size="2.54" layer="91" align="center">ADR: 0x10 ~ 0x1F</text>
-<text x="129.54" y="180.34" size="2.54" layer="91" align="center">ADR: 0x70</text>
+<text x="129.54" y="180.34" size="2.54" layer="91" align="center">ADR: 0x44</text>
 <text x="71.12" y="25.4" size="1.778" layer="91">ALPHA</text>
 <text x="73.66" y="-55.88" size="1.778" layer="91">BETA</text>
 </plain>
@@ -14778,6 +14751,27 @@ If either side is low, device is in tri-state anyway</text>
 <attribute name="NAME" x="237.2614" y="77.47" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="242.062" y="77.47" size="1.778" layer="96" rot="R90"/>
 </instance>
+<instance part="U28" gate="G$1" x="129.54" y="165.1" smashed="yes">
+<attribute name="DISP" x="130.81" y="174.244" size="1.27" layer="95" align="center"/>
+<attribute name="NAME" x="130.81" y="158.75" size="1.27" layer="95" ratio="15" align="center"/>
+</instance>
+<instance part="GND48" gate="1" x="116.84" y="157.48" smashed="yes">
+<attribute name="VALUE" x="114.3" y="154.94" size="1.778" layer="96"/>
+</instance>
+<instance part="C51" gate="G$1" x="99.06" y="167.64" smashed="yes">
+<attribute name="NAME" x="100.584" y="168.021" size="1.778" layer="95"/>
+<attribute name="VALUE" x="100.584" y="162.941" size="1.778" layer="96"/>
+</instance>
+<instance part="GND49" gate="1" x="99.06" y="154.94" smashed="yes">
+<attribute name="VALUE" x="96.52" y="152.4" size="1.778" layer="96"/>
+</instance>
+<instance part="C52" gate="G$1" x="162.56" y="167.64" smashed="yes">
+<attribute name="NAME" x="164.084" y="168.021" size="1.778" layer="95"/>
+<attribute name="VALUE" x="164.084" y="162.941" size="1.778" layer="96"/>
+</instance>
+<instance part="GND56" gate="1" x="162.56" y="154.94" smashed="yes">
+<attribute name="VALUE" x="160.02" y="152.4" size="1.778" layer="96"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -14971,6 +14965,22 @@ If either side is low, device is in tri-state anyway</text>
 <pinref part="C9" gate="G$1" pin="2"/>
 <wire x1="109.22" y1="187.96" x2="109.22" y2="190.5" width="0.1524" layer="91"/>
 </segment>
+<segment>
+<pinref part="U28" gate="G$1" pin="GND"/>
+<wire x1="119.38" y1="162.56" x2="116.84" y2="162.56" width="0.1524" layer="91"/>
+<wire x1="116.84" y1="162.56" x2="116.84" y2="160.02" width="0.1524" layer="91"/>
+<pinref part="GND48" gate="1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="C51" gate="G$1" pin="2"/>
+<wire x1="99.06" y1="162.56" x2="99.06" y2="157.48" width="0.1524" layer="91"/>
+<pinref part="GND49" gate="1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="C52" gate="G$1" pin="2"/>
+<wire x1="162.56" y1="162.56" x2="162.56" y2="157.48" width="0.1524" layer="91"/>
+<pinref part="GND56" gate="1" pin="GND"/>
+</segment>
 </net>
 <net name="VUSB" class="0">
 <segment>
@@ -15126,11 +15136,6 @@ If either side is low, device is in tri-state anyway</text>
 </net>
 <net name="SDA" class="0">
 <segment>
-<pinref part="U1" gate="G$1" pin="A1"/>
-<wire x1="38.1" y1="121.92" x2="35.56" y2="121.92" width="0.1524" layer="91"/>
-<label x="35.56" y="121.92" size="1.016" layer="95" rot="R180" xref="yes"/>
-</segment>
-<segment>
 <pinref part="U9" gate="G$1" pin="A1"/>
 <wire x1="198.12" y1="111.76" x2="195.58" y2="111.76" width="0.1524" layer="91"/>
 <label x="195.58" y="111.76" size="1.016" layer="95" rot="R180" xref="yes"/>
@@ -15140,13 +15145,18 @@ If either side is low, device is in tri-state anyway</text>
 <wire x1="251.46" y1="149.86" x2="254" y2="149.86" width="0.1524" layer="91"/>
 <label x="254" y="149.86" size="0.8128" layer="95" xref="yes"/>
 </segment>
-</net>
-<net name="SCL" class="0">
+<segment>
+<pinref part="U28" gate="G$1" pin="A1"/>
+<wire x1="119.38" y1="167.64" x2="116.84" y2="167.64" width="0.1524" layer="91"/>
+<label x="116.84" y="167.64" size="1.016" layer="95" rot="R180" xref="yes"/>
+</segment>
 <segment>
 <pinref part="U1" gate="G$1" pin="A2"/>
 <wire x1="38.1" y1="119.38" x2="35.56" y2="119.38" width="0.1524" layer="91"/>
 <label x="35.56" y="119.38" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
+</net>
+<net name="SCL" class="0">
 <segment>
 <pinref part="U9" gate="G$1" pin="A2"/>
 <wire x1="198.12" y1="109.22" x2="195.58" y2="109.22" width="0.1524" layer="91"/>
@@ -15156,6 +15166,16 @@ If either side is low, device is in tri-state anyway</text>
 <pinref part="TP6" gate="G$1" pin="P$1"/>
 <wire x1="251.46" y1="144.78" x2="254" y2="144.78" width="0.1524" layer="91"/>
 <label x="254" y="144.78" size="0.8128" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U28" gate="G$1" pin="A2"/>
+<wire x1="119.38" y1="165.1" x2="116.84" y2="165.1" width="0.1524" layer="91"/>
+<label x="116.84" y="165.1" size="1.016" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U1" gate="G$1" pin="A1"/>
+<wire x1="38.1" y1="121.92" x2="35.56" y2="121.92" width="0.1524" layer="91"/>
+<label x="35.56" y="121.92" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="FAULT_BUS" class="0">
@@ -15188,24 +15208,9 @@ If either side is low, device is in tri-state anyway</text>
 </net>
 <net name="SDA_OB" class="0">
 <segment>
-<pinref part="U3" gate="G$1" pin="SDA"/>
-<wire x1="63.5" y1="165.1" x2="66.04" y2="165.1" width="0.1524" layer="91"/>
-<label x="66.04" y="165.1" size="1.016" layer="95" xref="yes"/>
-</segment>
-<segment>
 <pinref part="U4" gate="G$1" pin="SDA"/>
 <wire x1="63.5" y1="139.7" x2="66.04" y2="139.7" width="0.1524" layer="91"/>
 <label x="66.04" y="139.7" size="1.016" layer="95" xref="yes"/>
-</segment>
-<segment>
-<pinref part="U1" gate="G$1" pin="B1"/>
-<wire x1="60.96" y1="119.38" x2="63.5" y2="119.38" width="0.1524" layer="91"/>
-<label x="63.5" y="119.38" size="1.016" layer="95" xref="yes"/>
-</segment>
-<segment>
-<pinref part="U2" gate="G$1" pin="SDA"/>
-<wire x1="63.5" y1="190.5" x2="66.04" y2="190.5" width="0.1524" layer="91"/>
-<label x="66.04" y="190.5" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
 <pinref part="U6" gate="G$1" pin="DATA"/>
@@ -15218,31 +15223,16 @@ If either side is low, device is in tri-state anyway</text>
 <label x="58.42" y="58.42" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<pinref part="U7" gate="G$1" pin="SDA"/>
-<wire x1="142.24" y1="190.5" x2="144.78" y2="190.5" width="0.1524" layer="91"/>
-<label x="144.78" y="190.5" size="0.8128" layer="95" xref="yes"/>
-</segment>
-</net>
-<net name="SCL_OB" class="0">
-<segment>
-<pinref part="U3" gate="G$1" pin="SCL"/>
-<wire x1="63.5" y1="162.56" x2="66.04" y2="162.56" width="0.1524" layer="91"/>
-<label x="66.04" y="162.56" size="1.016" layer="95" xref="yes"/>
-</segment>
-<segment>
-<pinref part="U4" gate="G$1" pin="SCL"/>
-<wire x1="63.5" y1="137.16" x2="66.04" y2="137.16" width="0.1524" layer="91"/>
-<label x="66.04" y="137.16" size="1.016" layer="95" xref="yes"/>
-</segment>
-<segment>
 <pinref part="U1" gate="G$1" pin="B2"/>
 <wire x1="63.5" y1="116.84" x2="60.96" y2="116.84" width="0.1524" layer="91"/>
 <label x="63.5" y="116.84" size="1.016" layer="95" xref="yes"/>
 </segment>
+</net>
+<net name="SCL_OB" class="0">
 <segment>
-<pinref part="U2" gate="G$1" pin="SCL"/>
-<wire x1="63.5" y1="187.96" x2="66.04" y2="187.96" width="0.1524" layer="91"/>
-<label x="66.04" y="187.96" size="1.016" layer="95" xref="yes"/>
+<pinref part="U4" gate="G$1" pin="SCL"/>
+<wire x1="63.5" y1="137.16" x2="66.04" y2="137.16" width="0.1524" layer="91"/>
+<label x="66.04" y="137.16" size="1.016" layer="95" xref="yes"/>
 </segment>
 <segment>
 <pinref part="U6" gate="G$1" pin="CLK"/>
@@ -15255,9 +15245,9 @@ If either side is low, device is in tri-state anyway</text>
 <label x="58.42" y="60.96" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<pinref part="U7" gate="G$1" pin="SCL"/>
-<wire x1="142.24" y1="187.96" x2="144.78" y2="187.96" width="0.1524" layer="91"/>
-<label x="144.78" y="187.96" size="0.8128" layer="95" xref="yes"/>
+<pinref part="U1" gate="G$1" pin="B1"/>
+<wire x1="60.96" y1="119.38" x2="63.5" y2="119.38" width="0.1524" layer="91"/>
+<label x="63.5" y="119.38" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="I2C_OB_EN" class="0">
@@ -15265,6 +15255,11 @@ If either side is low, device is in tri-state anyway</text>
 <pinref part="U1" gate="G$1" pin="EN"/>
 <wire x1="60.96" y1="121.92" x2="63.5" y2="121.92" width="0.1524" layer="91"/>
 <label x="63.5" y="121.92" size="1.016" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U28" gate="G$1" pin="EN"/>
+<wire x1="142.24" y1="167.64" x2="144.78" y2="167.64" width="0.1524" layer="91"/>
+<label x="144.78" y="167.64" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="3V3_CORE" class="0">
@@ -15356,6 +15351,17 @@ If either side is low, device is in tri-state anyway</text>
 <wire x1="157.48" y1="129.54" x2="154.94" y2="129.54" width="0.1524" layer="91"/>
 <label x="154.94" y="129.54" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
+<segment>
+<pinref part="U28" gate="G$1" pin="VA"/>
+<wire x1="119.38" y1="170.18" x2="116.84" y2="170.18" width="0.1524" layer="91"/>
+<label x="116.84" y="170.18" size="1.016" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="C51" gate="G$1" pin="1"/>
+<wire x1="99.06" y1="170.18" x2="99.06" y2="172.72" width="0.1524" layer="91"/>
+<wire x1="99.06" y1="172.72" x2="96.52" y2="172.72" width="0.1524" layer="91"/>
+<label x="96.52" y="172.72" size="1.016" layer="95" rot="R180" xref="yes"/>
+</segment>
 </net>
 <net name="3V3_AUX" class="1">
 <segment>
@@ -15402,6 +15408,17 @@ If either side is low, device is in tri-state anyway</text>
 <wire x1="109.22" y1="198.12" x2="106.68" y2="198.12" width="0.1524" layer="91"/>
 <junction x="109.22" y="198.12"/>
 <label x="106.68" y="198.12" size="0.8128" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U28" gate="G$1" pin="VB"/>
+<wire x1="142.24" y1="170.18" x2="144.78" y2="170.18" width="0.1524" layer="91"/>
+<label x="144.78" y="170.18" size="1.016" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="C52" gate="G$1" pin="1"/>
+<wire x1="162.56" y1="170.18" x2="162.56" y2="172.72" width="0.1524" layer="91"/>
+<wire x1="162.56" y1="172.72" x2="165.1" y2="172.72" width="0.1524" layer="91"/>
+<label x="165.1" y="172.72" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MISO" class="0">
@@ -15693,6 +15710,50 @@ If either side is low, device is in tri-state anyway</text>
 <pinref part="R10" gate="G$1" pin="1"/>
 <wire x1="200.66" y1="48.26" x2="198.12" y2="48.26" width="0.1524" layer="91"/>
 <label x="198.12" y="48.26" size="0.8128" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SDA_AUX" class="0">
+<segment>
+<pinref part="U2" gate="G$1" pin="SDA"/>
+<wire x1="63.5" y1="190.5" x2="66.04" y2="190.5" width="0.1524" layer="91"/>
+<label x="66.04" y="190.5" size="1.016" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U3" gate="G$1" pin="SDA"/>
+<wire x1="63.5" y1="165.1" x2="66.04" y2="165.1" width="0.1524" layer="91"/>
+<label x="66.04" y="165.1" size="1.016" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U7" gate="G$1" pin="SDA"/>
+<wire x1="142.24" y1="190.5" x2="144.78" y2="190.5" width="0.1524" layer="91"/>
+<label x="144.78" y="190.5" size="0.8128" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U28" gate="G$1" pin="B1"/>
+<wire x1="142.24" y1="165.1" x2="144.78" y2="165.1" width="0.1524" layer="91"/>
+<label x="144.78" y="165.1" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="SCL_AUX" class="0">
+<segment>
+<pinref part="U2" gate="G$1" pin="SCL"/>
+<wire x1="63.5" y1="187.96" x2="66.04" y2="187.96" width="0.1524" layer="91"/>
+<label x="66.04" y="187.96" size="1.016" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U3" gate="G$1" pin="SCL"/>
+<wire x1="63.5" y1="162.56" x2="66.04" y2="162.56" width="0.1524" layer="91"/>
+<label x="66.04" y="162.56" size="1.016" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U7" gate="G$1" pin="SCL"/>
+<wire x1="142.24" y1="187.96" x2="144.78" y2="187.96" width="0.1524" layer="91"/>
+<label x="144.78" y="187.96" size="0.8128" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U28" gate="G$1" pin="B2"/>
+<wire x1="144.78" y1="162.56" x2="142.24" y2="162.56" width="0.1524" layer="91"/>
+<label x="144.78" y="162.56" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 </nets>
@@ -17656,11 +17717,6 @@ Test 4.7k (or more) for reduced power consumption </text>
 <label x="-55.88" y="307.34" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<pinref part="FB1" gate="G$1" pin="1"/>
-<wire x1="27.94" y1="55.88" x2="22.86" y2="55.88" width="0.1524" layer="91"/>
-<label x="22.86" y="55.88" size="1.016" layer="95" rot="R180" xref="yes"/>
-</segment>
-<segment>
 <pinref part="U23" gate="G$1" pin="SDA"/>
 <wire x1="241.3" y1="317.5" x2="243.84" y2="317.5" width="0.1524" layer="91"/>
 <label x="243.84" y="317.5" size="1.27" layer="95" xref="yes"/>
@@ -18122,11 +18178,6 @@ Test 4.7k (or more) for reduced power consumption </text>
 <pinref part="U18" gate="G$1" pin="SCL"/>
 <wire x1="-53.34" y1="304.8" x2="-55.88" y2="304.8" width="0.1524" layer="91"/>
 <label x="-55.88" y="304.8" size="1.016" layer="95" rot="R180" xref="yes"/>
-</segment>
-<segment>
-<pinref part="FB2" gate="G$1" pin="1"/>
-<wire x1="27.94" y1="48.26" x2="22.86" y2="48.26" width="0.1524" layer="91"/>
-<label x="22.86" y="48.26" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
 <pinref part="U23" gate="G$1" pin="SCL"/>
@@ -18843,6 +18894,20 @@ Test 4.7k (or more) for reduced power consumption </text>
 <pinref part="U18" gate="G$1" pin="GPA6"/>
 <wire x1="-22.86" y1="297.18" x2="-20.32" y2="297.18" width="0.1524" layer="91"/>
 <label x="-20.32" y="297.18" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="SDA_AUX" class="0">
+<segment>
+<pinref part="FB1" gate="G$1" pin="1"/>
+<wire x1="27.94" y1="55.88" x2="22.86" y2="55.88" width="0.1524" layer="91"/>
+<label x="22.86" y="55.88" size="1.016" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SCL_AUX" class="0">
+<segment>
+<pinref part="FB2" gate="G$1" pin="1"/>
+<wire x1="27.94" y1="48.26" x2="22.86" y2="48.26" width="0.1524" layer="91"/>
+<label x="22.86" y="48.26" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 </nets>
