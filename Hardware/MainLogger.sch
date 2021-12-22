@@ -18850,8 +18850,8 @@ Test 4.7k (or more) for reduced power consumption </text>
 <sheet>
 <plain>
 <text x="12.7" y="101.6" size="1.016" layer="91">Should this be 3V3_AUX?</text>
-<text x="20.32" y="40.64" size="1.016" layer="91">Connect Ax HIGH to avoid conflict with external EEPROMs</text>
-<text x="40.64" y="45.72" size="2.54" layer="91" align="center">ADR: 0x57</text>
+<text x="20.32" y="40.64" size="1.016" layer="91">Connect Ax HIGH to avoid conflict with external EEPROMs and RTC EEPROM</text>
+<text x="40.64" y="45.72" size="2.54" layer="91" align="center">ADR: 0x50</text>
 </plain>
 <instances>
 <instance part="U27" gate="G$1" x="40.64" y="60.96" smashed="yes">
