@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="mm" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -13741,6 +13741,8 @@ Key = E&lt;br&gt;</description>
 <part name="GND1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="U1" library="bschulz" deviceset="SN74AUP1G08" device="DCK"/>
 <part name="GND2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="R2" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="1K" value="1k"/>
+<part name="R3" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="1K" value="1k"/>
 </parts>
 <sheets>
 <sheet>
@@ -13825,6 +13827,14 @@ If either side is low, device is in tri-state anyway</text>
 <instance part="GND2" gate="1" x="48.26" y="91.44" smashed="yes">
 <attribute name="VALUE" x="45.72" y="88.9" size="1.778" layer="96"/>
 </instance>
+<instance part="R2" gate="G$1" x="81.28" y="58.42" smashed="yes">
+<attribute name="NAME" x="77.47" y="59.9186" size="1.778" layer="95"/>
+<attribute name="VALUE" x="77.47" y="55.118" size="1.778" layer="96"/>
+</instance>
+<instance part="R3" gate="G$1" x="81.28" y="48.26" smashed="yes">
+<attribute name="NAME" x="77.47" y="49.7586" size="1.778" layer="95"/>
+<attribute name="VALUE" x="77.47" y="44.958" size="1.778" layer="96"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -13874,25 +13884,11 @@ If either side is low, device is in tri-state anyway</text>
 <pinref part="U3" gate="G$1" pin="1B0"/>
 </segment>
 </net>
-<net name="GPIOA" class="0">
-<segment>
-<wire x1="73.66" y1="58.42" x2="76.2" y2="58.42" width="0.1524" layer="91"/>
-<label x="76.2" y="58.42" size="1.016" layer="95" xref="yes"/>
-<pinref part="U3" gate="G$1" pin="1B1"/>
-</segment>
-</net>
 <net name="RX" class="0">
 <segment>
 <wire x1="73.66" y1="53.34" x2="76.2" y2="53.34" width="0.1524" layer="91"/>
 <label x="76.2" y="53.34" size="1.016" layer="95" xref="yes"/>
 <pinref part="U3" gate="G$1" pin="2B0"/>
-</segment>
-</net>
-<net name="GPIOB" class="0">
-<segment>
-<wire x1="73.66" y1="48.26" x2="76.2" y2="48.26" width="0.1524" layer="91"/>
-<label x="76.2" y="48.26" size="1.016" layer="95" xref="yes"/>
-<pinref part="U3" gate="G$1" pin="2B1"/>
 </segment>
 </net>
 <net name="SEL" class="0">
@@ -14098,6 +14094,34 @@ If either side is low, device is in tri-state anyway</text>
 <wire x1="71.12" y1="81.28" x2="86.36" y2="81.28" width="0.1524" layer="91"/>
 <label x="86.36" y="81.28" size="1.016" layer="95" xref="yes"/>
 <pinref part="U2" gate="G$1" pin="EN"/>
+</segment>
+</net>
+<net name="N$1" class="0">
+<segment>
+<pinref part="R3" gate="G$1" pin="1"/>
+<pinref part="U3" gate="G$1" pin="2B1"/>
+<wire x1="76.2" y1="48.26" x2="73.66" y2="48.26" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$2" class="0">
+<segment>
+<pinref part="R2" gate="G$1" pin="1"/>
+<pinref part="U3" gate="G$1" pin="1B1"/>
+<wire x1="76.2" y1="58.42" x2="73.66" y2="58.42" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="GPIOA" class="0">
+<segment>
+<pinref part="R2" gate="G$1" pin="2"/>
+<wire x1="86.36" y1="58.42" x2="88.9" y2="58.42" width="0.1524" layer="91"/>
+<label x="88.9" y="58.42" size="0.8128" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="GPIOB" class="0">
+<segment>
+<pinref part="R3" gate="G$1" pin="2"/>
+<wire x1="86.36" y1="48.26" x2="88.9" y2="48.26" width="0.1524" layer="91"/>
+<label x="88.9" y="48.26" size="0.8128" layer="95" xref="yes"/>
 </segment>
 </net>
 </nets>
