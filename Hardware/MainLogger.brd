@@ -54,9 +54,9 @@
 <layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
 <layer number="45" name="Holes" color="7" fill="1" visible="no" active="yes"/>
 <layer number="46" name="Milling" color="3" fill="1" visible="no" active="yes"/>
-<layer number="47" name="Measures" color="7" fill="1" visible="no" active="yes"/>
-<layer number="48" name="Document" color="7" fill="1" visible="no" active="yes"/>
-<layer number="49" name="Reference" color="7" fill="1" visible="no" active="yes"/>
+<layer number="47" name="Measures" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="48" name="Document" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="49" name="Reference" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="50" name="dxf" color="7" fill="1" visible="no" active="no"/>
 <layer number="51" name="tDocu" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="52" name="bDocu" color="7" fill="1" visible="yes" active="yes"/>
@@ -272,6 +272,11 @@ SENSING</text>
 <text x="86.741" y="36.576" size="1.27" layer="51" font="vector" ratio="15" rot="R180" align="center">Ext SIM</text>
 <text x="81.534" y="21.082" size="1.27" layer="51" font="vector" ratio="15" align="center">uSD Card</text>
 <text x="13.843" y="19.431" size="1.27" layer="51" font="vector" ratio="15" rot="SR270" align="center">Battery</text>
+<dimension x1="3.048" y1="3.048" x2="86.952" y2="2.921" x3="44.987071875" y3="-5.55651875" textsize="1.778" layer="47"/>
+<dimension x1="3.048" y1="66.952" x2="3.048" y2="3.048" x3="-6.604" y3="35" textsize="1.778" layer="47"/>
+<dimension x1="95.842" y1="66.952" x2="3.048" y2="66.952" x3="49.445" y3="81.026" textsize="1.778" layer="47"/>
+<dimension x1="15.875" y1="66.167" x2="45" y2="75.311" x3="30.4375" y3="76.2" textsize="1.778" layer="47" dtype="horizontal"/>
+<dimension x1="86.741" y1="70.739" x2="45" y2="75.184" x3="65.8705" y3="76.2" textsize="1.778" layer="47" dtype="horizontal"/>
 </plain>
 <libraries>
 <library name="bschulz">
@@ -3793,7 +3798,7 @@ Please make sure your boards conform to these design rules.
 <attribute name="NAME" x="69.215" y="69.088" size="0.6096" layer="25" font="vector" ratio="15" rot="R180" align="center"/>
 <attribute name="VALUE" x="69.215" y="69.088" size="0.6096" layer="27" font="vector" ratio="15" rot="R180" align="center"/>
 </element>
-<element name="R49" library="bschulz_passives" package="R0402" value="" x="58.42" y="37.465" smashed="yes">
+<element name="R49" library="bschulz_passives" package="R0402" value="100k" x="58.42" y="37.465" smashed="yes">
 <attribute name="DIGIKEY" value="311-100KLRCT-ND" x="58.42" y="37.465" size="1.778" layer="27" display="off"/>
 <attribute name="MF" value="Yageo" x="58.42" y="37.465" size="1.778" layer="27" display="off"/>
 <attribute name="MPN" value="RC0402FR-07100KL" x="58.42" y="37.465" size="1.778" layer="27" display="off"/>
