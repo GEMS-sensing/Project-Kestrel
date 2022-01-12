@@ -1,0 +1,6 @@
+[submodule "Software/KestrelSerialDemo_Particle/lib/MCP7940_Library"]
+	path = Software/KestrelSerialDemo_Particle/lib/MCP7940_Library
+	url = https://github.com/bschulz1701/MCP7940_Library.git
+[submodule "Software/KestrelSleepTest/lib/MCP23018"]
+	path = Software/KestrelSleepTest/lib/MCP23018
+	url = https://github.com/gemsiot/MCP23018.git
