@@ -14377,7 +14377,7 @@ If either side is low, device is in tri-state anyway</text>
 <part name="R11" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="1M" value="1M"/>
 <part name="J5" library="bschulz" deviceset="SIM_CD" device="NANO_SF72"/>
 <part name="U24" library="bschulz" deviceset="SN74LVC1G17" device="DCK"/>
-<part name="R49" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="100K"/>
+<part name="R49" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="100K" value="100k"/>
 <part name="GND45" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="U28" library="bschulz" deviceset="FXMAR2102" device="UMLP"/>
 <part name="GND48" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
