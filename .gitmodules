@@ -4,3 +4,36 @@
 [submodule "Software/KestrelSleepTest/lib/MCP23018"]
 	path = Software/KestrelSleepTest/lib/MCP23018
 	url = https://github.com/gemsiot/MCP23018.git
+[submodule "Software/KestrelSerialDemo_Particle/lib/Adafruit_ADS1X15"]
+	path = Software/KestrelSerialDemo_Particle/lib/Adafruit_ADS1X15
+	url = https://github.com/gemsiot/Adafruit_ADS1X15.git
+[submodule "Software/KestrelSerialDemo_Particle/lib/Adafruit_BusIO"]
+	path = Software/KestrelSerialDemo_Particle/lib/Adafruit_BusIO
+	url = https://github.com/adafruit/Adafruit_BusIO.git
+[submodule "Software/KestrelSerialDemo_Particle/lib/Sparkfun_Ublox_Arduino_Library"]
+	path = Software/KestrelSerialDemo_Particle/lib/Sparkfun_Ublox_Arduino_Library
+	url = https://github.com/sparkfun/SparkFun_Ublox_Arduino_Library.git
+[submodule "Software/KestrelSerialDemo_Particle/lib/Adafruit_SHT31"]
+	path = Software/KestrelSerialDemo_Particle/lib/Adafruit_SHT31
+	url = https://github.com/gemsiot/Adafruit_SHT31.git
+[submodule "Software/KestrelSerialDemo_Particle/lib/DPS368-Library-Arduino"]
+	path = Software/KestrelSerialDemo_Particle/lib/DPS368-Library-Arduino
+	url = https://github.com/gemsiot/DPS368-Library-Arduino.git
+[submodule "Software/KestrelSerialDemo_Particle/lib/MCP23018"]
+	path = Software/KestrelSerialDemo_Particle/lib/MCP23018
+	url = https://github.com/gemsiot/MCP23018.git
+[submodule "Software/KestrelSerialDemo_Particle/lib/PAC1932_Library"]
+	path = Software/KestrelSerialDemo_Particle/lib/PAC1932_Library
+	url = https://github.com/bschulz1701/PAC1932_Library.git
+[submodule "Software/KestrelSerialDemo_Particle/lib/PAC9634"]
+	path = Software/KestrelSerialDemo_Particle/lib/PAC9634
+	url = https://github.com/gemsiot/PCA9634.git
+[submodule "Software/KestrelSerialDemo_Particle/lib/SdFat"]
+	path = Software/KestrelSerialDemo_Particle/lib/SdFat
+	url = https://github.com/greiman/SdFat.git
+[submodule "Software/KestrelSerialDemo_Particle/lib/SHTC3_Library"]
+	path = Software/KestrelSerialDemo_Particle/lib/SHTC3_Library
+	url = https://github.com/bschulz1701/SHTC3_Library.git
+[submodule "Software/KestrelSerialDemo_Particle/lib/VEML3328"]
+	path = Software/KestrelSerialDemo_Particle/lib/VEML3328
+	url = https://github.com/gemsiot/VEML3328.git
