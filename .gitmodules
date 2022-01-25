@@ -7,9 +7,6 @@
 [submodule "Software/KestrelSerialDemo_Particle/lib/Adafruit_ADS1X15"]
 	path = Software/KestrelSerialDemo_Particle/lib/Adafruit_ADS1X15
 	url = https://github.com/gemsiot/Adafruit_ADS1X15.git
-[submodule "Software/KestrelSerialDemo_Particle/lib/Adafruit_BusIO"]
-	path = Software/KestrelSerialDemo_Particle/lib/Adafruit_BusIO
-	url = https://github.com/adafruit/Adafruit_BusIO.git
 [submodule "Software/KestrelSerialDemo_Particle/lib/Sparkfun_Ublox_Arduino_Library"]
 	path = Software/KestrelSerialDemo_Particle/lib/Sparkfun_Ublox_Arduino_Library
 	url = https://github.com/sparkfun/SparkFun_Ublox_Arduino_Library.git
