@@ -14166,7 +14166,7 @@ If either side is low, device is in tri-state anyway</text>
 <part name="GND29" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="BT1" library="bschulz" deviceset="BATTERY_COIN" device="ML621"/>
 <part name="GND30" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="R18" library="bschulz_passives" deviceset="R-EU_" device="R0603" technology="1K" value="1k"/>
+<part name="R18" library="bschulz_passives" deviceset="R-EU_" device="R0603" technology="1K" value="750R"/>
 <part name="D4" library="bschulz" deviceset="DIODE_CC" device="SOT23" technology="BAT54C" value="BAT54C"/>
 <part name="U21" library="bschulz" deviceset="MCP794*" device="SOIC" technology="12" value="MCP79412SOIC"/>
 <part name="GND46" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
@@ -14387,6 +14387,9 @@ If either side is low, device is in tri-state anyway</text>
 <part name="GND56" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="U29" library="bschulz" deviceset="SIT1552" device=""/>
 <part name="GND44" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="D19" library="bschulz" deviceset="DIODE_SCHOTTKY" device="SOD-323">
+<attribute name="DIGIKEY" value="BAT54WS-TPCT-ND"/>
+</part>
 </parts>
 <sheets>
 <sheet>
@@ -15906,19 +15909,19 @@ Low when using USB</text>
 <instance part="GND29" gate="1" x="66.04" y="76.2" smashed="yes">
 <attribute name="VALUE" x="63.5" y="73.66" size="1.778" layer="96"/>
 </instance>
-<instance part="BT1" gate="G$1" x="101.6" y="81.28" smashed="yes">
-<attribute name="NAME" x="97.282" y="82.55" size="1.27" layer="95" rot="R90" align="center"/>
+<instance part="BT1" gate="G$1" x="99.06" y="73.66" smashed="yes">
+<attribute name="NAME" x="94.742" y="74.93" size="1.27" layer="95" rot="R90" align="center"/>
 </instance>
-<instance part="GND30" gate="1" x="101.6" y="73.66" smashed="yes">
-<attribute name="VALUE" x="99.06" y="71.12" size="1.778" layer="96"/>
+<instance part="GND30" gate="1" x="99.06" y="66.04" smashed="yes">
+<attribute name="VALUE" x="96.52" y="63.5" size="1.778" layer="96"/>
 </instance>
-<instance part="R18" gate="G$1" x="88.9" y="86.36" smashed="yes">
-<attribute name="NAME" x="85.09" y="87.8586" size="1.778" layer="95"/>
-<attribute name="VALUE" x="85.09" y="83.058" size="1.778" layer="96"/>
+<instance part="R18" gate="G$1" x="99.06" y="86.36" smashed="yes" rot="R270">
+<attribute name="NAME" x="100.5586" y="90.17" size="1.778" layer="95" rot="R270"/>
+<attribute name="VALUE" x="95.758" y="90.17" size="1.778" layer="96" rot="R270"/>
 </instance>
-<instance part="D4" gate="G$1" x="114.3" y="78.74" smashed="yes" rot="R270">
-<attribute name="NAME" x="116.3066" y="77.978" size="1.778" layer="95" rot="R270"/>
-<attribute name="VALUE" x="110.3376" y="83.058" size="1.778" layer="96" rot="R270"/>
+<instance part="D4" gate="G$1" x="124.46" y="78.74" smashed="yes" rot="R270">
+<attribute name="NAME" x="126.4666" y="77.978" size="1.778" layer="95" rot="R270"/>
+<attribute name="VALUE" x="120.4976" y="83.058" size="1.778" layer="96" rot="R270"/>
 </instance>
 <instance part="U14" gate="G$1" x="58.42" y="182.88" smashed="yes">
 <attribute name="DISP" x="58.42" y="189.484" size="1.778" layer="95" ratio="15" align="center"/>
@@ -16099,6 +16102,10 @@ Low when using USB</text>
 <attribute name="NAME" x="243.078" y="168.1734" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="248.158" y="174.1424" size="1.778" layer="96" rot="R180"/>
 </instance>
+<instance part="D19" gate="G$1" x="81.28" y="91.44" smashed="yes">
+<attribute name="NAME" x="78.994" y="93.345" size="1.778" layer="95"/>
+<attribute name="VALUE" x="78.994" y="88.011" size="1.778" layer="96"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -16200,7 +16207,7 @@ Low when using USB</text>
 <segment>
 <pinref part="GND30" gate="1" pin="GND"/>
 <pinref part="BT1" gate="G$1" pin="-"/>
-<wire x1="101.6" y1="76.2" x2="101.6" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="99.06" y1="68.58" x2="99.06" y2="71.12" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="C15" gate="G$1" pin="2"/>
@@ -16412,9 +16419,9 @@ Low when using USB</text>
 </segment>
 <segment>
 <pinref part="D4" gate="G$1" pin="A2"/>
-<wire x1="114.3" y1="73.66" x2="114.3" y2="66.04" width="0.1524" layer="91"/>
-<wire x1="114.3" y1="66.04" x2="109.22" y2="66.04" width="0.1524" layer="91"/>
-<label x="109.22" y="66.04" size="1.016" layer="95" rot="R180" xref="yes"/>
+<wire x1="124.46" y1="73.66" x2="124.46" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="124.46" y1="66.04" x2="119.38" y2="66.04" width="0.1524" layer="91"/>
+<label x="119.38" y="66.04" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="REGN" class="0">
@@ -16477,17 +16484,6 @@ Low when using USB</text>
 <pinref part="R36" gate="G$1" pin="2"/>
 <wire x1="259.08" y1="195.58" x2="264.16" y2="195.58" width="0.1524" layer="91"/>
 <label x="264.16" y="195.58" size="1.016" layer="95" xref="yes"/>
-</segment>
-<segment>
-<pinref part="U13" gate="G$1" pin="EN"/>
-<pinref part="U13" gate="G$1" pin="VIN"/>
-<wire x1="38.1" y1="81.28" x2="38.1" y2="86.36" width="0.1524" layer="91"/>
-<pinref part="C14" gate="G$1" pin="1"/>
-<wire x1="38.1" y1="86.36" x2="27.94" y2="86.36" width="0.1524" layer="91"/>
-<junction x="38.1" y="86.36"/>
-<wire x1="27.94" y1="86.36" x2="22.86" y2="86.36" width="0.1524" layer="91"/>
-<junction x="27.94" y="86.36"/>
-<label x="22.86" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
 <pinref part="U17" gate="G$1" pin="VIN"/>
@@ -16614,31 +16610,33 @@ Low when using USB</text>
 <pinref part="U13" gate="G$1" pin="VOUT"/>
 <pinref part="C20" gate="G$1" pin="1"/>
 <wire x1="63.5" y1="86.36" x2="73.66" y2="86.36" width="0.1524" layer="91"/>
-<wire x1="73.66" y1="86.36" x2="83.82" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="73.66" y1="86.36" x2="73.66" y2="91.44" width="0.1524" layer="91"/>
 <junction x="73.66" y="86.36"/>
-<pinref part="R18" gate="G$1" pin="1"/>
+<pinref part="D19" gate="G$1" pin="A"/>
+<wire x1="73.66" y1="91.44" x2="78.74" y2="91.44" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="BCKP_GPS" class="0">
 <segment>
-<pinref part="R18" gate="G$1" pin="2"/>
-<pinref part="BT1" gate="G$1" pin="+"/>
-<wire x1="93.98" y1="86.36" x2="101.6" y2="86.36" width="0.1524" layer="91"/>
-<junction x="101.6" y="86.36"/>
+<label x="116.84" y="91.44" size="1.016" layer="95" xref="yes"/>
+<pinref part="D19" gate="G$1" pin="C"/>
+<pinref part="R18" gate="G$1" pin="1"/>
+<wire x1="83.82" y1="91.44" x2="99.06" y2="91.44" width="0.1524" layer="91"/>
+<wire x1="99.06" y1="91.44" x2="111.76" y2="91.44" width="0.1524" layer="91"/>
+<junction x="99.06" y="91.44"/>
+<wire x1="111.76" y1="91.44" x2="116.84" y2="91.44" width="0.1524" layer="91"/>
+<wire x1="111.76" y1="91.44" x2="111.76" y2="86.36" width="0.1524" layer="91"/>
+<junction x="111.76" y="91.44"/>
 <pinref part="D4" gate="G$1" pin="A1"/>
-<wire x1="101.6" y1="86.36" x2="114.3" y2="86.36" width="0.1524" layer="91"/>
-<wire x1="114.3" y1="86.36" x2="114.3" y2="83.82" width="0.1524" layer="91"/>
-<wire x1="101.6" y1="86.36" x2="101.6" y2="91.44" width="0.1524" layer="91"/>
-<junction x="101.6" y="86.36"/>
-<wire x1="101.6" y1="91.44" x2="106.68" y2="91.44" width="0.1524" layer="91"/>
-<label x="106.68" y="91.44" size="1.016" layer="95" xref="yes"/>
+<wire x1="124.46" y1="86.36" x2="124.46" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="111.76" y1="86.36" x2="124.46" y2="86.36" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="BCKP_RTC" class="0">
 <segment>
 <pinref part="D4" gate="G$1" pin="C"/>
-<wire x1="116.84" y1="78.74" x2="121.92" y2="78.74" width="0.1524" layer="91"/>
-<label x="121.92" y="78.74" size="1.016" layer="95" xref="yes"/>
+<wire x1="127" y1="78.74" x2="132.08" y2="78.74" width="0.1524" layer="91"/>
+<label x="132.08" y="78.74" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="3V3_CORE" class="0">
@@ -16803,6 +16801,17 @@ Low when using USB</text>
 <junction x="45.72" y="185.42"/>
 <label x="27.94" y="185.42" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
+<segment>
+<pinref part="U13" gate="G$1" pin="EN"/>
+<pinref part="U13" gate="G$1" pin="VIN"/>
+<wire x1="38.1" y1="81.28" x2="38.1" y2="86.36" width="0.1524" layer="91"/>
+<pinref part="C14" gate="G$1" pin="1"/>
+<wire x1="38.1" y1="86.36" x2="27.94" y2="86.36" width="0.1524" layer="91"/>
+<junction x="38.1" y="86.36"/>
+<wire x1="27.94" y1="86.36" x2="22.86" y2="86.36" width="0.1524" layer="91"/>
+<junction x="27.94" y="86.36"/>
+<label x="22.86" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
 </net>
 <net name="3V3_BULK+" class="0">
 <segment>
@@ -16901,6 +16910,13 @@ Low when using USB</text>
 <pinref part="U17" gate="G$1" pin="EN"/>
 <wire x1="203.2" y1="76.2" x2="198.12" y2="76.2" width="0.1524" layer="91"/>
 <label x="198.12" y="76.2" size="0.8128" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="N$7" class="0">
+<segment>
+<pinref part="BT1" gate="G$1" pin="+"/>
+<pinref part="R18" gate="G$1" pin="2"/>
+<wire x1="99.06" y1="78.74" x2="99.06" y2="81.28" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
