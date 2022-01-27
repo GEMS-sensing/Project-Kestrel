@@ -27,9 +27,10 @@ void TestAccel();
 void TestCSA();
 void PrintVIFormat(float Voltage, float Current);
 boolean TestSD();
-void TestFRAM();
+boolean ReadSD();
+void TestFRAM(boolean ReadPrev, boolean ReadAll);
 void ReadRTC();
-void TestRTC();
+void TestRTC(boolean ReadStorage, boolean ReadAll);
 void TestLED();
 void TestBattery();
 uint16_t GetBatteryData(uint8_t Reg);
@@ -271,6 +272,7 @@ void setup()
 
 	I2C_OnBoardEn(true); //RESTORE
 	// Wire.setClock(10000); //DEBUG!
+	Wire.setClock(400000); //Confirm operation in fast mode
 	Wire.begin();
 	// pinSetDriveStrength(D0, DriveStrength::HIGH);
 	// pinSetDriveStrength(D1, DriveStrength::HIGH);
@@ -416,14 +418,37 @@ void loop()
 			TestSD(); //Call SD test
 		}
 
+		if(ReadString.equalsIgnoreCase("SDRead")) {
+			ReadSD(); //Call SD test
+		}
+
 		if(ReadString.equalsIgnoreCase("FRAM")) {
-			TestFRAM(); //Call FRAM test
+			TestFRAM(false, false); //Call FRAM test
+		}
+
+		if(ReadString.equalsIgnoreCase("FRAMRead")) {
+			TestFRAM(true, false); //Read the last FRAM write location
+		}
+
+		if(ReadString.equalsIgnoreCase("FRAMReadAll")) {
+			TestFRAM(false, true); //Dump all FRAM data, Serial Bomb Incoming...
 		}
 
 		if(ReadString.equalsIgnoreCase("RTC")) {
-			TestRTC(); //Call RTC test
+			TestRTC(false, false); //Call RTC test
 			//Include EEPROM??
 		}
+
+		if(ReadString.equalsIgnoreCase("RTCRead")) {
+			TestRTC(true, false); //Read the last RTC EEPROM/SRAM data
+			//Include EEPROM??
+		}
+
+		if(ReadString.equalsIgnoreCase("RTCReadAll")) {
+			TestRTC(false, true); //Dump all EEPROM/SRAM data, Serial Bomb Incoming...
+			//Include EEPROM??
+		}
+
 
 		if(ReadString.equalsIgnoreCase("Time")) {
 			ReadRTC(); //Call RTC read only
@@ -1234,8 +1259,8 @@ boolean TestSD()
 
 	boolean SDError = false;
 	pinMode(Pins::SD_CS, OUTPUT);
-	SPI.beginTransaction(SPISettings(4000000, MSBFIRST, SPI_MODE0));
-	// SPI.beginTransaction(SPISettings(20000000, MSBFIRST, SPI_MODE0)); //Test max speed mode
+	// SPI.beginTransaction(SPISettings(4000000, MSBFIRST, SPI_MODE0));
+	SPI.beginTransaction(SPISettings(20000000, MSBFIRST, SPI_MODE0)); //Test max speed mode
 	// SPI.setDataMode(SPI_MODE0);
 	// SPI.setClockDivider(SPI_CLOCK_DIV2); //Sts SPI clock to 4 MHz for an 8 MHz system clock
 	if(ioAlpha.digitalRead(PinsIOAlpha::SD_CD)) {
@@ -1311,67 +1336,150 @@ boolean TestSD()
 
 	Serial.print("\n");
 
-	SD.remove(FileNameC); //Remove dummy file created 
+	// SD.remove(FileNameC); //Remove dummy file created 
 	Serial.print("\tResult: ");
 	Serial.println(SDError);
 	return SDError;
 }
 
-void TestFRAM() 
+boolean ReadSD() 
+{
+	I2C_GlobalEn(false);
+	I2C_OnBoardEn(true);
+	ioAlpha.pinMode(PinsIOAlpha::SD_CD, INPUT);
+	ioAlpha.pinMode(PinsIOAlpha::SD_EN, OUTPUT);
+
+	ioAlpha.digitalWrite(PinsIOAlpha::SD_EN, HIGH); //Turn on 3v3 to SD
+
+	boolean SDError = false;
+	pinMode(Pins::SD_CS, OUTPUT);
+	SPI.beginTransaction(SPISettings(4000000, MSBFIRST, SPI_MODE0));
+	// SPI.beginTransaction(SPISettings(20000000, MSBFIRST, SPI_MODE0)); //Test max speed mode
+	// SPI.setDataMode(SPI_MODE0);
+	// SPI.setClockDivider(SPI_CLOCK_DIV2); //Sts SPI clock to 4 MHz for an 8 MHz system clock
+	if(ioAlpha.digitalRead(PinsIOAlpha::SD_CD)) {
+		Serial.println("\tERROR: SD Not Inserted");
+		return SDError;
+	}
+
+	if(!SD_Init) {
+		if (!SD.begin(Pins::SD_CS)) {
+			Serial.println("\tERROR: Init Failed");
+			SDError = true; 
+			return SDError;
+		}
+		Serial.println("\tInitialized...");
+		SD_Init = true;
+	}
+	String FileName = "HWTest";
+
+	File DataWrite = SD.open(FileNameC, FILE_WRITE);
+	if(DataWrite) {
+		while (DataWrite.available()) { //Print out all contents of file
+      		Serial.write(DataWrite.read());
+    	}
+	}
+	DataWrite.close();
+	return SDError;
+}
+
+void TestFRAM(boolean ReadPrev, boolean ReadAll) 
 {
 	const uint8_t ADR = 0x50; //Address for FRAM
 	I2C_GlobalEn(false);
 	I2C_OnBoardEn(true);
-	Wire.setClock(400000); //Confirm operation in fast mode
+	// Wire.setClock(400000); //Confirm operation in fast mode
 	randomSeed(millis()); //Seed with a random number to try to endsure randomness
 	uint8_t RandVal = random(231); //Generate a random number between 0 and 231 (pages in Soul of a New Machine)
-	int RandPos[2] = {0};
-	RandPos[0] = random(255); //Generate a random offset
-	RandPos[1] = random(255); //Generate a random offset
+	static int RandPos[2] = {0};
 
 	//Wake up from sleep
 	Wire.beginTransmission(ADR);
 	Wire.endTransmission();
 	delayMicroseconds(500); //Delay at least t_Rec (400us)
 
-	Wire.beginTransmission(ADR);
-	Wire.write(RandPos[0]); //Command write to random position 
-	Wire.write(RandPos[1]); //Command write to random position
-	Wire.write(RandVal);
-	uint8_t Error = Wire.endTransmission();
+	if(ReadPrev && !ReadAll) {
+		Wire.beginTransmission(ADR);
+		Wire.write(RandPos[0]); //Command write to previous random position 
+		Wire.write(RandPos[1]); //Command write to previous random position 
+		uint8_t Error = Wire.endTransmission();
 
-	Serial.print("\tFRAM Write:\n");
-	Serial.print("\t\tData: ");
-	Serial.println(RandVal);
-	Serial.print("\t\tPos: 0x");
-	Serial.print(RandPos[0], HEX);
-	Serial.println(RandPos[1], HEX);
-	Serial.print("\t\tError: ");
-	Serial.println(Error);
+		Wire.requestFrom(ADR, 1);
+		uint8_t ReadVal = Wire.read(); //Read single byte back
 
-	Wire.beginTransmission(ADR);
-	Wire.write(RandPos[0]); //Command write to random position 
-	Wire.write(RandPos[1]); //Command write to random position 
-	Error = Wire.endTransmission();
+		Serial.print("\tFRAM Previous Data:\n");
+		Serial.print("\t\tData: ");
+		Serial.println(ReadVal);
+		Serial.print("\t\tPos: 0x");
+		Serial.print(RandPos[0], HEX);
+		Serial.println(RandPos[1], HEX);
+		Serial.print("\t\tError: ");
+		Serial.println(Error);
+	}
+	else if(!ReadPrev && !ReadAll) {
+		RandPos[0] = random(255); //Generate a random offset
+		RandPos[1] = random(255); //Generate a random offset
 
-	Wire.requestFrom(ADR, 1);
-	RandVal = Wire.read(); //Read single byte back
+		Wire.beginTransmission(ADR);
+		Wire.write(RandPos[0]); //Command write to random position 
+		Wire.write(RandPos[1]); //Command write to random position
+		Wire.write(RandVal);
+		uint8_t Error = Wire.endTransmission();
 
-	Serial.print("\tFRAM Read:\n");
-	Serial.print("\t\tData: ");
-	Serial.println(RandVal);
-	Serial.print("\t\tPos: 0x");
-	Serial.print(RandPos[0], HEX);
-	Serial.println(RandPos[1], HEX);
-	Serial.print("\t\tError: ");
-	Serial.println(Error);
+		Serial.print("\tFRAM Write:\n");
+		Serial.print("\t\tData: ");
+		Serial.println(RandVal);
+		Serial.print("\t\tPos: 0x");
+		Serial.print(RandPos[0], HEX);
+		Serial.println(RandPos[1], HEX);
+		Serial.print("\t\tError: ");
+		Serial.println(Error);
 
-	//Set device to sleep mode - Hacky but tested and it works. See Page 12 of datasheet for details 
-	Wire.beginTransmission(0x7C);
-	Wire.write((ADR << 1) | 0x01); //Shift to add "r/w" bit
-	Wire.endTransmission(false);
-	Wire.beginTransmission(0x43);
-	Wire.endTransmission();
+		Wire.beginTransmission(ADR);
+		Wire.write(RandPos[0]); //Command write to random position 
+		Wire.write(RandPos[1]); //Command write to random position 
+		Error = Wire.endTransmission();
+
+		Wire.requestFrom(ADR, 1);
+		RandVal = Wire.read(); //Read single byte back
+
+		Serial.print("\tFRAM Read:\n");
+		Serial.print("\t\tData: ");
+		Serial.println(RandVal);
+		Serial.print("\t\tPos: 0x");
+		Serial.print(RandPos[0], HEX);
+		Serial.println(RandPos[1], HEX);
+		Serial.print("\t\tError: ");
+		Serial.println(Error);
+	}
+
+	if(ReadAll) {
+		unsigned int Pos[2] = {0};
+		uint8_t Val = 0;
+		Serial.println("\tPOS\tVAL");
+		for(int i = 0; i < 65536; i++) {
+			Pos[0] = i & 0xFF;
+			Pos[1] = (i >> 8);
+			Wire.beginTransmission(ADR);
+			Wire.write(Pos[0]); //Command write to random position 
+			Wire.write(Pos[1]); //Command write to random position 
+			Wire.endTransmission();
+
+			Wire.requestFrom(ADR, 1);
+			Val = Wire.read(); //Read single byte back
+			Serial.print("\t0x");
+			Serial.print(i, HEX);
+			Serial.print("\t0x");
+			Serial.println(Val);
+		}
+	}
+
+	// //Set device to sleep mode - Hacky but tested and it works. See Page 12 of datasheet for details 
+	// Wire.beginTransmission(0x7C);
+	// Wire.write((ADR << 1) | 0x01); //Shift to add "r/w" bit
+	// Wire.endTransmission(false);
+	// Wire.beginTransmission(0x43);
+	// Wire.endTransmission();
 
 	I2C_GlobalEn(true);
 }
@@ -1385,7 +1493,7 @@ void ReadRTC()
 	Serial.println(Clock.GetTime(MCP7940::Format::ISO_8601)); //FIX! //Grab time from Clock)
 }
 
-void TestRTC() 
+void TestRTC(boolean ReadStorage, boolean ReadAll) 
 {
 	bool Clock_Error = 1; //Default error
 	// pinMode(Pins::SDA_CTRL, OUTPUT); //Setup SDA control as an output
@@ -1394,111 +1502,182 @@ void TestRTC()
 	I2C_OnBoardEn(true);
 	// Wire.setClock(400000); //Confirm operation in fast mode
 	pinMode(Pins::Clock_INT, INPUT); //Setup Clock pin as input
-	Serial.print("\tCurrent Time: ");
-	Serial.println(Clock.GetTime(MCP7940::Format::ISO_8601)); //FIX! //Grab time from Clock)
-	Clock.Begin(true); //Initalize RTC with external oscilator 
-	Clock.ClearAlarm(0);
-	Clock.ClearAlarm(1);
-	Clock.SetMode(MCP7940::Mode::Normal); //Use dual alarm setup 
-	Serial.print("\tUpdate Time... ");
-	Clock.SetTime(2021, 06, 10, 2, 12, 0, 0); //Set arbitrary time (incept date) //DEBUG!
-	Serial.print("\tNew Time: ");
-	Serial.println(Clock.GetTime(MCP7940::Format::ISO_8601)); //FIX! //Grab time from Clock)
-	Clock.SetAlarm(5); //Set an alarm for 5 seconds from now
-
-	unsigned long LocalTime = millis();
-	Serial.print("\tAlarm State = "); 
-	Serial.println(Clock.ReadAlarm());
-	Serial.print("\tWaiting for alarm...\n");
-	while(digitalRead(Pins::Clock_INT) != LOW && (millis() - LocalTime < 7000)); //Wait for Clock to trigger, or 7 seconds to go by 
-	Serial.print("\tAlarm State = "); 
-	Serial.println(Clock.ReadAlarm());
-	if(millis() - LocalTime < 7000 && (millis() - LocalTime > 3000)) { //Ensure time passed is greater than 3 seconds, less than 7 seconds 
-		Serial.print("\tEnd Time: ");
+	if(!ReadStorage && !ReadAll) { //Only do time/alarm testing if not reading old stuff
+		Serial.print("\tCurrent Time: ");
 		Serial.println(Clock.GetTime(MCP7940::Format::ISO_8601)); //FIX! //Grab time from Clock)
-		if(Clock.ReadAlarm(0) == true) Clock_Error = 0; //Clear error
-		else Clock_Error = 1; //Set error flag if interrupt bit not setg
-	}
-	else {
-		Serial.println("\tERROR: No Alarm!");
-		Clock_Error = 1; //Set alarm flag
+		Clock.Begin(true); //Initalize RTC with external oscilator 
+		Clock.ClearAlarm(0);
+		Clock.ClearAlarm(1);
+		Clock.SetMode(MCP7940::Mode::Normal); //Use dual alarm setup 
+		Serial.print("\tUpdate Time... ");
+		Clock.SetTime(2021, 06, 10, 2, 12, 0, 0); //Set arbitrary time (incept date) //DEBUG!
+		Serial.print("\tNew Time: ");
+		Serial.println(Clock.GetTime(MCP7940::Format::ISO_8601)); //FIX! //Grab time from Clock)
+		Clock.SetAlarm(5); //Set an alarm for 5 seconds from now
+
+		unsigned long LocalTime = millis();
+		Serial.print("\tAlarm State = "); 
+		Serial.println(Clock.ReadAlarm());
+		Serial.print("\tWaiting for alarm...\n");
+		while(digitalRead(Pins::Clock_INT) != LOW && (millis() - LocalTime < 7000)); //Wait for Clock to trigger, or 7 seconds to go by 
+		Serial.print("\tAlarm State = "); 
+		Serial.println(Clock.ReadAlarm());
+		if(millis() - LocalTime < 7000 && (millis() - LocalTime > 3000)) { //Ensure time passed is greater than 3 seconds, less than 7 seconds 
+			Serial.print("\tEnd Time: ");
+			Serial.println(Clock.GetTime(MCP7940::Format::ISO_8601)); //FIX! //Grab time from Clock)
+			if(Clock.ReadAlarm(0) == true) Clock_Error = 0; //Clear error
+			else Clock_Error = 1; //Set error flag if interrupt bit not setg
+		}
+		else {
+			Serial.println("\tERROR: No Alarm!");
+			Clock_Error = 1; //Set alarm flag
+		}
 	}
 
 	//////////// WRITE/READ SRAM //////////////
 	randomSeed(millis()); //Seed with a random number to try to endsure randomness
 	uint8_t RandVal = random(231); //Generate a random number between 0 and 231 (pages in Soul of a New Machine)
-	int RandPos = random(63); //Generate a random offset
-	Wire.beginTransmission(0x6F);
-	Wire.write(RandPos + 0x20); //Command write to random position 
-	Wire.write(RandVal);
-	uint8_t Error = Wire.endTransmission();
+	static int RandPosEEPROM = random(127); //Generate a random offset
+	static int RandPosSRAM = random(63); //Generate a random offset
 
-	Serial.print("\tSRAM Write:\n");
-	Serial.print("\t\tData: ");
-	Serial.println(RandVal);
-	Serial.print("\t\tPos: ");
-	Serial.println(RandPos);
-	Serial.print("\t\tError: ");
-	Serial.println(Error);
+	if(ReadStorage && !ReadAll) {
+		Wire.beginTransmission(0x6F);
+		Wire.write(RandPosSRAM + 0x20); //Command write to random position 
+		uint8_t Error = Wire.endTransmission();
 
-	Wire.beginTransmission(0x6F);
-	Wire.write(RandPos + 0x20); //Command write to random position 
-	Error = Wire.endTransmission();
+		Wire.requestFrom(0x6F, 1);
+		RandVal = Wire.read(); //Read single byte back
 
-	Wire.requestFrom(0x6F, 1);
-	RandVal = Wire.read(); //Read single byte back
+		Serial.print("\tSRAM Previous Read:\n");
+		Serial.print("\t\tData: 0x");
+		Serial.println(RandVal, HEX);
+		Serial.print("\t\tPos: 0x");
+		Serial.println(RandPosSRAM + 0x20, HEX);
+		Serial.print("\t\tError: ");
+		Serial.println(Error);
 
-	Serial.print("\tSRAM Read:\n");
-	Serial.print("\t\tData: ");
-	Serial.println(RandVal);
-	Serial.print("\t\tPos: ");
-	Serial.println(RandPos);
-	Serial.print("\t\tError: ");
-	Serial.println(Error);
-
-	//////////// WRITE/READ EEPROM /////////////
-	randomSeed(millis()); //Seed with a random number to try to endsure randomness
-	RandVal = random(231); //Generate a random number between 0 and 231 (pages in Soul of a New Machine)
-	RandPos = random(127); //Generate a random offset
-
-	Wire.beginTransmission(0x57); //EEPROM address
-	Wire.write(RandPos + 0x20); //Command write to random position 
-	Wire.write(RandVal);
-	Error = Wire.endTransmission();
-
-	Serial.print("\tEEPROM Write:\n");
-	Serial.print("\t\tData: ");
-	Serial.println(RandVal);
-	Serial.print("\t\tPos: ");
-	Serial.println(RandPos);
-	Serial.print("\t\tError: ");
-	Serial.println(Error);
-
-	LocalTime = millis();
-	//Poll for write cycle to complete (see page 41 of datasheet)
-	do { //Max EEPROM write time is 5ms, wait for cycle to finish or to timeout
 		Wire.beginTransmission(0x57); //EEPROM address
-		Wire.write(RandPos + 0x20); //Command write to random position 
+		Wire.write(RandPosEEPROM); //Command write to random position 
 		Error = Wire.endTransmission();
-	} while(Error != 0 && (millis() - LocalTime) < 6);
 
-	if(Error != 0) Serial.print("\tERROR: Write Cycle Timeout"); //Throw error if timeout occoured 
+		Wire.requestFrom(0x57, 1);
+		RandVal = Wire.read(); //Read single byte back
 
-	Wire.beginTransmission(0x57); //EEPROM address
-	Wire.write(RandPos + 0x20); //Command write to random position 
-	Error = Wire.endTransmission();
+		Serial.print("\tEEPROM Previous Read:\n");
+		Serial.print("\t\tData: 0x");
+		Serial.println(RandVal, HEX);
+		Serial.print("\t\tPos: 0x");
+		Serial.println(RandPosEEPROM, HEX);
+		Serial.print("\t\tError: ");
+		Serial.println(Error);
+	}
+	else if(!ReadStorage && !ReadAll) {
+		RandPosSRAM = random(63);
+		Wire.beginTransmission(0x6F);
+		Wire.write(RandPosSRAM + 0x20); //Command write to random position 
+		Wire.write(RandVal);
+		uint8_t Error = Wire.endTransmission();
 
-	Wire.requestFrom(0x57, 1);
-	RandVal = Wire.read(); //Read single byte back
+		Serial.print("\tSRAM Write:\n");
+		Serial.print("\t\tData: 0x");
+		Serial.println(RandVal, HEX);
+		Serial.print("\t\tPos: 0x");
+		Serial.println(RandPosSRAM + 0x20, HEX);
+		Serial.print("\t\tError: ");
+		Serial.println(Error);
 
-	Serial.print("\tEEPROM Read:\n");
-	Serial.print("\t\tData: ");
-	Serial.println(RandVal);
-	Serial.print("\t\tPos: ");
-	Serial.println(RandPos);
-	Serial.print("\t\tError: ");
-	Serial.println(Error);
+		Wire.beginTransmission(0x6F);
+		Wire.write(RandPosSRAM + 0x20); //Command write to random position 
+		Error = Wire.endTransmission();
 
+		Wire.requestFrom(0x6F, 1);
+		RandVal = Wire.read(); //Read single byte back
+
+		Serial.print("\tSRAM Read:\n");
+		Serial.print("\t\tData: 0x");
+		Serial.println(RandVal, HEX);
+		Serial.print("\t\tPos: 0x");
+		Serial.println(RandPosSRAM + 0x20, HEX);
+		Serial.print("\t\tError: ");
+		Serial.println(Error);
+
+		//////////// WRITE/READ EEPROM /////////////
+		randomSeed(millis()); //Seed with a random number to try to endsure randomness
+		RandVal = random(231); //Generate a random number between 0 and 231 (pages in Soul of a New Machine)
+		RandPosEEPROM = random(127); //Generate a random offset
+
+		Wire.beginTransmission(0x57); //EEPROM address
+		Wire.write(RandPosEEPROM); //Command write to random position 
+		Wire.write(RandVal);
+		Error = Wire.endTransmission();
+
+		Serial.print("\tEEPROM Write:\n");
+		Serial.print("\t\tData: 0x");
+		Serial.println(RandVal, HEX);
+		Serial.print("\t\tPos: 0x");
+		Serial.println(RandPosEEPROM, HEX);
+		Serial.print("\t\tError: ");
+		Serial.println(Error);
+
+		unsigned long LocalTime = millis();
+		//Poll for write cycle to complete (see page 41 of datasheet)
+		do { //Max EEPROM write time is 5ms, wait for cycle to finish or to timeout
+			Wire.beginTransmission(0x57); //EEPROM address
+			Wire.write(RandPosEEPROM); //Command write to random position 
+			Error = Wire.endTransmission();
+		} while(Error != 0 && (millis() - LocalTime) < 6);
+
+		if(Error != 0) Serial.print("\tERROR: Write Cycle Timeout"); //Throw error if timeout occoured 
+
+		Wire.beginTransmission(0x57); //EEPROM address
+		Wire.write(RandPosEEPROM); //Command write to random position 
+		Error = Wire.endTransmission();
+
+		Wire.requestFrom(0x57, 1);
+		RandVal = Wire.read(); //Read single byte back
+
+		Serial.print("\tEEPROM Read:\n");
+		Serial.print("\t\tData: 0x");
+		Serial.println(RandVal, HEX);
+		Serial.print("\t\tPos: 0x");
+		Serial.println(RandPosEEPROM, HEX);
+		Serial.print("\t\tError: ");
+		Serial.println(Error);
+	}
+	if(ReadAll) {
+		unsigned int Pos[2] = {0};
+		uint8_t Val = 0;
+		Serial.println("\tSRAM Data");
+		Serial.println("\tPOS\tVAL");
+		for(int i = 0; i < 63; i++) {
+			Wire.beginTransmission(0x6F);
+			Wire.write(i + 0x20); //Command write to random position 
+			uint8_t Error = Wire.endTransmission();
+
+			Wire.requestFrom(0x6F, 1);
+			Val = Wire.read(); //Read single byte back
+
+			Serial.print("\t0x");
+			Serial.print(i + 0x20, HEX);
+			Serial.print("\t0x");
+			Serial.println(Val, HEX);
+		}
+		Serial.println("\tEEPROM Data");
+		Serial.println("\tPOS\tVAL");
+		for(int i = 0; i < 127; i++) {
+			Wire.beginTransmission(0x57); //EEPROM address
+			Wire.write(i); //Command write to random position 
+			uint8_t Error = Wire.endTransmission();
+
+			Wire.requestFrom(0x57, 1);
+			Val = Wire.read(); //Read single byte back
+
+			Serial.print("\t0x");
+			Serial.print(i, HEX);
+			Serial.print("\t0x");
+			Serial.println(Val, HEX);
+		}
+	}
 	////////////////// READ UUID /////////////////
 	uint64_t UUID = 0; //Used to store UUID from EEPROM
 	Wire.beginTransmission(0x57); //EEPROM address
