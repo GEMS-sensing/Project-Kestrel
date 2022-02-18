@@ -40,3 +40,18 @@
 [submodule "Software/KestrelSleepTest/lib/SparkFun_Ublox_Arduino_Library"]
 	path = Software/KestrelSleepTest/lib/SparkFun_Ublox_Arduino_Library
 	url = https://github.com/sparkfun/SparkFun_Ublox_Arduino_Library.git
+[submodule "Software/KestrelSerialDemo_Particle/lib/SparkFun_PCA9536_Arduino_Library"]
+	path = Software/KestrelSerialDemo_Particle/lib/SparkFun_PCA9536_Arduino_Library
+	url = https://github.com/sparkfun/SparkFun_PCA9536_Arduino_Library.git
+[submodule "Software/KestrelSerialDemo_Particle/lib/MCP3421"]
+	path = Software/KestrelSerialDemo_Particle/lib/MCP3421
+	url = https://github.com/NorthernWidget/MCP3421.git
+[submodule "Software/KestrelSerialDemo_Particle/lib/SparkFun_SCD30_Arduino_Library"]
+	path = Software/KestrelSerialDemo_Particle/lib/SparkFun_SCD30_Arduino_Library
+	url = https://github.com/sparkfun/SparkFun_SCD30_Arduino_Library.git
+[submodule "Software/KestrelSerialDemo_Particle/lib/Adafruit_SGP30"]
+	path = Software/KestrelSerialDemo_Particle/lib/Adafruit_SGP30
+	url = https://github.com/gemsiot/Adafruit_SGP30.git
+[submodule "Software/KestrelSerialDemo_Particle/lib/MCP3221"]
+	path = Software/KestrelSerialDemo_Particle/lib/MCP3221
+	url = https://github.com/gemsiot/MCP3221.git
