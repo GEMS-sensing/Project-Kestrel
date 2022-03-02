@@ -72,6 +72,8 @@ namespace Pins { //Use for B402
 	constexpr uint16_t TALON1_GPIOB = D7;
 	constexpr uint16_t TALON2_GPIOA = A2;
 	constexpr uint16_t TALON2_GPIOB = D6;
+	constexpr uint16_t TALON3_GPIOA = A1;
+	constexpr uint16_t TALON3_GPIOB = D5;
 	constexpr uint16_t I2C_GLOBAL_EN = D23; //FIX!
 	constexpr uint16_t I2C_OB_EN = A6; //FIX!
 }
@@ -85,6 +87,7 @@ namespace PinsIOAlpha {
 	constexpr uint16_t SD_CD = 8;
 	constexpr uint16_t SD_EN = 12;
 	constexpr uint16_t AUX_EN = 15;
+	constexpr uint16_t CE = 11;
 }
 
 namespace PinsIOBeta { //For Kestrel v1.1
@@ -120,7 +123,7 @@ const uint8_t MUX_SEL0 = 0;
 const uint8_t MUX_SEL1 = 1;
 const uint8_t MUX_SEL2 = 2;
 
-const float VoltageDiv = 3; //Program voltage divider
+const float VoltageDiv = 2; //Program voltage divider
 const float CurrentDiv = 0.243902439; //82mOhm, 50V/V Amp
 
 //Configured for pins on the Particle Boron
@@ -202,6 +205,8 @@ PCA9634 led(0x52); //Instatiate LED driver with 0x50 address
 
 /////////////// SDI-12 Talon //////////////////////
 //Input Pins
+#include <MCP3221.h>
+MCP3221 apogeeADC;
 const uint8_t TX_SDI12 = 9;
 const uint8_t RX_SDI12 = 10;
 
@@ -245,11 +250,26 @@ const uint8_t FAULT1 = 0;
 /////////////// HAAR (Sensor1) ////////////////////// 
 #include <Dps368.h>
 #include <Adafruit_SHT31.h>
+#include <SparkFun_PCA9536_Arduino_Library.h>
+#include <MCP3421.h>
+#include <SparkFun_SCD30_Arduino_Library.h>
+#include <Adafruit_SGP30.h>
+
 
 MCP23018 ioTalonI2C(0x22);
 
-Dps368 pressureSense = Dps368(); //Instantiate DPS368 Pressure sensor
-Adafruit_SHT31 rhSense = Adafruit_SHT31(); //Instantiate the SHT31 RH/Temp sensor
+MCP3421 adcSense(0x6B); //Initialize MCP3421 with A3 address
+
+PCA9536 ioSense;
+
+Dps368 pressureSenseA = Dps368(); //Instantiate DPS368 Pressure sensor
+Adafruit_SHT31 rhSenseA = Adafruit_SHT31(); //Instantiate the SHT31 RH/Temp sensor
+
+Dps368 pressureSenseB = Dps368(); //Instantiate DPS368 Pressure sensor
+Adafruit_SHT31 rhSenseB = Adafruit_SHT31(); //Instantiate the SHT31 RH/Temp sensor
+
+SCD30 airSensor; //Instatiate SCD30 CO2 sensor
+Adafruit_SGP30 sgp; //Instantiate SGP30 Gas Sensor
 
 const uint8_t dps368_oversampling = 7; //Define the oversampling amount for the DPS368 sensor
 unsigned long period = 5000; //Number of ms to wait between sensor readings 
@@ -261,6 +281,7 @@ SYSTEM_MODE(MANUAL);
 
 void setup() 
 {
+	
 	Cellular.setActiveSim(INTERNAL_SIM);
 	// Cellular.setCredentials("vzwinternet"); // Replace with the correct APN
 	Cellular.setCredentials(""); // Go back to base APN
@@ -278,6 +299,8 @@ void setup()
 	// pinSetDriveStrength(D1, DriveStrength::HIGH);
 	ioAlpha.begin(); //RESTORE
 	ioBeta.begin(); //RESTORE
+	// ioAlpha.pinMode(PinsIOAlpha::CE, OUTPUT);
+	// ioAlpha.digitalWrite(PinsIOAlpha::CE, HIGH); //DEBUG! Turn off charging 
 
 	SetDefaultPins();
 	// SetPinMode();
@@ -911,9 +934,11 @@ void TestAtmos()
 
 void TestMag(bool Set, bool Reset) 
 {
+	
 	const uint8_t ADR = 0x30;
 	I2C_GlobalEn(false);
 	I2C_OnBoardEn(true);
+	GPS.powerOff(60000); //DEBUG!
 	// Wire.begin();
 	// Wire.setClock(100000); //Confirm operation in standard mode
 
@@ -1848,18 +1873,35 @@ void SensorDemo1()
 {
 	// Serial.println(">Spector1");
 	/////////////// SETUP /////////////////////
+	bool isFault[4] = {false, false, false, false}; //Keep track which ports faulted
 	const uint8_t POS_DETECT = 12; 
 	const uint8_t SENSE_EN = 13;
 	I2C_OnBoardEn(true);
 	I2C_GlobalEn(false);
+	// ioBeta.pinMode(PinsIOBeta::EN2, OUTPUT);
+	// ioBeta.pinMode(PinsIOBeta::I2C_EN2, OUTPUT);
+	// ioBeta.pinMode(PinsIOBeta::SEL2, OUTPUT);
+	// ioBeta.pinMode(PinsIOBeta::FAULT2, INPUT);
+
+	// ioBeta.digitalWrite(PinsIOBeta::EN2, HIGH);
+	// ioBeta.digitalWrite(PinsIOBeta::I2C_EN2, HIGH);
+	// ioBeta.digitalWrite(PinsIOBeta::SEL2, HIGH);
+
 	ioBeta.pinMode(PinsIOBeta::EN2, OUTPUT);
 	ioBeta.pinMode(PinsIOBeta::I2C_EN2, OUTPUT);
 	ioBeta.pinMode(PinsIOBeta::SEL2, OUTPUT);
-	ioBeta.pinMode(PinsIOBeta::FAULT2, INPUT);
+	ioBeta.pinMode(PinsIOBeta::FAULT2, INPUT_PULLUP);
 
 	ioBeta.digitalWrite(PinsIOBeta::EN2, HIGH);
 	ioBeta.digitalWrite(PinsIOBeta::I2C_EN2, HIGH);
-	ioBeta.digitalWrite(PinsIOBeta::SEL2, HIGH);
+	ioBeta.digitalWrite(PinsIOBeta::SEL2, LOW);
+	int ErrorBeta = CSA_Beta.begin();
+	CSA_Beta.SetCurrentDirection(CH1, UNIDIRECTIONAL); //Bulk voltage, unidirectional
+	CSA_Beta.EnableChannel(CH1, true); //Disable all channels but 1
+	CSA_Beta.EnableChannel(CH2, false);
+	CSA_Beta.EnableChannel(CH3, false);
+	CSA_Beta.EnableChannel(CH4, false);
+	
 
 	// ioBeta.pinMode(PinsIOBeta::EN1, OUTPUT);
 	// ioBeta.pinMode(PinsIOBeta::I2C_EN1, OUTPUT);
@@ -1872,22 +1914,116 @@ void SensorDemo1()
 
 	I2C_OnBoardEn(false);
 	I2C_GlobalEn(true);
+	// pinMode(Pins::TALON2_GPIOB, OUTPUT);
+	// digitalWrite(Pins::TALON2_GPIOB, HIGH); //Connect to internal I2C
 	pinMode(Pins::TALON2_GPIOB, OUTPUT);
 	digitalWrite(Pins::TALON2_GPIOB, HIGH); //Connect to internal I2C
-	ioTalonI2C.begin();
+	Serial.println(ioTalonI2C.begin());
 
 	ioTalonI2C.pinMode(POS_DETECT, INPUT); //Set position detect as normal pullup (has external pullup)
 	ioTalonI2C.pinMode(SENSE_EN, OUTPUT); //Set sense control as output
-	ioTalonI2C.digitalWrite(SENSE_EN, HIGH); //Default sense to on 
+	
 
-	for(int i = 0; i < 8; i++) { //Enable all power, then all data
+	// for(int i = 8; i < 12; i++) { //Set FAULT lines as input pullups
+	// 	ioTalonI2C.pinMode(i, INPUT_PULLUP);
+	// }
+	// BYPASS - START ////////////////////////////////////////////////////////////////////////////////////////
+	// ioTalonI2C.digitalWrite(SENSE_EN, LOW); //Default sense to off
+	// for(int i = 0; i < 4; i++) { //Default power off
+	// 	ioTalonI2C.pinMode(i, OUTPUT);
+	// 	ioTalonI2C.digitalWrite(i, LOW);
+	// }
+	
+	// for(int i = 8; i < 12; i++) { //Set FAULT lines as output //DEBUG!
+	// 	ioTalonI2C.pinMode(i, OUTPUT);
+	// 	ioTalonI2C.digitalWrite(i, LOW);
+	// }
+
+	// for(int i = 0; i < 4; i++) { //Enable all power, release if fault
+	// 	ioTalonI2C.pinMode(i, OUTPUT);
+	// 	ioTalonI2C.digitalWrite(i, HIGH);
+	// 	delay(1);
+	// 	I2C_GlobalEn(false);
+	// 	I2C_OnBoardEn(true);
+	// 	float IBulk = CSA_Beta.GetCurrent(CH1, false);
+	// 	I2C_OnBoardEn(false);
+	// 	I2C_GlobalEn(true);
+	// 	if(ioTalonI2C.digitalRead(i + 8) || IBulk > 500) { //If fault, turn back off
+	// 		ioTalonI2C.digitalWrite(i, LOW);
+	// 		isFault[i] = true;
+	// 		Serial.print("\tPort ");
+	// 		Serial.print(i);
+	// 		Serial.print(" FAULT - ");
+	// 		Serial.print(IBulk);
+	// 		Serial.println("mA");
+	// 	}
+	// 	Serial.print("\tPort ");
+	// 	Serial.print(i);
+	// 	Serial.print(" - ");
+	// 	Serial.print(IBulk);
+	// 	Serial.println("mA");
+	// } 
+	// BYPASS - END ////////////////////////////////////////////////////////////////////////////////////////
+
+	ioTalonI2C.digitalWrite(SENSE_EN, HIGH); //Turn sense back on
+	for(int i = 0; i < 4; i++) { //Toggle enable lines to reset latches if tripped
+		if(!isFault[i]) { //Only toggle back on if fault did not occour
+			ioTalonI2C.pinMode(i, OUTPUT);
+			ioTalonI2C.digitalWrite(i, HIGH);
+			delayMicroseconds(10);
+			ioTalonI2C.digitalWrite(i, LOW);
+			delayMicroseconds(10);
+			ioTalonI2C.digitalWrite(i, HIGH);
+		}
+	}
+	
+	for(int i = 8; i < 12; i++) { //Set FAULT lines as output //DEBUG!
+		ioTalonI2C.pinMode(i, INPUT);
+	}
+
+	for(int i = 4; i < 8; i++) { //Enable all data
 		ioTalonI2C.pinMode(i, OUTPUT);
-		ioTalonI2C.digitalWrite(i, HIGH);
+		ioTalonI2C.digitalWrite(i, HIGH); 
+		// ioTalonI2C.digitalWrite(i, LOW); //DEBUG! Disable data by default
 	} 
 
-	for(int i = 8; i < 12; i++) { //Set FAULT lines as input pullups
-		ioTalonI2C.pinMode(i, INPUT_PULLUP);
+	
+
+	Serial.print(">Port Sense:\n");
+	ioSense.begin(); //Initalize voltage sensor IO expander
+	for(int i = 0; i < 4; i++) { //Set all pins to output
+		ioSense.pinMode(i, OUTPUT); 
 	}
+	ioSense.digitalWrite(MUX_EN, LOW); //Turn MUX on 
+	int SenseError = adcSense.Begin(); //Initialize ADC 
+	if(SenseError == 0) { //Only proceed if ADC connects correctly
+		adcSense.SetResolution(18); //Set to max resolution (we paid for it right?) 
+
+		ioSense.digitalWrite(MUX_SEL2, LOW); //Read voltages
+		for(int i = 0; i < 4; i++){ //Increment through 4 voltages
+			ioSense.digitalWrite(MUX_SEL0, i & 0b01); //Set with lower bit
+			ioSense.digitalWrite(MUX_SEL1, (i & 0b10) >> 1); //Set with high bit
+			delay(1); //Wait for voltage to stabilize
+	  		Serial.print("\tPort");
+	  		Serial.print(i);
+	  		Serial.print(":");
+	  		Serial.print(adcSense.GetVoltage(true)*VoltageDiv, 6); //Print high resolution voltage
+	  		Serial.print(" V\n");  
+		}
+		ioSense.digitalWrite(MUX_SEL2, HIGH); //Read currents
+		for(int i = 0; i < 4; i++){ //Increment through 4 voltages
+			ioSense.digitalWrite(MUX_SEL0, i & 0b01); //Set with lower bit
+			ioSense.digitalWrite(MUX_SEL1, (i & 0b10) >> 1); //Set with high bit
+			delay(1); //Wait for voltage to stabilize
+	  		Serial.print("\tPort");
+	  		Serial.print(i);
+	  		Serial.print(":");
+	  		Serial.print(adcSense.GetVoltage(true)*CurrentDiv*1000, 6); //Print high resolution current measure in mA
+	  		Serial.print(" mA\n");  
+		}
+	}
+	else Serial.print("\tFAIL!\n");
+	// digitalWrite(I2C_EN, HIGH); //Turn on external I2C
 
 
 
@@ -1900,86 +2036,388 @@ void SensorDemo1()
 	// ioTalonI2C.digitalWrite(4, HIGH); //Make sure signal is turned on
 
 	// digitalWrite(Pins::TALON1_GPIOB, LOW); //Connect to external I2C
-	digitalWrite(Pins::TALON2_GPIOB, LOW); //Connect to external I2C
+	// digitalWrite(Pins::TALON2_GPIOB, LOW); //Connect to external I2C
 
-	uint8_t error_dps368 = 0; //DEBUG! FIX! Change library to return stuff properly
-	pressureSense.begin(Wire); //Initialize DPS368 sensor //DEBUG! FIX! Change library to return stuff properly
-	uint8_t error_sht31 = rhSense.begin(0x44); //Initialize SHT31 sensor
-	
-	Serial.println(">Haar Status:"); //Print resulting sensor status 
+	// SWITCHED READING TEST - BEGIN /////////////////////////////////////////////////////////////////////////////////////////////////
+	// ioTalonI2C.digitalWrite(SENSE_EN, LOW); //Default sense to off
+	// for(int i = 0; i < 4; i++) {
+	// 	ioTalonI2C.pinMode(i + 8, OUTPUT); //Setup to force fault
+	// 	ioTalonI2C.digitalWrite(i + 8, LOW); //Force fault off
+	// 	ioTalonI2C.digitalWrite(i + 4, HIGH); //Turn on all enable
+	// 	ioTalonI2C.digitalWrite(i, LOW); //Turn off all power
+	// }
+	// digitalWrite(Pins::TALON2_GPIOB, LOW); //Connect to external I2C
+	// for(int i = 0; i < 4; i++) {
+	// 	digitalWrite(Pins::TALON2_GPIOB, HIGH); //Connect to internal I2C
+	// 	// ioTalonI2C.digitalWrite(i + 4, HIGH); //Turn on specific data channel
+	// 	ioTalonI2C.digitalWrite(i, HIGH); //Turn on specific power channel
+	// 	digitalWrite(Pins::TALON2_GPIOB, LOW); //Connect to external I2C
+	// 	uint8_t error_dps368 = 0; //DEBUG! FIX! Change library to return stuff properly
+	// 	pressureSense.begin(Wire); //Initialize DPS368 sensor //DEBUG! FIX! Change library to return stuff properly
+	// 	uint8_t error_sht31 = rhSense.begin(0x44); //Initialize SHT31 sensor
+		
+	// 	Serial.print(">Port ");
+	// 	Serial.print(i);
+	// 	Serial.println(" Status:");
+	// 	// Serial.println(">Haar Status:"); //Print resulting sensor status 
+	// 	Serial.print("\tDPS368: "); 
+	// 	if(error_dps368 == 0) Serial.print("PASS\n"); //Print error grabbed from sensor
+	// 	else Serial.print("FAIL!\n"); //Fail if result is not 0
+	// 	Serial.print("\tSHT31: ");
+	// 	if(error_sht31 == 1) Serial.print("PASS\n"); //Print error grabbed from sensor
+	// 	else Serial.print("FAIL!\n"); //Fail if result is 0
+
+	// 	///////////////// RUN ////////////////////
+	// 	float temp_dps368; //Storage for temp measurement from DPS368 
+	// 	float pressure; //Storage for pressure measurment from DPS368
+		
+
+	// 	int16_t error1 = pressureSense.measureTempOnce(temp_dps368, dps368_oversampling); //Grab new temp values [°C]
+	// 	int16_t error2 = pressureSense.measurePressureOnce(pressure, dps368_oversampling); //Grab new pressure values [Pa]
+	// 	pressure = pressure/100.0f; //Convert from Pa to mBar, because Pa is a stupid unit, and hPa is more stupid. 
+
+	// 	float humidity = rhSense.readHumidity(); //Grab new humidity values [%]
+	// 	float temp_sht31 = rhSense.readTemperature(); //Grab new temp values [°C]
+	// 	// digitalWrite(I2C_EN, HIGH); //Turn off external I2C
+	// 	// I2C_GlobalEn(false);
+
+	// 	Serial.print("\tTemp (SHT31): "); Serial.print(temp_sht31, 4); Serial.print(" °C\t"); //Print temp to 4 decimal places
+	// 	Serial.print("Temp (DPS368): "); Serial.print(temp_dps368, 2); Serial.print(" °C\t"); //Print temp to 2 decimal places
+	// 	Serial.print("Pressure: "); Serial.print(pressure, 2); Serial.print(" mBar\t"); //Print pressure to 2 decimal places
+	// 	Serial.print("Humidity: "); Serial.print(humidity, 2); Serial.print(" %\n"); //Print humidity to 2 decimal places
+	// 	digitalWrite(Pins::TALON2_GPIOB, HIGH); //Connect to internal I2C
+	// 	// ioTalonI2C.digitalWrite(i + 4, LOW); //Turn off specific data channel
+	// 	ioTalonI2C.digitalWrite(i, LOW); //Turn off specific power channel
+	// 	digitalWrite(Pins::TALON2_GPIOB, LOW); //Connect to external I2C
+	// }
+	// SWITCHED READING TEST - END /////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// BUS READING TEST - BEGIN /////////////////////////////////////////////////////////////////////////////////////////////////
+	// ioTalonI2C.digitalWrite(4, LOW); //Disable port 0 data //DEBUG!
+	// ioTalonI2C.digitalWrite(0, LOW); //Disable port 0 power //DEBUG!
+	digitalWrite(Pins::TALON2_GPIOB, LOW); //Connect to external I2C
+	uint8_t error_dps368A = 0; //DEBUG! FIX! Change library to return stuff properly
+	pressureSenseA.begin(Wire, 0x77); //Initialize DPS368 sensor //DEBUG! FIX! Change library to return stuff properly
+	uint8_t error_sht31A = rhSenseA.begin(0x44); //Initialize SHT31 sensor
+
+	uint8_t error_dps368B = 0; //DEBUG! FIX! Change library to return stuff properly
+	pressureSenseB.begin(Wire, 0x78); //Initialize DPS368 sensor //DEBUG! FIX! Change library to return stuff properly
+	uint8_t error_sht31B = rhSenseB.begin(0x45); //Initialize SHT31 sensor
+
+	uint8_t error_sgp30 = sgp.begin();
+	uint8_t error_scd30 = airSensor.begin();
+	Serial.println(">Haar Test - ALPHA:"); //Print resulting sensor status 
 	Serial.print("\tDPS368: "); 
-	if(error_dps368 == 0) Serial.print("PASS\n"); //Print error grabbed from sensor
+	if(error_dps368A == 0) Serial.print("PASS\n"); //Print error grabbed from sensor
 	else Serial.print("FAIL!\n"); //Fail if result is not 0
 	Serial.print("\tSHT31: ");
-	if(error_sht31 == 1) Serial.print("PASS\n"); //Print error grabbed from sensor
+	if(error_sht31A == 1) Serial.print("PASS\n"); //Print error grabbed from sensor
 	else Serial.print("FAIL!\n"); //Fail if result is 0
 
+	Serial.println(">Haar Test - BETA:"); //Print resulting sensor status 
+	Serial.print("\tDPS368: "); 
+	if(error_dps368B == 0) Serial.print("PASS\n"); //Print error grabbed from sensor
+	else Serial.print("FAIL!\n"); //Fail if result is not 0
+	Serial.print("\tSHT31: ");
+	if(error_sht31B == 1) Serial.print("PASS\n"); //Print error grabbed from sensor
+	else Serial.print("FAIL!\n"); //Fail if result is 0
+
+	Serial.println(">Hedorah Test:"); //Print resulting sensor status 
+	Serial.print("\tSGP30: ");
+	if(!error_sgp30) {
+		Serial.println("FAIL!");
+	}
+	else {
+		Serial.println("PASS");
+	}
+
+	Serial.println(">Hedorah-NDIR Test:"); //Print resulting sensor status 
+	Serial.print("\tSCD30: ");
+	if(!error_scd30) {
+		Serial.println("FAIL!");
+	}
+	else {
+		Serial.println("PASS");
+	}
+
+	
+
 	///////////////// RUN ////////////////////
-	float temp_dps368; //Storage for temp measurement from DPS368 
-  	float pressure; //Storage for pressure measurment from DPS368
-  	
+	float temp_dps368A; //Storage for temp measurement from DPS368 
+	float pressureA; //Storage for pressure measurment from DPS368
+	
 
-	int16_t error1 = pressureSense.measureTempOnce(temp_dps368, dps368_oversampling); //Grab new temp values [°C]
-	int16_t error2 = pressureSense.measurePressureOnce(pressure, dps368_oversampling); //Grab new pressure values [Pa]
-	pressure = pressure/100.0f; //Convert from Pa to mBar, because Pa is a stupid unit, and hPa is more stupid. 
+	int16_t error1 = pressureSenseA.measureTempOnce(temp_dps368A, dps368_oversampling); //Grab new temp values [°C]
+	int16_t error2 = pressureSenseA.measurePressureOnce(pressureA, dps368_oversampling); //Grab new pressure values [Pa]
+	pressureA = pressureA/100.0f; //Convert from Pa to mBar, because Pa is a stupid unit, and hPa is more stupid. 
 
-	float humidity = rhSense.readHumidity(); //Grab new humidity values [%]
-	float temp_sht31 = rhSense.readTemperature(); //Grab new temp values [°C]
+	float humidityA = rhSenseA.readHumidity(); //Grab new humidity values [%]
+	float temp_sht31A = rhSenseA.readTemperature(); //Grab new temp values [°C]
+
+	float temp_dps368B; //Storage for temp measurement from DPS368 
+	float pressureB; //Storage for pressure measurment from DPS368
+	
+
+	error1 = pressureSenseB.measureTempOnce(temp_dps368B, dps368_oversampling); //Grab new temp values [°C]
+	error2 = pressureSenseB.measurePressureOnce(pressureB, dps368_oversampling); //Grab new pressure values [Pa]
+	pressureA = pressureB/100.0f; //Convert from Pa to mBar, because Pa is a stupid unit, and hPa is more stupid. 
+
+	float humidityB = rhSenseB.readHumidity(); //Grab new humidity values [%]
+	float temp_sht31B = rhSenseB.readTemperature(); //Grab new temp values [°C]
 	// digitalWrite(I2C_EN, HIGH); //Turn off external I2C
-	I2C_GlobalEn(false);
+	// I2C_GlobalEn(false);
 
-	Serial.print("\tTemp (SHT31): "); Serial.print(temp_sht31, 4); Serial.print(" °C\t"); //Print temp to 4 decimal places
-	Serial.print("Temp (DPS368): "); Serial.print(temp_dps368, 2); Serial.print(" °C\t"); //Print temp to 2 decimal places
-	Serial.print("Pressure: "); Serial.print(pressure, 2); Serial.print(" mBar\t"); //Print pressure to 2 decimal places
-	Serial.print("Humidity: "); Serial.print(humidity, 2); Serial.print(" %\n"); //Print humidity to 2 decimal places
+	if (! sgp.IAQmeasure()) {
+		// Serial.println("\tMeasurement failed");
+		// return;
+	}
+	if (! sgp.IAQmeasureRaw()) {
+		// Serial.println("\tRaw Measurement failed");
+		// return;
+	}
+
+	float CO2_SCD30 = 0;
+	float Temp_SCD30 = 0;
+	float RH_SCD30 = 0;
+	unsigned long LocalTime = millis();
+	while((millis() - LocalTime) < 3000) {
+		if (airSensor.dataAvailable()) {
+			CO2_SCD30 = airSensor.getCO2();
+			Temp_SCD30 = airSensor.getTemperature();
+			RH_SCD30 = airSensor.getHumidity();
+			continue;
+		}
+	}
+
+	Serial.print("\tALPHA: Temp (SHT31): "); Serial.print(temp_sht31A, 4); Serial.print(" °C\t"); //Print temp to 4 decimal places
+	Serial.print("Temp (DPS368): "); Serial.print(temp_dps368A, 2); Serial.print(" °C\t"); //Print temp to 2 decimal places
+	Serial.print("Pressure: "); Serial.print(pressureA, 2); Serial.print(" mBar\t"); //Print pressure to 2 decimal places
+	Serial.print("Humidity: "); Serial.print(humidityA, 2); Serial.print(" %\n"); //Print humidity to 2 decimal places
+
+	Serial.print("\tBETA: Temp (SHT31): "); Serial.print(temp_sht31B, 4); Serial.print(" °C\t"); //Print temp to 4 decimal places
+	Serial.print("Temp (DPS368): "); Serial.print(temp_dps368B, 2); Serial.print(" °C\t"); //Print temp to 2 decimal places
+	Serial.print("Pressure: "); Serial.print(pressureB, 2); Serial.print(" mBar\t"); //Print pressure to 2 decimal places
+	Serial.print("Humidity: "); Serial.print(humidityB, 2); Serial.print(" %\n"); //Print humidity to 2 decimal places
+
+	Serial.print("\tTVOC "); Serial.print(sgp.TVOC); Serial.print(" ppb\t");
+	Serial.print("eCO2 "); Serial.print(sgp.eCO2); Serial.print(" ppm");
+	Serial.print("\tRaw H2 "); Serial.print(sgp.rawH2); Serial.print(" \t");
+	Serial.print("Raw Ethanol "); Serial.print(sgp.rawEthanol); Serial.println("");
+
+	Serial.print("\tCO2: "); Serial.print(CO2_SCD30); Serial.print(" ppm\tTemp: "); Serial.print(Temp_SCD30); Serial.print(" °C\tRH: "); Serial.print(RH_SCD30); Serial.println("%");
+
+	// BUS READING TEST - END /////////////////////////////////////////////////////////////////////////////////////////////////
+
 }
 
 void SensorDemo2()
 {
+	const float VoltageDivSDI12 = 6;
+	bool isFault[4] = {0}; //Keep track which ports faulted
 	I2C_OnBoardEn(true);
 	I2C_GlobalEn(false);
-	ioBeta.pinMode(PinsIOBeta::EN3, OUTPUT);
-	ioBeta.pinMode(PinsIOBeta::I2C_EN3, OUTPUT);
-	ioBeta.pinMode(PinsIOBeta::SEL3, OUTPUT);
-	ioBeta.pinMode(PinsIOBeta::FAULT3, INPUT);
+	ioBeta.pinMode(PinsIOBeta::EN2, OUTPUT);
+	ioBeta.pinMode(PinsIOBeta::I2C_EN2, OUTPUT);
+	ioBeta.pinMode(PinsIOBeta::SEL2, OUTPUT);
+	ioBeta.pinMode(PinsIOBeta::FAULT2, INPUT_PULLUP);
 
-	ioBeta.digitalWrite(PinsIOBeta::EN3, HIGH);
-	ioBeta.digitalWrite(PinsIOBeta::I2C_EN3, HIGH);
-	ioBeta.digitalWrite(PinsIOBeta::SEL3, LOW);
+	ioBeta.digitalWrite(PinsIOBeta::EN2, HIGH); //Toggle output in case tripped
+	ioBeta.digitalWrite(PinsIOBeta::EN2, LOW);
+	ioBeta.digitalWrite(PinsIOBeta::EN2, HIGH);
+	ioBeta.digitalWrite(PinsIOBeta::I2C_EN2, HIGH);
+	ioBeta.digitalWrite(PinsIOBeta::SEL2, HIGH);
+	int ErrorBeta = CSA_Beta.begin();
+	CSA_Beta.SetCurrentDirection(CH1, UNIDIRECTIONAL); //Bulk voltage, unidirectional
 
 	I2C_OnBoardEn(false);
 	I2C_GlobalEn(true);
 	Serial.print("\tIO Status: ");
 	Serial.println(ioTalonSDI12.begin()); //DEBUG!
 
+	ioTalonSDI12.pinMode(SENSE_EN, OUTPUT); //Set sense control as output
+	ioTalonSDI12.digitalWrite(SENSE_EN, HIGH); //Default sense to on - NOTE: For proper sequencing, this must be done BEFORE each enable line is driven high
+	
 	ioTalonSDI12.pinMode(Dir, OUTPUT); //Set to output
 	ioTalonSDI12.pinMode(FOut, OUTPUT); //Set to output
 	ioTalonSDI12.digitalWrite( Dir, HIGH); //Set to transmit 
-	ioTalonSDI12.pinMode(SENSE_EN, OUTPUT); //Set sense control as output
-	ioTalonSDI12.digitalWrite(SENSE_EN, HIGH); //Default sense to on - NOTE: For proper sequencing, this must be done BEFORE each enable line is driven high
-	for(int i = 0; i < 4; i++) { //Enable all power
-		ioTalonSDI12.pinMode(i, OUTPUT); 
-		ioTalonSDI12.digitalWrite(i, HIGH); 
-		delay(1);
+	// ioTalonSDI12.digitalWrite(SENSE_EN, LOW); //Default sense to off before enabling the line //DEBUG!
+	
+	// ioSense.begin(); //Initalize voltage sensor IO expander
+	// for(int i = 0; i < 4; i++) { //Set all pins to output
+	// 	ioSense.pinMode(i, OUTPUT); 
+	// }
+	// ioSense.digitalWrite(MUX_EN, LOW); //Turn MUX on 
+	// int SenseError = adcSense.Begin(); //Initialize ADC 
+	// adcSense.SetResolution(12); //Set to fast mode
+	// ioSense.digitalWrite(MUX_SEL2, HIGH); //Read currents
+	// ioSense.digitalWrite(MUX_SEL0, LOW); //Set to port 1
+	// ioSense.digitalWrite(MUX_SEL1, LOW); 
+	// for(int i = 0; i < 4; i++) { //Enable all power
+	// 	ioTalonSDI12.pinMode(i, OUTPUT); 
+	// 	ioTalonSDI12.digitalWrite(i, HIGH); 
+	// 	ioSense.digitalWrite(MUX_SEL0, i & 0b01); //Set with lower bit
+	// 	ioSense.digitalWrite(MUX_SEL1, (i & 0b10) >> 1); //Set with high bit
+	// 	I2C_GlobalEn(false);
+	// 	I2C_OnBoardEn(true);
+	// 	float IBulk = CSA_Beta.GetCurrent(CH1, false);
+	// 	I2C_OnBoardEn(false);
+	// 	I2C_GlobalEn(true);
+
+	// 	// delay(2);
+	// 	// // ioTalonSDI12.digitalWrite(i, LOW);
+	// 	// // delay(1);
+	// 	// // ioTalonSDI12.digitalWrite(i, HIGH); 
+	// 	// // delayMicroseconds(100);
+	// 	// delay(10); //Wait for voltage to stabilize
+	// 	// float Current = adcSense.GetVoltage(true)*CurrentDiv*1000;
+	// 	// if(ioTalonSDI12.digitalRead(i + 8) || Current > 450) { //If fault, turn back off
+	// 	if(ioTalonSDI12.digitalRead(i + 8) || IBulk > 2500) { //If fault, turn back off
+	// 		ioTalonSDI12.digitalWrite(i, LOW);
+	// 		Serial.print("\tPort ");
+	// 		Serial.print(i);
+	// 		Serial.println(" FAULT");
+	// 	}
+		
+	// 	Serial.print("\tPort");
+	// 	Serial.print(i);
+	// 	Serial.print(":");
+	// 	Serial.print(IBulk, 6); //Print high resolution current measure in mA
+	// 	Serial.print(" mA\n");  
+
+	// } 
+	// //DEBUG! - BEGIN
+	ioTalonSDI12.digitalWrite(SENSE_EN, LOW); //Turn sense off
+	// ioTalonSDI12.digitalWrite(SENSE_EN, HIGH); //Turn sense on
+	for(int i = 8; i < 12; i++) { 
+		ioTalonSDI12.pinMode(i, OUTPUT); //Set FAULT lines as output //DEBUG!
 		ioTalonSDI12.digitalWrite(i, LOW);
-		delay(1);
+		// ioTalonI2C.pinMode(i, INPUT_PULLUP); //Set FAULT lines as input pullup
+	}
+
+	for(int i = 0; i < 4; i++) { //Enable all power, release if fault
+		ioTalonSDI12.pinMode(i, OUTPUT);
 		ioTalonSDI12.digitalWrite(i, HIGH); 
+		delayMicroseconds(1500);
+		I2C_GlobalEn(false);
+		I2C_OnBoardEn(true);
+		float IBulk = CSA_Beta.GetCurrent(CH1, false);
+		I2C_OnBoardEn(false);
+		I2C_GlobalEn(true);
+
+		// delay(2);
+		// // ioTalonSDI12.digitalWrite(i, LOW);
+		// // delay(1);
+		// // ioTalonSDI12.digitalWrite(i, HIGH); 
+		// // delayMicroseconds(100);
+		// delay(10); //Wait for voltage to stabilize
+		// float Current = adcSense.GetVoltage(true)*CurrentDiv*1000;
+		// if(ioTalonSDI12.digitalRead(i + 8) || Current > 450) { //If fault, turn back off
+		if(ioTalonSDI12.digitalRead(i + 8) || IBulk > 2050) { //If fault, turn back off - Min trip current val
+			ioTalonSDI12.digitalWrite(i, LOW);
+			isFault[i] = true;
+			Serial.print("\tPort ");
+			Serial.print(i);
+			Serial.println(" FAULT");
+		}
+		
+		Serial.print("\tPort");
+		Serial.print(i);
+		Serial.print(":");
+		Serial.print(IBulk, 6); //Print high resolution current measure in mA
+		Serial.print(" mA\n");  
+		// delay(1);
+		// if(ioTalonSDI12.digitalRead(i + 8)) { //If fault, turn back off
+		// 	// ioTalonI2C.digitalWrite(i, LOW);
+		// 	Serial.print("\tPort ");
+		// 	Serial.print(i);
+		// 	Serial.println(" FAULT");
+		// }
 	} 
+	
+	ioTalonSDI12.digitalWrite(SENSE_EN, HIGH); //Turn sense back on
+	for(int i = 0; i < 4; i++) { //Toggle enable lines to reset latches if tripped
+		if(!isFault[i]) { //Only toggle back on if fault did not occour
+			ioTalonSDI12.digitalWrite(i, HIGH);
+			delayMicroseconds(10);
+			ioTalonSDI12.digitalWrite(i, LOW);
+			delayMicroseconds(10);
+			ioTalonSDI12.digitalWrite(i, HIGH);
+		}
+	}
+	
+	for(int i = 8; i < 12; i++) { //Set FAULT lines as input //DEBUG!
+		ioTalonSDI12.pinMode(i, INPUT);
+	}
+	// DEBUG! - END
 
 	for(int i = 4; i < 8; i++) { //Default data to disabled
 		ioTalonSDI12.pinMode(i, OUTPUT); 
 		ioTalonSDI12.digitalWrite(i, LOW); 
 	} 
 
-	for(int i = 8; i < 12; i++) { //Set FAULT lines as input pullups
-		ioTalonSDI12.pinMode(i, INPUT_PULLUP);
-	}
+	// for(int i = 8; i < 12; i++) { //Set FAULT lines as input pullups
+	// 	ioTalonSDI12.pinMode(i, INPUT_PULLUP);
+	// }
 
 	ioTalonSDI12.pinMode(POS_DETECT, INPUT); //Set position detect as normal pullup (has external pullup)
 
+	Serial.print(">Port Sense:\n");
+
+	ioSense.begin(); //Initalize voltage sensor IO expander
+	for(int i = 0; i < 4; i++) { //Set all pins to output
+		ioSense.pinMode(i, OUTPUT); 
+	}
+	ioSense.digitalWrite(MUX_EN, LOW); //Enable MUX
+	int SenseError = adcSense.Begin(); //Initialize ADC 
+	int ApogeeError = apogeeADC.begin();
+	if(SenseError == 0) { //Only proceed if ADC connects correctly
+		adcSense.SetResolution(18); //Set to max resolution (we paid for it right?) 
+
+		ioSense.digitalWrite(MUX_SEL2, LOW); //Read voltages
+		for(int i = 0; i < 4; i++){ //Increment through 4 voltages
+			ioSense.digitalWrite(MUX_SEL0, i & 0b01); //Set with lower bit
+			ioSense.digitalWrite(MUX_SEL1, (i & 0b10) >> 1); //Set with high bit
+			delay(1); //Wait for voltage to stabilize
+	  		Serial.print("\tPort");
+	  		Serial.print(i);
+	  		Serial.print(":");
+	  		Serial.print(adcSense.GetVoltage(true)*VoltageDivSDI12, 6); //Print high resolution voltage
+	  		Serial.print(" V\n");  
+		}
+		ioSense.digitalWrite(MUX_SEL2, HIGH); //Read currents
+		for(int i = 0; i < 4; i++){ //Increment through 4 voltages
+			ioSense.digitalWrite(MUX_SEL0, i & 0b01); //Set with lower bit
+			ioSense.digitalWrite(MUX_SEL1, (i & 0b10) >> 1); //Set with high bit
+			delay(1); //Wait for voltage to stabilize
+	  		Serial.print("\tPort");
+	  		Serial.print(i);
+	  		Serial.print(":");
+	  		Serial.print(adcSense.GetVoltage(true)*CurrentDiv*1000, 6); //Print high resolution current measure in mA
+	  		Serial.print(" mA\n");  
+		}
+	}
+	else Serial.print("\tFAIL!\n");
+
+	ioSense.digitalWrite(MUX_EN, HIGH); //Disable MUX
+	Serial.println("Apogee Port:");
+	if(ApogeeError == 0) {
+		apogeeADC.getVoltageRaw(); //Clear POR value of register 
+		for(int i = 0; i < 10; i++) {
+			Serial.print("\t");
+			Serial.print(apogeeADC.getVoltage(4.9477)*1000.0);
+			Serial.println(" mV");
+		}
+	}
+	else Serial.println("FAIL!");
+	
+
 	for(int i = 0; i < 4; i++) {
+		ioTalonSDI12.pinMode(i + 4, OUTPUT); 
 		ioTalonSDI12.digitalWrite(i + 4, HIGH); //Turn port data on
-		String Data = SendCommand("?");
+		// delay(25); //DEBUG!
+		// SendCommand("?"); //DEBUG!
+		String Data = SendCommand("?!");
+		// Serial.println(Data); //DEBUG!
 		int Address = (Data.substring(0, 1)).toInt(); //Get address detected 
 		String ID = Command("I", Address); //Get ID string from device
 		Serial.print("\tPort ");
@@ -1996,10 +2434,23 @@ void SensorDemo2()
 		ioTalonSDI12.pinMode(i, OUTPUT); 
 		ioTalonSDI12.digitalWrite(i, HIGH); 
 	} 
+
+	//Enable all but channel 4
+	// for(int i = 4; i < 7; i++) { 
+	// 	ioTalonSDI12.pinMode(i, OUTPUT); 
+	// 	ioTalonSDI12.digitalWrite(i, HIGH); 
+	// } 
+	// ioTalonSDI12.pinMode(7, OUTPUT); 
+	// ioTalonSDI12.digitalWrite(7, LOW); 
+	///////////////////////////
 }
 
 void SensorDemo3()
 {
+	const uint8_t MUX_EN = 11;
+	const uint8_t MUX_SEL2 = 10;
+	const uint8_t MUX_SEL1 = 9;
+	const uint8_t MUX_SEL0 = 8;
 	I2C_OnBoardEn(true);
 	I2C_GlobalEn(false);
 	ioBeta.pinMode(PinsIOBeta::EN4, OUTPUT);
@@ -2009,13 +2460,14 @@ void SensorDemo3()
 
 	ioBeta.digitalWrite(PinsIOBeta::EN4, HIGH);
 	ioBeta.digitalWrite(PinsIOBeta::I2C_EN4, HIGH);
-	ioBeta.digitalWrite(PinsIOBeta::SEL4, HIGH);
+	ioBeta.digitalWrite(PinsIOBeta::SEL4, LOW);
 
 	I2C_OnBoardEn(false);
 	I2C_GlobalEn(true);
 	ioAUXAlpha.begin();
 	ioAUXBeta.begin();
 	ioAUXGamma.begin();
+	ioAUXBeta.setIntConfig(false, false, true, false); //Setup individual inerrupts with push pull output, active high, cleared by reading GPIO regs 
 	//SETUP DEFAULT PINS
 	for(int i = 0; i < 16; i++) { //Set all Gamma pins to input
 		ioAUXGamma.pinMode(i, INPUT_PULLUP);
@@ -2041,23 +2493,68 @@ void SensorDemo3()
 		ioAUXBeta.digitalWrite(COUNT_EN1 + i, HIGH); //Default to enable all counters
 		ioAUXAlpha.pinMode(FAULT1 + 2*i, INPUT_PULLUP);
 		ioAUXAlpha.pinMode(EN1 + 2*i, OUTPUT);
+		ioAUXAlpha.digitalWrite(EN1 + 2*i, HIGH); //Toggle enable to reset if needed
+		ioAUXAlpha.digitalWrite(EN1 + 2*i, LOW);
 		ioAUXAlpha.digitalWrite(EN1 + 2*i, HIGH);
 	}
 	ioAUXBeta.pinMode(LOAD, OUTPUT);
 	ioAUXBeta.pinMode(RST, OUTPUT);
 	ioAUXBeta.digitalWrite(LOAD, LOW); //Start with load in low position, will load on high going edge
 	ioAUXBeta.digitalWrite(RST, HIGH); //Negate reset by default
+	ioAUXBeta.setIntPinConfig(OVF1, false, HIGH); //Interrupt if OVF1 goes low
+	ioAUXBeta.setIntPinConfig(OUT1, true); //Interrupt if OUT1 changes
+	ioAUXBeta.setInterrupt(OVF1, true); //turn on interrupt for OVF1 pin
+	ioAUXBeta.setInterrupt(OUT1, true); //turn on interrupt for OUT1 pin
+	ioAUXBeta.clearInterrupt(BOTH); //Clean both interrupts 
 
 	ioAUXAlpha.pinMode(REG_EN, OUTPUT);
 	ioAUXAlpha.digitalWrite(REG_EN, HIGH); //Default 5V to on
 	// ioAlpha.pinMode(ADC_INT, INPUT_PULLUP); //Setup ADC int as an input pullup for the open drain
 	ioAUXAlpha.pinMode(ADC_INT, INPUT); //Setup ADC int as an input pullup for the open drain
 
-	//SENSE VOLTAGES
-	Serial.print("\tVoltage Sense:\n");
+	Serial.print("\tPort Sense:\n");
+	for(int i = 8; i < 12; i++) { //Set all MUX select pins to output
+		ioAUXAlpha.pinMode(i, OUTPUT); 
+	}
+	ioAUXAlpha.digitalWrite(MUX_EN, LOW); //Turn MUX on 
 	ads.begin();
 
-	for(int i = 0; i < 4; i++){ //Increment through 4 voltages
+	adcSense.SetResolution(18); //Set to max resolution (we paid for it right?) 
+
+	ioAUXAlpha.digitalWrite(MUX_SEL2, LOW); //Read voltages
+	for(int i = 0; i < 3; i++){ //Increment through 4 voltages
+		ioAUXAlpha.digitalWrite(MUX_SEL0, i & 0b01); //Set with lower bit
+		ioAUXAlpha.digitalWrite(MUX_SEL1, (i & 0b10) >> 1); //Set with high bit
+		delay(1); //Wait for voltage to stabilize
+		Serial.print("\tPort");
+		Serial.print(i);
+		Serial.print(" Input:");
+		Serial.print(ads.readADC_SingleEnded(3)*0.1875, 4); //Print high resolution voltage
+		Serial.print(" mV\n");  
+	}
+	ioAUXAlpha.digitalWrite(MUX_SEL0, HIGH); //Set with lower bit
+	ioAUXAlpha.digitalWrite(MUX_SEL1, HIGH); //Set with high bit
+	delay(1); //Wait for voltage to stabilize
+	Serial.print("\t5V Rail:");
+	Serial.print(ads.readADC_SingleEnded(3)*0.1875, 4); //Print high resolution voltage
+	Serial.print(" mV\n");  
+	ioAUXAlpha.digitalWrite(MUX_SEL2, HIGH); //Read currents
+	for(int i = 0; i < 3; i++){ //Increment through 4 voltages
+		ioAUXAlpha.digitalWrite(MUX_SEL0, i & 0b01); //Set with lower bit
+		ioAUXAlpha.digitalWrite(MUX_SEL1, (i & 0b10) >> 1); //Set with high bit
+		delay(1); //Wait for voltage to stabilize
+		Serial.print("\tPort");
+		Serial.print(i);
+		Serial.print(" Output:");
+		Serial.print(ads.readADC_SingleEnded(3)*0.1875, 4); //Print high resolution voltage
+		Serial.print(" mV\n");  
+	}
+
+	//SENSE VOLTAGES
+	Serial.print("\tVoltage Sense:\n");
+	
+
+	for(int i = 0; i < 3; i++){ //Increment through 4 voltages
   		Serial.print("\t\tPort");
   		Serial.print(i);
   		Serial.print(": ");
@@ -2091,6 +2588,13 @@ void SensorDemo3()
 		Serial.print(Count[i]);
 		Serial.print(" Counts\n");
 	}
+
+	// delay(5000);
+	// for(int i = 0; i < 3; i++) { //Shut down output power //DEBUG!
+	// 	ioAUXAlpha.digitalWrite(EN1 + 2*i, LOW);
+	// }
+	// delay(5000);
+	// ioAUXAlpha.digitalWrite(REG_EN, LOW); //Turn 5V off
 }
 
 void SendBreak()

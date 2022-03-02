@@ -1145,6 +1145,11 @@ void TestCSA()
 
 	int ErrorAlpha = CSA_Alpha.begin();
 	int ErrorBeta = CSA_Beta.begin();
+	CSA_Beta.EnableChannel(CH1, true); //Eanble all channels (in case disabled elsewhere)
+	CSA_Beta.EnableChannel(CH2, true);
+	CSA_Beta.EnableChannel(CH3, true);
+	CSA_Beta.EnableChannel(CH4, true);
+	
 	if(ErrorAlpha == 1 && ErrorBeta == 1) { //Only proceed if both passed initialization 
 		CSA_Alpha.SetCurrentDirection(CH1, BIDIRECTIONAL); //Battery charge, bidirectional
 		CSA_Alpha.SetCurrentDirection(CH2, UNIDIRECTIONAL); //System voltage, unidirectional
@@ -1856,7 +1861,10 @@ void SensorDemo1()
 	ioBeta.digitalWrite(PinsIOBeta::SEL2, LOW);
 	int ErrorBeta = CSA_Beta.begin();
 	CSA_Beta.SetCurrentDirection(CH1, UNIDIRECTIONAL); //Bulk voltage, unidirectional
-
+	CSA_Beta.EnableChannel(CH1, true); //Disable all channels but 1
+	CSA_Beta.EnableChannel(CH2, false);
+	CSA_Beta.EnableChannel(CH3, false);
+	CSA_Beta.EnableChannel(CH4, false);
 	
 
 	// ioBeta.pinMode(PinsIOBeta::EN1, OUTPUT);
@@ -2184,6 +2192,10 @@ void SensorDemo2()
 	ioBeta.digitalWrite(PinsIOBeta::SEL2, HIGH);
 	int ErrorBeta = CSA_Beta.begin();
 	CSA_Beta.SetCurrentDirection(CH1, UNIDIRECTIONAL); //Bulk voltage, unidirectional
+	CSA_Beta.EnableChannel(CH1, true); //Disable all channels but 1
+	CSA_Beta.EnableChannel(CH2, false);
+	CSA_Beta.EnableChannel(CH3, false);
+	CSA_Beta.EnableChannel(CH4, false);
 
 	I2C_OnBoardEn(false);
 	I2C_GlobalEn(true);
