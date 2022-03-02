@@ -53,7 +53,7 @@ void I2C_OnBoardEn(bool State);
 void SetDefaultPins();
 #line 14 "c:/Users/schul/Documents/Project-Kestrel/Software/KestrelSerialDemo_Particle/src/KestrelSerialDemo_Particle.ino"
 namespace Pins { //Use for B402
-	// constexpr uint16_t WD_HOLD  = 12;
+	constexpr uint16_t WD_HOLD  = D2;
 	// constexpr uint16_t EXT_EN   = 13;
 	// constexpr uint16_t SD_EN    = 1;
 	constexpr uint16_t SD_CS    = D8;
@@ -281,7 +281,8 @@ SYSTEM_MODE(MANUAL);
 
 void setup() 
 {
-	
+	pinMode(Pins::WD_HOLD, OUTPUT); //Make sure WDT is configured 
+	digitalWrite(Pins::WD_HOLD, LOW); 
 	Cellular.setActiveSim(INTERNAL_SIM);
 	// Cellular.setCredentials("vzwinternet"); // Replace with the correct APN
 	Cellular.setCredentials(""); // Go back to base APN
