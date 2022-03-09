@@ -41,7 +41,7 @@
 "1","39pF","C-EU39PFC0402","C0402","C24","CAPACITOR, European symbol","399-1018-1-ND","","Kemet","C0402C390J5GAC7867","","","","",
 "1","4.7uF","C-EU4.7UFC0805","C0805","C33","CAPACITOR, European symbol","399-7415-1-ND","","Kemet","C0805C475K4RACTU","","","","",
 "1","470k","R-EU_470KR0603","R0603","R16","RESISTOR, European symbol","311-470KGRCT-ND","","Yageo","RC0603JR-07470KL","","","","470k",
-"1","47nF","C-EU47PFC0402","C0402","C32","CAPACITOR, European symbol","490-10670-1-ND","","Murata","GCM1555C1H470JA16D","","","","",
+"1","47nF","C-EU47NFC0402","C0402","C32","CAPACITOR, European symbol","490-3254-1-ND","","Murata","GRM155R71E473KA88D","","","","",
 "1","47pF","C-EU47PFC0402","C0402","C42","CAPACITOR, European symbol","490-10670-1-ND","","Murata","GCM1555C1H470JA16D","","","","",
 "4","5.6k","R-EU_5.6KR0402","R0402","R50, R51, R52, R68","RESISTOR, European symbol","311-5.6KLRCT-ND","","Yageo","RC0402FR-075K6L","","","","5.6k",
 "1","750R","R-EU_750R0603","R0603","R18","RESISTOR, European symbol","311-750HRCT-ND","","Yageo","RC0603FR-07750RL","","","","750",

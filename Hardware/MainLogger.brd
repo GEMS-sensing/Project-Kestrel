@@ -2214,9 +2214,9 @@ Please make sure your boards conform to these design rules.
 <attribute name="VALUE" x="15.367" y="36.322" size="0.6096" layer="27" font="vector" ratio="15" rot="R270" align="center"/>
 </element>
 <element name="C32" library="bschulz_passives" package="C0402" value="47nF" x="19.05" y="32.766" smashed="yes" rot="R270">
-<attribute name="DIGIKEY" value="490-10670-1-ND" x="19.05" y="32.766" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="DIGIKEY" value="490-3254-1-ND" x="19.05" y="32.766" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="MF" value="Murata" x="19.05" y="32.766" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="MPN" value="GCM1555C1H470JA16D" x="19.05" y="32.766" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="MPN" value="GRM155R71E473KA88D" x="19.05" y="32.766" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="NAME" x="19.05" y="30.861" size="0.6096" layer="25" font="vector" ratio="15" align="center"/>
 <attribute name="VALUE" x="17.653" y="32.766" size="0.6096" layer="27" font="vector" ratio="15" rot="R270" align="center"/>
 </element>
