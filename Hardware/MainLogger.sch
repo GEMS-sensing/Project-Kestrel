@@ -2469,20 +2469,6 @@ C&amp;K, Non-Shorting (BBM), 100mA, 12V&lt;br&gt;
 <wire x1="-1.6" y1="0.508" x2="-0.762" y2="1.397" width="0.127" layer="21"/>
 <text x="0" y="1.905" size="0.6096" layer="25" font="vector" ratio="15" align="center">&gt;NAME</text>
 </package>
-<package name="TDFN_4">
-<description>&lt;b&gt;TDFN, 4 pos, EP&lt;/b&gt;&lt;br&gt;&lt;a href = "https://www.vishay.com/docs/66597/sip32431.pdf"&gt;Datasheet&lt;/a&gt;</description>
-<smd name="1" x="-0.725" y="0.25" dx="0.55" dy="0.3" layer="1"/>
-<smd name="2" x="-0.725" y="-0.25" dx="0.55" dy="0.3" layer="1"/>
-<smd name="EP" x="0" y="0" dx="0.5" dy="0.86" layer="1"/>
-<smd name="3" x="0.725" y="-0.25" dx="0.55" dy="0.3" layer="1" rot="R180"/>
-<smd name="4" x="0.725" y="0.25" dx="0.55" dy="0.3" layer="1" rot="R180"/>
-<wire x1="-0.8" y1="0.6" x2="-0.8" y2="-0.6" width="0.127" layer="21"/>
-<wire x1="-0.8" y1="-0.6" x2="0.8" y2="-0.6" width="0.127" layer="21"/>
-<wire x1="0.8" y1="-0.6" x2="0.8" y2="0.6" width="0.127" layer="21"/>
-<wire x1="0.8" y1="0.6" x2="-0.8" y2="0.6" width="0.127" layer="21"/>
-<circle x="-1.016" y="0.889" radius="0.127" width="0.127" layer="21"/>
-<text x="0" y="-1.143" size="0.6096" layer="25" font="vector" ratio="15" align="center">&gt;NAME</text>
-</package>
 <package name="SSOP24">
 <smd name="19" x="-0.325" y="3.675" dx="1.766" dy="0.451" layer="1" rot="R90"/>
 <smd name="20" x="-0.975" y="3.675" dx="1.766" dy="0.451" layer="1" rot="R90"/>
@@ -3150,6 +3136,29 @@ Soure: &lt;a href="http://www.ti.com/lit/ds/symlink/ads7042.pdf"&gt; Data sheet 
 <wire x1="-0.254" y1="0" x2="-0.254" y2="-0.381" width="0.127" layer="21"/>
 <text x="0" y="0.889" size="0.6096" layer="25" font="vector" ratio="15" align="center">&gt;NAME</text>
 </package>
+<package name="WCSP_6">
+<description>&lt;b&gt;WCSP, 6 pos, 1.5x1mm body&lt;/b&gt;&lt;br&gt;&lt;a href = "https://www.onsemi.com/pdf/datasheet/fpf2194-d.pdf"&gt;Datasheet&lt;/a&gt;</description>
+<smd name="A1" x="-0.25" y="0.5" dx="0.25" dy="0.25" layer="1" roundness="100"/>
+<smd name="B1" x="-0.25" y="0" dx="0.25" dy="0.25" layer="1" roundness="100"/>
+<smd name="C1" x="-0.25" y="-0.5" dx="0.25" dy="0.25" layer="1" roundness="100"/>
+<smd name="C2" x="0.25" y="-0.5" dx="0.25" dy="0.25" layer="1" roundness="100" rot="R180"/>
+<smd name="B2" x="0.25" y="0" dx="0.25" dy="0.25" layer="1" roundness="100" rot="R180"/>
+<smd name="A2" x="0.25" y="0.5" dx="0.25" dy="0.25" layer="1" roundness="100" rot="R180"/>
+<wire x1="-0.5" y1="0.75" x2="-0.5" y2="-0.75" width="0.1524" layer="21"/>
+<wire x1="-0.5" y1="-0.75" x2="0.5" y2="-0.75" width="0.1524" layer="21"/>
+<wire x1="0.5" y1="-0.75" x2="0.5" y2="0.75" width="0.1524" layer="21"/>
+<wire x1="0.5" y1="0.75" x2="-0.5" y2="0.75" width="0.1524" layer="21"/>
+<circle x="-0.762" y="1.016" radius="0.127" width="0.1524" layer="21"/>
+<text x="0" y="-1.27" size="0.6096" layer="25" font="vector" ratio="15" rot="R180" align="center">&gt;NAME</text>
+</package>
+<package name="4_40_GND">
+<description>&lt;p&gt;&lt;b&gt;4x40 Non-Plated Mounting Hole &lt;/b&gt;
+&lt;br&gt;Hole diameter based on max body diameter + 15% 
+&lt;br&gt;Keepout ring is for diameter of socket cap screw (minimum clearance required)
+&lt;br&gt;TPlace ring is for diameter of pan head screw (recomended clearance) &lt;/p&gt;</description>
+<circle x="0" y="0" radius="2.65" width="0.127" layer="21"/>
+<pad name="GND" x="0" y="0" drill="3.175"/>
+</package>
 </packages>
 <symbols>
 <symbol name="10118194-0001LF_10118194-0001LF">
@@ -3785,10 +3794,10 @@ Switches electrical signals</description>
 </symbol>
 <symbol name="LOAD_SWITCH_BASIC">
 <description>&lt;b&gt;Generic Load Switch Symbol&lt;/b&gt;</description>
-<pin name="VIN" x="-12.7" y="2.54" length="middle" direction="pwr"/>
+<pin name="VIN" x="-12.7" y="2.54" visible="pin" length="middle" direction="pwr"/>
 <pin name="EN" x="-12.7" y="-2.54" length="middle" direction="in"/>
-<pin name="VOUT" x="12.7" y="2.54" length="middle" direction="pwr" rot="R180"/>
-<pin name="GND" x="12.7" y="-2.54" length="middle" direction="pwr" rot="R180"/>
+<pin name="VOUT" x="12.7" y="2.54" visible="pin" length="middle" direction="pwr" rot="R180"/>
+<pin name="GND" x="12.7" y="-2.54" visible="pin" length="middle" direction="pwr" rot="R180"/>
 <wire x1="-7.62" y1="5.08" x2="-7.62" y2="-5.08" width="0.254" layer="94"/>
 <wire x1="-7.62" y1="-5.08" x2="7.62" y2="-5.08" width="0.254" layer="94"/>
 <wire x1="7.62" y1="-5.08" x2="7.62" y2="5.08" width="0.254" layer="94"/>
@@ -4062,6 +4071,46 @@ Switches electrical signals</description>
 <wire x1="-0.254" y1="-8.636" x2="0.254" y2="-8.636" width="0.254" layer="94"/>
 <text x="0" y="-11.684" size="1.778" layer="95" ratio="15" align="center">&gt;NAME</text>
 <text x="0" y="9.144" size="1.778" layer="95" ratio="15" align="center">&gt;DISP</text>
+</symbol>
+<symbol name="MIC2544">
+<pin name="IN" x="-12.7" y="5.08" visible="pin" length="middle" direction="pwr"/>
+<pin name="EN" x="-12.7" y="0" visible="pin" length="middle" direction="in"/>
+<pin name="!FLG" x="-12.7" y="-7.62" visible="pin" length="middle" direction="oc"/>
+<pin name="GND" x="15.24" y="-7.62" visible="pin" length="middle" direction="pwr" rot="R180"/>
+<pin name="ILIM" x="15.24" y="2.54" visible="pin" length="middle" direction="in" rot="R180"/>
+<pin name="OUT" x="15.24" y="5.08" visible="pin" length="middle" direction="pwr" rot="R180"/>
+<wire x1="-7.62" y1="7.62" x2="-7.62" y2="-10.16" width="0.254" layer="94"/>
+<wire x1="-7.62" y1="-10.16" x2="10.16" y2="-10.16" width="0.254" layer="94"/>
+<wire x1="10.16" y1="-10.16" x2="10.16" y2="7.62" width="0.254" layer="94"/>
+<wire x1="10.16" y1="7.62" x2="-7.62" y2="7.62" width="0.254" layer="94"/>
+<text x="1.27" y="8.89" size="1.778" layer="95" ratio="15" align="center">&gt;DISP</text>
+<text x="1.524" y="-11.43" size="1.778" layer="95" ratio="15" align="center">&gt;NAME</text>
+</symbol>
+<symbol name="GATE_INVERTER_SCHMITT_TRIGGER-1">
+<wire x1="-2.54" y1="5.08" x2="6.258559375" y2="0" width="0.254" layer="94"/>
+<wire x1="6.258559375" y1="0" x2="-2.54" y2="-5.08" width="0.254" layer="94"/>
+<wire x1="-2.54" y1="-5.08" x2="-2.54" y2="5.08" width="0.254" layer="94"/>
+<wire x1="6.35" y1="0" x2="7.62" y2="0" width="0.1524" layer="94"/>
+<wire x1="0" y1="1.27" x2="1.778" y2="1.27" width="0.254" layer="94"/>
+<wire x1="0" y1="1.27" x2="0" y2="-1.27" width="0.254" layer="94"/>
+<wire x1="1.016" y1="-1.27" x2="-0.762" y2="-1.27" width="0.254" layer="94"/>
+<wire x1="1.016" y1="-1.27" x2="1.016" y2="1.27" width="0.254" layer="94"/>
+<pin name="Y" x="7.62" y="0" visible="pad" length="point" rot="R180"/>
+<pin name="A" x="-5.08" y="0" visible="pad" length="short"/>
+<text x="-2.54" y="5.842" size="1.778" layer="95" font="vector">&gt;NAME</text>
+<text x="-2.54" y="-7.62" size="1.778" layer="95" font="vector">&gt;VALUE</text>
+</symbol>
+<symbol name="POWER_CONSORT">
+<wire x1="-2.54" y1="5.08" x2="2.54" y2="5.08" width="0.254" layer="94"/>
+<wire x1="2.54" y1="5.08" x2="2.54" y2="-5.08" width="0.254" layer="94"/>
+<wire x1="2.54" y1="-5.08" x2="-2.54" y2="-5.08" width="0.254" layer="94"/>
+<wire x1="-2.54" y1="-5.08" x2="-2.54" y2="5.08" width="0.254" layer="94"/>
+<pin name="P$V+" x="0" y="7.62" visible="pad" length="short" rot="R270"/>
+<pin name="P$V-" x="0" y="-7.62" visible="pad" length="short" rot="R90"/>
+<text x="-3.302" y="-5.08" size="1.778" layer="95" font="vector" rot="R90">&gt;NAME</text>
+<text x="5.08" y="-5.08" size="1.778" layer="95" font="vector" rot="R90">&gt;VALUE</text>
+<text x="0.127" y="-4.699" size="1.27" layer="94" font="vector" align="bottom-center">VEE</text>
+<text x="0.127" y="3.429" size="1.27" layer="94" font="vector" align="bottom-center">VCC</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -6477,58 +6526,6 @@ Digikey: https://www.digikey.com/product-detail/en/cree-inc/CLVBA-FKA-CAEDH8BBB7
 </device>
 </devices>
 </deviceset>
-<deviceset name="SIP3243*" prefix="U">
-<description>&lt;b&gt;SiP3243x&lt;/b&gt; - Ultra Low Leakage Load Switch with Reverse Blocking
-
-&lt;p&gt;Characteristics:
-&lt;ul&gt;
-&lt;li&gt;Vin: 1.5 ~ 5.5V&lt;/li&gt;
-&lt;li&gt; I&lt;sub&gt;Q&lt;/sub&gt;: 0.01 nA &lt;/li&gt;
-&lt;li&gt;R&lt;sub&gt;DS(ON)&lt;/sub&gt;: 105m&amp;Omega; (Vin = 5v), 135m&amp;Omega; (Vin = 3v)&lt;/li&gt;
-&lt;li&gt; Output Current: 1.4A&lt;/li&gt;
-&lt;li&gt;Operating Temperature: -40°C to 125°C&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/p&gt;
- 
-&lt;p&gt;Digikey: &lt;br&gt;
-&lt;ul&gt;
-&lt;a href = "https://www.digikey.com/en/products/detail/SIP32431DNP3-T1GE4/SIP32431DNP3-T1GE4CT-ND/2673920?itemSeq=377306935"&gt; SIP32431DNP3-T1GE4CT-ND &lt;/a&gt;&lt;br/&gt;
-
-&lt;/p&gt;</description>
-<gates>
-<gate name="G$1" symbol="LOAD_SWITCH_BASIC" x="0" y="0"/>
-</gates>
-<devices>
-<device name="TDFN" package="TDFN_4">
-<connects>
-<connect gate="G$1" pin="EN" pad="4"/>
-<connect gate="G$1" pin="GND" pad="2 EP"/>
-<connect gate="G$1" pin="VIN" pad="3"/>
-<connect gate="G$1" pin="VOUT" pad="1"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="DIGIKEY" value="" constant="no"/>
-<attribute name="DISP" value="" constant="no"/>
-<attribute name="MF" value="" constant="no"/>
-<attribute name="MPN" value="" constant="no"/>
-</technology>
-<technology name="1">
-<attribute name="DIGIKEY" value="SIP32431DNP3-T1GE4CT-ND" constant="no"/>
-<attribute name="DISP" value="SIP32431" constant="no"/>
-<attribute name="MF" value="Vishay" constant="no"/>
-<attribute name="MPN" value="SIP32431DNP3-T1GE4" constant="no"/>
-</technology>
-<technology name="2">
-<attribute name="DIGIKEY" value="" constant="no"/>
-<attribute name="DISP" value="" constant="no"/>
-<attribute name="MF" value="" constant="no"/>
-<attribute name="MPN" value="" constant="no"/>
-</technology>
-</technologies>
-</device>
-</devices>
-</deviceset>
 <deviceset name="MCP23018" prefix="U">
 <description>&lt;b&gt;MCP23018&lt;/b&gt; - I&lt;sup&gt;2&lt;/sup&gt;C I/O Expander, 16 bit wtih interrupt and reset
  
@@ -6993,6 +6990,11 @@ Digikey:
 <technology name=""/>
 </technologies>
 </device>
+<device name="4_PL_GND" package="4_40_GND">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
 </devices>
 </deviceset>
 <deviceset name="MICROSD" prefix="SD">
@@ -7302,6 +7304,173 @@ Digikey: &lt;br&gt;&lt;a href = "https://www.digikey.com/product-detail/en/texas
 <attribute name="DISP" value="SiT1552" constant="no"/>
 <attribute name="MF" value="SiTime" constant="no"/>
 <attribute name="MPN" value="SIT1552AI-JF-DCC-32.768D" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="TCK11*" prefix="U">
+<description>&lt;b&gt;TCK11x&lt;/b&gt; - Load Switch, with Reverse Current Blocking, Output Discharge (TCK112G Only)
+ 
+&lt;p&gt;Characteristics:
+&lt;ul&gt;
+&lt;li&gt;Vin: 1.1v ~ 5.5v&lt;/li&gt;
+&lt;li&gt; I&lt;sub&gt;Q&lt;/sub&gt;: &amp;lt;0.5&amp;mu;A (OFF), 48&amp;mu;A (ON)&lt;/li&gt;
+&lt;li&gt;R&lt;sub&gt;DS(ON)&lt;/sub&gt;: 8.4m&amp;Omega; (Vin = 3.3v)&lt;/li&gt;
+&lt;li&gt; Output Current: 3A, max &lt;/li&gt;
+&lt;li&gt;Operating Temperature: -40°C to 85°C&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/p&gt;
+ 
+&lt;p&gt;Digikey: &lt;br&gt;
+&lt;ul&gt;
+&lt;a href = "https://www.digikey.com/en/products/detail/toshiba-semiconductor-and-storage/TCK111G-LF/4948988"&gt; TCK111GLFCT-ND (TCK111G) &lt;/a&gt;&lt;br/&gt;
+&lt;a href = "https://www.digikey.com/en/products/detail/toshiba-semiconductor-and-storage/TCK112G-LF/4880051?s=N4IgTCBcDaICoGEDSBGFYDiIC6BfIA"&gt; TCK112GLFCT-ND (TCK112G) &lt;/a&gt;&lt;br/&gt;
+&lt;/p&gt;</description>
+<gates>
+<gate name="G$1" symbol="LOAD_SWITCH_BASIC" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="WCSP_6">
+<connects>
+<connect gate="G$1" pin="EN" pad="C2"/>
+<connect gate="G$1" pin="GND" pad="C1"/>
+<connect gate="G$1" pin="VIN" pad="A2 B2"/>
+<connect gate="G$1" pin="VOUT" pad="A1 B1"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="DIGIKEY" value="" constant="no"/>
+<attribute name="DISP" value="" constant="no"/>
+<attribute name="MF" value="" constant="no"/>
+<attribute name="MPN" value="" constant="no"/>
+</technology>
+<technology name="1G">
+<attribute name="DIGIKEY" value="TCK111GLFCT-ND" constant="no"/>
+<attribute name="DISP" value="TCK111G" constant="no"/>
+<attribute name="MF" value="Toshiba" constant="no"/>
+<attribute name="MPN" value="TCK111G,LF" constant="no"/>
+</technology>
+<technology name="2G">
+<attribute name="DIGIKEY" value="TCK112GLFCT-ND" constant="no"/>
+<attribute name="DISP" value="TCK112G" constant="no"/>
+<attribute name="MF" value="Toshiba" constant="no"/>
+<attribute name="MPN" value="TCK112G,LF" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="FPF219*" prefix="U">
+<description>&lt;b&gt;FPF219x&lt;/b&gt; - Load Switch, with Adjustable Current Limit and Fault Indicator
+ 
+&lt;p&gt;Characteristics:
+&lt;ul&gt;
+&lt;li&gt;Vin: 1.8v ~ 5.5v&lt;/li&gt;
+&lt;li&gt; I&lt;sub&gt;Q&lt;/sub&gt;: &amp;lt;2&amp;mu;A (OFF), 75&amp;mu;A (ON)&lt;/li&gt;
+&lt;li&gt;R&lt;sub&gt;DS(ON)&lt;/sub&gt;: 55m&amp;Omega; (Vin = 3.3v)&lt;/li&gt;
+&lt;li&gt; Output Current: 1.5A (Max, limit adj) &lt;/li&gt;
+&lt;li&gt;Operating Temperature: -40°C to 85°C&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/p&gt;
+ 
+&lt;p&gt;Digikey: &lt;br&gt;
+&lt;ul&gt;
+&lt;a href = "https://www.digikey.com/en/products/detail/onsemi/FPF2195BUCX/4562742"&gt; FPF2195BUCXCT-ND (FPF2195BUCX) &lt;/a&gt;&lt;br/&gt;
+&lt;/p&gt;</description>
+<gates>
+<gate name="G$1" symbol="MIC2544" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="WCSP_6">
+<connects>
+<connect gate="G$1" pin="!FLG" pad="A1"/>
+<connect gate="G$1" pin="EN" pad="A2"/>
+<connect gate="G$1" pin="GND" pad="C2"/>
+<connect gate="G$1" pin="ILIM" pad="C1"/>
+<connect gate="G$1" pin="IN" pad="B2"/>
+<connect gate="G$1" pin="OUT" pad="B1"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="DIGIKEY" value="" constant="no"/>
+<attribute name="DISP" value="" constant="no"/>
+<attribute name="MF" value="" constant="no"/>
+<attribute name="MPN" value="" constant="no"/>
+</technology>
+<technology name="3">
+<attribute name="DIGIKEY" value="FPF2193CT-ND" constant="no"/>
+<attribute name="DISP" value="FPF2193" constant="no"/>
+<attribute name="MF" value="onsemi" constant="no"/>
+<attribute name="MPN" value="FPF2193" constant="no"/>
+</technology>
+<technology name="4">
+<attribute name="DIGIKEY" value="" constant="no"/>
+<attribute name="DISP" value="FPF2194" constant="no"/>
+<attribute name="MF" value="onsemi" constant="no"/>
+<attribute name="MPN" value="" constant="no"/>
+</technology>
+<technology name="5">
+<attribute name="DIGIKEY" value="FPF2195CT-ND" constant="no"/>
+<attribute name="DISP" value="FPF2195" constant="no"/>
+<attribute name="MF" value="onsemi" constant="no"/>
+<attribute name="MPN" value="FPF2195" constant="no"/>
+</technology>
+<technology name="5BUCX">
+<attribute name="DIGIKEY" value="FPF2195BUCXCT-ND" constant="no"/>
+<attribute name="DISP" value="FPF2195BUCX" constant="no"/>
+<attribute name="MF" value="onsemi" constant="no"/>
+<attribute name="MPN" value="FPF2195BUCX" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="SN74*1G14" prefix="U" uservalue="yes">
+<description>&lt;b&gt;SN74x1G14&lt;/b&gt; - Single Schmitt Triger Inverter
+ 
+&lt;p&gt;Characteristics:
+&lt;ul&gt;
+&lt;li&gt;VCC: 0.8 ~ 3.6V (1.65 ~ 5.5V for LVC Version)&lt;/li&gt;
+&lt;li&gt;Operating Temperature: -40°C to 85°C (-40°C to 125°C for LVC Version)&lt;/li&gt;
+&lt;li&gt;f&lt;sub&gt;max&lt;/sub&gt; = 2.5 MHz (for Vcc =1.65v, high for higher Vcc) &lt;/li&gt;
+&lt;li&gt;Output Current = &amp;plusmn; 4 mA (&amp;plusmn; 32 mA for LVC Version) &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/p&gt;
+ 
+&lt;p&gt;
+Digikey: &lt;br&gt;&lt;a href = "https://www.digikey.com/product-detail/en/texas-instruments/SN74AUP1G14DCKR/296-19076-1-ND/864307"&gt; 296-19076-1-ND (AUP Low Voltage)&lt;a&gt;&lt;br/&gt;
+
+&lt;br&gt;&lt;a href = "https://www.digikey.com/product-detail/en/texas-instruments/SN74LVC1G14DCKR/296-11608-1-ND/385747"&gt; 296-47215-1-ND (LVC High Voltage)&lt;a&gt;&lt;br/&gt;
+
+ &lt;/p&gt;</description>
+<gates>
+<gate name="G1" symbol="GATE_INVERTER_SCHMITT_TRIGGER-1" x="0" y="0"/>
+<gate name="G2" symbol="POWER_CONSORT" x="20.32" y="0"/>
+</gates>
+<devices>
+<device name="DCK" package="DCK_R-PDSO-G5">
+<connects>
+<connect gate="G1" pin="A" pad="2"/>
+<connect gate="G1" pin="Y" pad="4"/>
+<connect gate="G2" pin="P$V+" pad="5"/>
+<connect gate="G2" pin="P$V-" pad="3"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="DIGIKEY" value="" constant="no"/>
+<attribute name="MF" value="TI" constant="no"/>
+<attribute name="MPN" value="" constant="no"/>
+</technology>
+<technology name="AUP">
+<attribute name="DIGIKEY" value="296-19076-1-ND" constant="no"/>
+<attribute name="MF" value="TI" constant="no"/>
+<attribute name="MPN" value="SN74AUP1G14DCKR" constant="no"/>
+</technology>
+<technology name="LVC">
+<attribute name="DIGIKEY" value="296-11608-1-ND" constant="no"/>
+<attribute name="MF" value="TI" constant="no"/>
+<attribute name="MPN" value="SN74LVC1G14DCKR" constant="no"/>
 </technology>
 </technologies>
 </device>
@@ -10633,11 +10802,23 @@ Source: AVX .. aphvc.pdf</description>
 <attribute name="MPN" value="RC0402FR-0710KL" constant="no"/>
 <attribute name="VALUE_PART" value="10k" constant="no"/>
 </technology>
+<technology name="11K">
+<attribute name="DIGIKEY" value="311-11.0KLRCT-ND" constant="no"/>
+<attribute name="MF" value="Yageo" constant="no"/>
+<attribute name="MPN" value="RC0402FR-0711KL" constant="no"/>
+<attribute name="VALUE_PART" value="11k" constant="no"/>
+</technology>
 <technology name="120K">
 <attribute name="DIGIKEY" value="311-120KLRCT-ND" constant="no"/>
 <attribute name="MF" value="Yageo" constant="no"/>
 <attribute name="MPN" value="RC0402FR-07120KL" constant="no"/>
 <attribute name="VALUE_PART" value="120k" constant="no"/>
+</technology>
+<technology name="13.3K">
+<attribute name="DIGIKEY" value="YAG2974CT-ND" constant="no"/>
+<attribute name="MF" value="Yageo" constant="no"/>
+<attribute name="MPN" value="RC0402FR-0713K3L" constant="no"/>
+<attribute name="VALUE_PART" value="13.3k" constant="no"/>
 </technology>
 <technology name="130K">
 <attribute name="DIGIKEY" value="YAG2969CT-ND" constant="no"/>
@@ -10764,6 +10945,12 @@ Source: AVX .. aphvc.pdf</description>
 <attribute name="MF" value="Yageo" constant="no"/>
 <attribute name="MPN" value="RC0402FR-07470RL" constant="no"/>
 <attribute name="VALUE_PART" value="470" constant="no"/>
+</technology>
+<technology name="5.6K">
+<attribute name="DIGIKEY" value="311-5.6KLRCT-ND" constant="no"/>
+<attribute name="MF" value="Yageo" constant="no"/>
+<attribute name="MPN" value="RC0402FR-075K6L" constant="no"/>
+<attribute name="VALUE_PART" value="5.6k" constant="no"/>
 </technology>
 </technologies>
 </device>
@@ -11102,6 +11289,12 @@ Source: AVX .. aphvc.pdf</description>
 <attribute name="MF" value="Stackpole" constant="no"/>
 <attribute name="MPN" value="RMCF0603FT62K0" constant="no"/>
 <attribute name="VALUE_PART" value="62k" constant="no"/>
+</technology>
+<technology name="750">
+<attribute name="DIGIKEY" value="311-750HRCT-ND" constant="no"/>
+<attribute name="MF" value="Yageo" constant="no"/>
+<attribute name="MPN" value="RC0603FR-07750RL" constant="no"/>
+<attribute name="VALUE_PART" value="750" constant="no"/>
 </technology>
 <technology name="750K">
 <attribute name="DIGIKEY" value="311-750KHRCT-ND" constant="no"/>
@@ -12172,9 +12365,9 @@ Source: AVX .. aphvc.pdf</description>
 <attribute name="MPN" value="CC0603KRX7R9BB102" constant="no"/>
 </technology>
 <technology name="1UF">
-<attribute name="DIGIKEY" value="587-1251-1-ND" constant="no"/>
+<attribute name="DIGIKEY" value="587-2984-1-ND" constant="no"/>
 <attribute name="MF" value="Yaiyo Yuden" constant="no"/>
-<attribute name="MPN" value="EMK107BJ105KA-T" constant="no"/>
+<attribute name="MPN" value="TMK107B7105KA-T" constant="no"/>
 </technology>
 <technology name="2.2NF">
 <attribute name="DIGIKEY" value="311-1081-1-ND" constant="no"/>
@@ -13655,7 +13848,6 @@ Key = E&lt;br&gt;</description>
 <part name="GND40" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="C2" library="bschulz_passives" deviceset="C-EU" device="C0603" technology="2.2UF" value="2.2uF"/>
 <part name="GND41" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="R1" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="100K" value="100k"/>
 <part name="C3" library="bschulz_passives" deviceset="C-EU" device="C0603" technology="1UF" value="1uF"/>
 <part name="C4" library="bschulz_passives" deviceset="CTANT_EU" device="1411" value="100uF">
 <attribute name="DIGIKEY" value="478-5231-1-ND"/>
@@ -13720,10 +13912,6 @@ If either side is low, device is in tri-state anyway</text>
 <instance part="GND41" gate="1" x="17.78" y="15.24" smashed="yes">
 <attribute name="VALUE" x="15.24" y="12.7" size="1.778" layer="96"/>
 </instance>
-<instance part="R1" gate="G$1" x="35.56" y="22.86" smashed="yes" rot="R90">
-<attribute name="NAME" x="34.0614" y="19.05" size="1.778" layer="95" rot="R90"/>
-<attribute name="VALUE" x="38.862" y="19.05" size="1.778" layer="96" rot="R90"/>
-</instance>
 <instance part="C3" gate="G$1" x="88.9" y="25.4" smashed="yes">
 <attribute name="NAME" x="90.424" y="25.781" size="1.778" layer="95"/>
 <attribute name="VALUE" x="90.424" y="20.701" size="1.778" layer="96"/>
@@ -13754,13 +13942,13 @@ If either side is low, device is in tri-state anyway</text>
 <instance part="GND2" gate="1" x="48.26" y="91.44" smashed="yes">
 <attribute name="VALUE" x="45.72" y="88.9" size="1.778" layer="96"/>
 </instance>
-<instance part="R2" gate="G$1" x="81.28" y="58.42" smashed="yes">
-<attribute name="NAME" x="77.47" y="59.9186" size="1.778" layer="95"/>
-<attribute name="VALUE" x="77.47" y="55.118" size="1.778" layer="96"/>
+<instance part="R2" gate="G$1" x="81.28" y="63.5" smashed="yes">
+<attribute name="NAME" x="77.47" y="64.9986" size="1.778" layer="95"/>
+<attribute name="VALUE" x="77.47" y="60.198" size="1.778" layer="96"/>
 </instance>
-<instance part="R3" gate="G$1" x="81.28" y="48.26" smashed="yes">
-<attribute name="NAME" x="77.47" y="49.7586" size="1.778" layer="95"/>
-<attribute name="VALUE" x="77.47" y="44.958" size="1.778" layer="96"/>
+<instance part="R3" gate="G$1" x="81.28" y="53.34" smashed="yes">
+<attribute name="NAME" x="77.47" y="54.8386" size="1.778" layer="95"/>
+<attribute name="VALUE" x="77.47" y="50.038" size="1.778" layer="96"/>
 </instance>
 </instances>
 <busses>
@@ -13802,20 +13990,6 @@ If either side is low, device is in tri-state anyway</text>
 <pinref part="U1" gate="G$1" pin="B"/>
 <wire x1="50.8" y1="101.6" x2="48.26" y2="101.6" width="0.1524" layer="91"/>
 <label x="48.26" y="101.6" size="1.016" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
-<net name="TX" class="0">
-<segment>
-<wire x1="73.66" y1="63.5" x2="76.2" y2="63.5" width="0.1524" layer="91"/>
-<label x="76.2" y="63.5" size="1.016" layer="95" xref="yes"/>
-<pinref part="U3" gate="G$1" pin="1B0"/>
-</segment>
-</net>
-<net name="RX" class="0">
-<segment>
-<wire x1="73.66" y1="53.34" x2="76.2" y2="53.34" width="0.1524" layer="91"/>
-<label x="76.2" y="53.34" size="1.016" layer="95" xref="yes"/>
-<pinref part="U3" gate="G$1" pin="2B0"/>
 </segment>
 </net>
 <net name="SEL" class="0">
@@ -13863,11 +14037,8 @@ If either side is low, device is in tri-state anyway</text>
 </net>
 <net name="!FAULT" class="0">
 <segment>
-<wire x1="33.02" y1="17.78" x2="35.56" y2="17.78" width="0.1524" layer="91"/>
 <label x="33.02" y="17.78" size="1.016" layer="95" rot="R180" xref="yes"/>
-<pinref part="R1" gate="G$1" pin="1"/>
-<wire x1="35.56" y1="17.78" x2="48.26" y2="17.78" width="0.1524" layer="91"/>
-<junction x="35.56" y="17.78"/>
+<wire x1="33.02" y1="17.78" x2="48.26" y2="17.78" width="0.1524" layer="91"/>
 <pinref part="U4" gate="G$1" pin="!FAULT"/>
 </segment>
 </net>
@@ -13942,11 +14113,6 @@ If either side is low, device is in tri-state anyway</text>
 <pinref part="U2" gate="G$1" pin="VB"/>
 </segment>
 <segment>
-<wire x1="73.66" y1="43.18" x2="76.2" y2="43.18" width="0.1524" layer="91"/>
-<label x="76.2" y="43.18" size="1.016" layer="95" xref="yes"/>
-<pinref part="U3" gate="G$1" pin="VCC"/>
-</segment>
-<segment>
 <wire x1="104.14" y1="83.82" x2="104.14" y2="86.36" width="0.1524" layer="91"/>
 <wire x1="104.14" y1="86.36" x2="106.68" y2="86.36" width="0.1524" layer="91"/>
 <label x="106.68" y="86.36" size="1.016" layer="95" xref="yes"/>
@@ -13970,11 +14136,6 @@ If either side is low, device is in tri-state anyway</text>
 <wire x1="114.3" y1="48.26" x2="119.38" y2="48.26" width="0.1524" layer="91"/>
 <label x="119.38" y="48.26" size="1.016" layer="95" xref="yes"/>
 </segment>
-<segment>
-<wire x1="48.26" y1="83.82" x2="45.72" y2="83.82" width="0.1524" layer="91"/>
-<label x="45.72" y="83.82" size="1.016" layer="95" rot="R180" xref="yes"/>
-<pinref part="U2" gate="G$1" pin="VA"/>
-</segment>
 </net>
 <net name="3V3" class="0">
 <segment>
@@ -13987,21 +14148,25 @@ If either side is low, device is in tri-state anyway</text>
 <wire x1="17.78" y1="27.94" x2="17.78" y2="30.48" width="0.1524" layer="91"/>
 <wire x1="17.78" y1="30.48" x2="15.24" y2="30.48" width="0.1524" layer="91"/>
 <label x="15.24" y="30.48" size="1.016" layer="95" rot="R180" xref="yes"/>
-<wire x1="35.56" y1="27.94" x2="35.56" y2="30.48" width="0.1524" layer="91"/>
-<wire x1="35.56" y1="30.48" x2="17.78" y2="30.48" width="0.1524" layer="91"/>
+<wire x1="48.26" y1="30.48" x2="17.78" y2="30.48" width="0.1524" layer="91"/>
 <junction x="17.78" y="30.48"/>
-<pinref part="R1" gate="G$1" pin="2"/>
 <pinref part="C2" gate="G$1" pin="1"/>
-</segment>
-<segment>
-<label x="45.72" y="30.48" size="1.016" layer="95" rot="R180" xref="yes"/>
-<wire x1="48.26" y1="30.48" x2="45.72" y2="30.48" width="0.1524" layer="91"/>
 <pinref part="U4" gate="G$1" pin="VIN"/>
 </segment>
 <segment>
 <pinref part="U1" gate="G$1" pin="VCC"/>
 <wire x1="50.8" y1="109.22" x2="48.26" y2="109.22" width="0.1524" layer="91"/>
 <label x="48.26" y="109.22" size="1.016" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<wire x1="73.66" y1="43.18" x2="76.2" y2="43.18" width="0.1524" layer="91"/>
+<label x="76.2" y="43.18" size="1.016" layer="95" xref="yes"/>
+<pinref part="U3" gate="G$1" pin="VCC"/>
+</segment>
+<segment>
+<wire x1="48.26" y1="83.82" x2="45.72" y2="83.82" width="0.1524" layer="91"/>
+<label x="45.72" y="83.82" size="1.016" layer="95" rot="R180" xref="yes"/>
+<pinref part="U2" gate="G$1" pin="VA"/>
 </segment>
 </net>
 <net name="I2C_EN_GLOBAL" class="0">
@@ -14023,32 +14188,46 @@ If either side is low, device is in tri-state anyway</text>
 <pinref part="U2" gate="G$1" pin="EN"/>
 </segment>
 </net>
-<net name="N$1" class="0">
-<segment>
-<pinref part="R3" gate="G$1" pin="1"/>
-<pinref part="U3" gate="G$1" pin="2B1"/>
-<wire x1="76.2" y1="48.26" x2="73.66" y2="48.26" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$2" class="0">
-<segment>
-<pinref part="R2" gate="G$1" pin="1"/>
-<pinref part="U3" gate="G$1" pin="1B1"/>
-<wire x1="76.2" y1="58.42" x2="73.66" y2="58.42" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="GPIOA" class="0">
 <segment>
 <pinref part="R2" gate="G$1" pin="2"/>
-<wire x1="86.36" y1="58.42" x2="88.9" y2="58.42" width="0.1524" layer="91"/>
-<label x="88.9" y="58.42" size="0.8128" layer="95" xref="yes"/>
+<wire x1="86.36" y1="63.5" x2="88.9" y2="63.5" width="0.1524" layer="91"/>
+<label x="88.9" y="63.5" size="0.8128" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="GPIOB" class="0">
 <segment>
 <pinref part="R3" gate="G$1" pin="2"/>
-<wire x1="86.36" y1="48.26" x2="88.9" y2="48.26" width="0.1524" layer="91"/>
-<label x="88.9" y="48.26" size="0.8128" layer="95" xref="yes"/>
+<wire x1="86.36" y1="53.34" x2="88.9" y2="53.34" width="0.1524" layer="91"/>
+<label x="88.9" y="53.34" size="0.8128" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="N$1" class="0">
+<segment>
+<pinref part="U3" gate="G$1" pin="1B0"/>
+<pinref part="R2" gate="G$1" pin="1"/>
+<wire x1="73.66" y1="63.5" x2="76.2" y2="63.5" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$2" class="0">
+<segment>
+<pinref part="U3" gate="G$1" pin="2B0"/>
+<pinref part="R3" gate="G$1" pin="1"/>
+<wire x1="73.66" y1="53.34" x2="76.2" y2="53.34" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="TX" class="0">
+<segment>
+<pinref part="U3" gate="G$1" pin="1B1"/>
+<wire x1="73.66" y1="58.42" x2="76.2" y2="58.42" width="0.1524" layer="91"/>
+<label x="76.2" y="58.42" size="0.8128" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="RX" class="0">
+<segment>
+<pinref part="U3" gate="G$1" pin="2B1"/>
+<wire x1="73.66" y1="48.26" x2="76.2" y2="48.26" width="0.1524" layer="91"/>
+<label x="76.2" y="48.26" size="0.8128" layer="95" xref="yes"/>
 </segment>
 </net>
 </nets>
@@ -14068,7 +14247,7 @@ If either side is low, device is in tri-state anyway</text>
 <part name="C27" library="bschulz_passives" deviceset="C-EU" device="C0603" technology="1UF" value="1uF"/>
 <part name="GND10" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="R28" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="220" value="220R"/>
-<part name="R27" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="470" value="470R"/>
+<part name="R27" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="220" value="220R"/>
 <part name="R26" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="1M" value="1M"/>
 <part name="R24" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="0.0" value="0R"/>
 <part name="GND12" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
@@ -14079,11 +14258,11 @@ If either side is low, device is in tri-state anyway</text>
 <part name="GND15" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="C33" library="bschulz_passives" deviceset="C-EU" device="C0805" technology="4.7UF" value="4.7uF"/>
 <part name="L3" library="bschulz" deviceset="INDUCTOR" device="_MAIA_4.1X4.1" value="1uH">
-<attribute name="DIGIKEY" value="732-11737-1-ND"/>
+<attribute name="DIGIKEY" value="732-11310-1-ND"/>
 <attribute name="MF" value="Wurth"/>
-<attribute name="MPN" value="78438357010"/>
+<attribute name="MPN" value="78438356010"/>
 </part>
-<part name="R36" library="bschulz_passives" deviceset="R-EU_" device="R0805" technology="0.01" value="10m"/>
+<part name="R36" library="bschulz_passives" deviceset="R-EU_" device="R0805" technology="0.002" value="2m"/>
 <part name="C36" library="bschulz_passives" deviceset="C-EU" device="C0805" technology="10UF" value="10uF"/>
 <part name="GND16" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="C32" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="47PF" value="47nF"/>
@@ -14093,16 +14272,19 @@ If either side is low, device is in tri-state anyway</text>
 <part name="D5" library="bschulz" deviceset="LED" device="0603" technology="GREEN" value="LEDGREEN0603"/>
 <part name="D7" library="bschulz" deviceset="LED" device="0603" technology="AMBER" value="LEDAMBER0603"/>
 <part name="R33" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="10K" value="10k"/>
-<part name="R37" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="10K" value="10k"/>
+<part name="R37" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="2.7K" value="2.7k"/>
 <part name="R32" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="1M" value="1M"/>
 <part name="R35" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="1M" value="1M"/>
-<part name="C34" library="bschulz_passives" deviceset="C-EU" device="C0805" technology="10UF" value="10uF"/>
-<part name="R34" library="bschulz_passives" deviceset="R-EU_" device="R0805" technology="0.01" value="10m"/>
+<part name="C34" library="bschulz_passives" deviceset="C-EU" device="C0805" technology="22UF" value="22uF"/>
+<part name="R34" library="bschulz_passives" deviceset="R-EU_" device="R0805" technology="0.002" value="2m"/>
 <part name="GND18" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="C29" library="bschulz_passives" deviceset="C-EU" device="C0805" technology="10UF" value="10uF"/>
+<part name="C29" library="bschulz_passives" deviceset="C-EU" device="C0805" technology="10UF" value="10uF">
+<attribute name="DIGIKEY" value="490-5523-1-ND"/>
+<attribute name="MPN" value="GRM21BR61E106KA73L"/>
+</part>
 <part name="GND19" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="U5" library="bschulz" deviceset="PAC1934" device="QFN"/>
-<part name="R3" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="0.0" value="0R"/>
+<part name="R3" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="13.3K" value="13.3k"/>
 <part name="GND20" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="C4" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="0.1UF" value="0.1uF"/>
 <part name="C6" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="0.1UF" value="0.1uF"/>
@@ -14118,7 +14300,10 @@ If either side is low, device is in tri-state anyway</text>
 <part name="Q2" library="bschulz" deviceset="MOSFET_PCH" device="-DMP3036SFG"/>
 <part name="R16" library="bschulz_passives" deviceset="R-EU_" device="R0603" technology="470K" value="470k"/>
 <part name="GND33" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="C23" library="bschulz_passives" deviceset="C-EU" device="C0805" technology="10UF" value="10uF"/>
+<part name="C23" library="bschulz_passives" deviceset="C-EU" device="C0805" technology="10UF" value="10uF">
+<attribute name="DIGIKEY" value="490-5523-1-ND"/>
+<attribute name="MPN" value="GRM21BR61E106KA73L"/>
+</part>
 <part name="GND34" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="Q4" library="bschulz" deviceset="MOSFET-NCH" device="-DMG3404L" value="DMG3404"/>
 <part name="R19" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="1M" value="1M"/>
@@ -14166,7 +14351,7 @@ If either side is low, device is in tri-state anyway</text>
 <part name="GND29" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="BT1" library="bschulz" deviceset="BATTERY_COIN" device="ML621"/>
 <part name="GND30" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="R18" library="bschulz_passives" deviceset="R-EU_" device="R0603" technology="1K" value="750R"/>
+<part name="R18" library="bschulz_passives" deviceset="R-EU_" device="R0603" technology="750" value="750R"/>
 <part name="D4" library="bschulz" deviceset="DIODE_CC" device="SOT23" technology="BAT54C" value="BAT54C"/>
 <part name="U21" library="bschulz" deviceset="MCP794*" device="SOIC" technology="12" value="MCP79412SOIC"/>
 <part name="GND46" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
@@ -14178,7 +14363,7 @@ If either side is low, device is in tri-state anyway</text>
 <part name="R55" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="1M" value="1M"/>
 <part name="U25" library="bschulz" deviceset="TPL5010" device="DDC"/>
 <part name="GND50" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="R56" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="100K" value="100k"/>
+<part name="R56" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="130K" value="130k"/>
 <part name="GND59" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="C49" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="0.1UF" value="0.1uF"/>
 <part name="GND60" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
@@ -14187,7 +14372,7 @@ If either side is low, device is in tri-state anyway</text>
 <part name="U22" library="bschulz" deviceset="HALL_EFFECT" device="_SI7201"/>
 <part name="C47" library="bschulz_passives" deviceset="C-EU" device="C0603" technology="1UF" value="1uF"/>
 <part name="R53" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="100K" value="100k"/>
-<part name="R58" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="10K" value="10k"/>
+<part name="R58" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="11K" value="11k"/>
 <part name="GND61" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND62" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND63" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
@@ -14200,9 +14385,9 @@ If either side is low, device is in tri-state anyway</text>
 <part name="GND66" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="U15" library="bschulz" deviceset="MIC2260*" device="" technology="2"/>
 <part name="L1" library="bschulz" deviceset="INDUCTOR" device="_MAIA_4.1X4.1" value="1uH">
-<attribute name="DIGIKEY" value="732-11737-1-ND"/>
+<attribute name="DIGIKEY" value="732-11310-1-ND"/>
 <attribute name="MF" value="Wurth"/>
-<attribute name="MPN" value="78438357010"/>
+<attribute name="MPN" value="78438356010"/>
 </part>
 <part name="R21" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="100K" value="100k"/>
 <part name="R22" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="10K" value="10k"/>
@@ -14272,9 +14457,9 @@ If either side is low, device is in tri-state anyway</text>
 <part name="C1" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="0.1UF" value="0.1uF"/>
 <part name="J1" library="bschulz" deviceset="CONN_02" device="-JST-2MM-SMT"/>
 <part name="D8" library="bschulz" deviceset="CLVBA-FKA" device=""/>
-<part name="R52" library="bschulz_passives" deviceset="R-EU_" device="R0603" technology="4.7K" value="4.7k"/>
-<part name="R51" library="bschulz_passives" deviceset="R-EU_" device="R0603" technology="4.7K" value="4.7k"/>
-<part name="R50" library="bschulz_passives" deviceset="R-EU_" device="R0603" technology="4.7K" value="4.7k"/>
+<part name="R52" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="5.6K" value="5.6k"/>
+<part name="R51" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="5.6K" value="5.6k"/>
+<part name="R50" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="5.6K" value="5.6k"/>
 <part name="FB5" library="bschulz" deviceset="FERRITE_BEAD" device="0402" technology="1KS"/>
 <part name="U19" library="bschulz" deviceset="MCP23018" device="QFN"/>
 <part name="S1" library="bschulz" deviceset="BUTTON" device="4.2X3.2"/>
@@ -14287,7 +14472,6 @@ If either side is low, device is in tri-state anyway</text>
 <part name="C50" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="0.1UF" value="0.1uF"/>
 <part name="GND69" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="U10" library="bschulz" deviceset="SN74AUP3G34" device="DCU"/>
-<part name="U11" library="bschulz" deviceset="SIP3243*" device="TDFN" technology="1"/>
 <part name="C11" library="bschulz_passives" deviceset="C-EU" device="C0603" technology="1UF" value="1uF"/>
 <part name="GND72" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND73" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
@@ -14296,19 +14480,18 @@ If either side is low, device is in tri-state anyway</text>
 <part name="R14" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="100K" value="100k"/>
 <part name="GND83" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="U6" library="bschulz" deviceset="PAC1934" device="QFN"/>
-<part name="R4" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="0.0" value="0R"/>
+<part name="R4" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="2K" value="2k"/>
 <part name="GND84" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="C5" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="0.1UF" value="0.1uF"/>
 <part name="C7" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="0.1UF" value="0.1uF"/>
 <part name="R5" library="bschulz_passives" deviceset="R-EU_" device="R0805" technology="0.002" value="2m"/>
-<part name="R6" library="bschulz_passives" deviceset="R-EU_" device="R0805" technology="0.002" value="2m"/>
-<part name="R7" library="bschulz_passives" deviceset="R-EU_" device="R0805" technology="0.002" value="2m"/>
+<part name="R6" library="bschulz_passives" deviceset="R-EU_" device="R0805" technology="0.01" value="10m"/>
 <part name="R17" library="bschulz_passives" deviceset="R-EU_" device="R0805" technology="0.01" value="10m"/>
 <part name="U18" library="bschulz" deviceset="MCP23018" device="QFN"/>
-<part name="R39" library="bschulz_passives" deviceset="R-EU_" device="R0603" technology="10K" value="10k"/>
-<part name="R38" library="bschulz_passives" deviceset="R-EU_" device="R0603" technology="150K" value="150k"/>
-<part name="R44" library="bschulz_passives" deviceset="R-EU_" device="R0603" technology="30K" value="30k"/>
-<part name="R43" library="bschulz_passives" deviceset="R-EU_" device="R0603" technology="130K" value="130k"/>
+<part name="R39" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="10K" value="10k"/>
+<part name="R38" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="150K" value="150k"/>
+<part name="R44" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="30K" value="30k"/>
+<part name="R43" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="130K" value="130k"/>
 <part name="GND85" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND86" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="C38" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="0.1UF" value="0.1uF"/>
@@ -14390,6 +14573,22 @@ If either side is low, device is in tri-state anyway</text>
 <part name="D19" library="bschulz" deviceset="DIODE_SCHOTTKY" device="SOD-323">
 <attribute name="DIGIKEY" value="BAT54WS-TPCT-ND"/>
 </part>
+<part name="U30" library="bschulz" deviceset="TCK11*" device="" technology="1G"/>
+<part name="U31" library="bschulz" deviceset="FPF219*" device="" technology="5BUCX"/>
+<part name="GND57" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="GND58" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="R68" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="5.6K" value="5.6k"/>
+<part name="C44" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="0.1UF" value="0.1uF"/>
+<part name="C45" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="0.1UF" value="0.1uF"/>
+<part name="U32" library="bschulz" deviceset="SN74*1G14" device="DCK" technology="LVC"/>
+<part name="C53" library="bschulz_passives" deviceset="C-EU" device="C0603" technology="1UF" value="1uF"/>
+<part name="C54" library="bschulz_passives" deviceset="C-EU" device="C0603" technology="1UF" value="1uF"/>
+<part name="GND67" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="GND70" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="GND71" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="GND89" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="R7" library="bschulz_passives" deviceset="R-EU_" device="R0805" technology="0.01" value="10m"/>
+<part name="U11" library="bschulz" deviceset="TCK11*" device="" technology="1G"/>
 </parts>
 <sheets>
 <sheet>
@@ -14403,7 +14602,6 @@ If either side is low, device is in tri-state anyway</text>
 <text x="60.96" y="129.54" size="1.016" layer="91">Should this be 3V3 Core or 3V3 AUX??</text>
 <text x="27.94" y="180.34" size="1.016" layer="91">Could this cause a problem to be in power off state but voltage applied to I2C lines??</text>
 <text x="5.08" y="55.88" size="1.016" layer="91">Use IO Expander push/pull/pullup instead for CSA_EN?</text>
-<text x="299.72" y="127" size="1.778" layer="91">Change to load switch with lower limit and/or fault status indication??</text>
 <text x="43.18" y="-7.62" size="1.016" layer="91">To be placed at Vdd and Vdd_IO Pins</text>
 <text x="71.12" y="198.12" size="2.54" layer="91" align="center">ADR: 0x10</text>
 <text x="71.12" y="170.18" size="2.54" layer="91" align="center">ADR: 0x30</text>
@@ -14543,34 +14741,6 @@ If either side is low, device is in tri-state anyway</text>
 <instance part="U10" gate="G$1" x="320.04" y="182.88" smashed="yes">
 <attribute name="NAME" x="320.04" y="173.99" size="1.27" layer="95" align="center"/>
 </instance>
-<instance part="U11" gate="G$1" x="342.9" y="154.94" smashed="yes">
-<attribute name="DISP" x="342.9" y="161.544" size="1.778" layer="95" ratio="15" align="center"/>
-<attribute name="NAME" x="342.9" y="148.336" size="1.778" layer="95" ratio="15" align="center"/>
-</instance>
-<instance part="C11" gate="G$1" x="307.34" y="154.94" smashed="yes">
-<attribute name="NAME" x="308.864" y="155.321" size="1.778" layer="95"/>
-<attribute name="VALUE" x="308.864" y="150.241" size="1.778" layer="96"/>
-</instance>
-<instance part="GND72" gate="1" x="307.34" y="144.78" smashed="yes">
-<attribute name="VALUE" x="304.8" y="142.24" size="1.778" layer="96"/>
-</instance>
-<instance part="GND73" gate="1" x="358.14" y="147.32" smashed="yes">
-<attribute name="VALUE" x="355.6" y="144.78" size="1.778" layer="96"/>
-</instance>
-<instance part="C12" gate="G$1" x="368.3" y="154.94" smashed="yes">
-<attribute name="NAME" x="369.824" y="155.321" size="1.778" layer="95"/>
-<attribute name="VALUE" x="369.824" y="150.241" size="1.778" layer="96"/>
-</instance>
-<instance part="GND74" gate="1" x="368.3" y="144.78" smashed="yes">
-<attribute name="VALUE" x="365.76" y="142.24" size="1.778" layer="96"/>
-</instance>
-<instance part="R14" gate="G$1" x="330.2" y="147.32" smashed="yes" rot="R90">
-<attribute name="NAME" x="328.7014" y="143.51" size="1.778" layer="95" rot="R90"/>
-<attribute name="VALUE" x="333.502" y="143.51" size="1.778" layer="96" rot="R90"/>
-</instance>
-<instance part="GND83" gate="1" x="330.2" y="137.16" smashed="yes">
-<attribute name="VALUE" x="327.66" y="134.62" size="1.778" layer="96"/>
-</instance>
 <instance part="U6" gate="G$1" x="81.28" y="-22.86" smashed="yes">
 <attribute name="NAME" x="82.804" y="-62.484" size="1.778" layer="95" ratio="20" align="center"/>
 </instance>
@@ -14596,10 +14766,6 @@ If either side is low, device is in tri-state anyway</text>
 <instance part="R6" gate="G$1" x="104.14" y="-40.64" smashed="yes" rot="R90">
 <attribute name="NAME" x="102.6414" y="-44.45" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="107.442" y="-44.45" size="1.778" layer="96" rot="R90"/>
-</instance>
-<instance part="R7" gate="G$1" x="104.14" y="-53.34" smashed="yes" rot="R90">
-<attribute name="NAME" x="102.6414" y="-57.15" size="1.778" layer="95" rot="R90"/>
-<attribute name="VALUE" x="107.442" y="-57.15" size="1.778" layer="96" rot="R90"/>
 </instance>
 <instance part="H1" gate="G$1" x="246.38" y="193.04" smashed="yes">
 <attribute name="NAME" x="248.412" y="193.6242" size="1.778" layer="95"/>
@@ -14676,13 +14842,6 @@ If either side is low, device is in tri-state anyway</text>
 <instance part="R10" gate="G$1" x="205.74" y="48.26" smashed="yes">
 <attribute name="NAME" x="201.93" y="49.7586" size="1.778" layer="95"/>
 <attribute name="VALUE" x="201.93" y="44.958" size="1.778" layer="96"/>
-</instance>
-<instance part="D2" gate="G$1" x="320.04" y="109.22" smashed="yes">
-<attribute name="NAME" x="320.04" y="102.616" size="1.778" layer="95" ratio="15" align="center"/>
-<attribute name="DISP" x="320.04" y="115.824" size="1.778" layer="95" ratio="15" align="center"/>
-</instance>
-<instance part="GND54" gate="1" x="335.28" y="101.6" smashed="yes">
-<attribute name="VALUE" x="332.74" y="99.06" size="1.778" layer="96"/>
 </instance>
 <instance part="U7" gate="G$1" x="129.54" y="193.04" smashed="yes">
 <attribute name="DISP" x="129.54" y="202.184" size="1.778" layer="95" ratio="15" align="center"/>
@@ -14816,27 +14975,6 @@ If either side is low, device is in tri-state anyway</text>
 <label x="302.26" y="177.8" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="GND72" gate="1" pin="GND"/>
-<pinref part="C11" gate="G$1" pin="2"/>
-<wire x1="307.34" y1="147.32" x2="307.34" y2="149.86" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="GND73" gate="1" pin="GND"/>
-<wire x1="358.14" y1="149.86" x2="358.14" y2="152.4" width="0.1524" layer="91"/>
-<pinref part="U11" gate="G$1" pin="GND"/>
-<wire x1="358.14" y1="152.4" x2="355.6" y2="152.4" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="C12" gate="G$1" pin="2"/>
-<pinref part="GND74" gate="1" pin="GND"/>
-<wire x1="368.3" y1="147.32" x2="368.3" y2="149.86" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="GND83" gate="1" pin="GND"/>
-<pinref part="R14" gate="G$1" pin="1"/>
-<wire x1="330.2" y1="139.7" x2="330.2" y2="142.24" width="0.1524" layer="91"/>
-</segment>
-<segment>
 <pinref part="R4" gate="G$1" pin="1"/>
 <pinref part="GND84" gate="1" pin="GND"/>
 <wire x1="60.96" y1="-43.18" x2="60.96" y2="-45.72" width="0.1524" layer="91"/>
@@ -14898,12 +15036,6 @@ If either side is low, device is in tri-state anyway</text>
 <label x="254" y="170.18" size="0.8128" layer="95" xref="yes"/>
 </segment>
 <segment>
-<pinref part="D2" gate="G$1" pin="GND"/>
-<wire x1="332.74" y1="106.68" x2="335.28" y2="106.68" width="0.1524" layer="91"/>
-<wire x1="335.28" y1="106.68" x2="335.28" y2="104.14" width="0.1524" layer="91"/>
-<pinref part="GND54" gate="1" pin="GND"/>
-</segment>
-<segment>
 <pinref part="U7" gate="G$1" pin="GND"/>
 <wire x1="116.84" y1="187.96" x2="114.3" y2="187.96" width="0.1524" layer="91"/>
 <wire x1="114.3" y1="187.96" x2="114.3" y2="185.42" width="0.1524" layer="91"/>
@@ -14935,11 +15067,6 @@ If either side is low, device is in tri-state anyway</text>
 <pinref part="USB1" gate="G$1" pin="VDD"/>
 <wire x1="241.3" y1="55.88" x2="246.38" y2="55.88" width="0.1524" layer="91"/>
 <label x="246.38" y="55.88" size="1.778" layer="95" xref="yes"/>
-</segment>
-<segment>
-<pinref part="D2" gate="G$1" pin="VBUS"/>
-<wire x1="332.74" y1="111.76" x2="335.28" y2="111.76" width="0.1524" layer="91"/>
-<label x="335.28" y="111.76" size="0.8128" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="VSOLAR" class="0">
@@ -15329,14 +15456,6 @@ If either side is low, device is in tri-state anyway</text>
 <label x="30.48" y="198.12" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<pinref part="U11" gate="G$1" pin="VIN"/>
-<wire x1="330.2" y1="157.48" x2="307.34" y2="157.48" width="0.1524" layer="91"/>
-<label x="304.8" y="157.48" size="1.27" layer="95" rot="R180" xref="yes"/>
-<pinref part="C11" gate="G$1" pin="1"/>
-<wire x1="307.34" y1="157.48" x2="304.8" y2="157.48" width="0.1524" layer="91"/>
-<junction x="307.34" y="157.48"/>
-</segment>
-<segment>
 <pinref part="U6" gate="G$1" pin="SENSE3-"/>
 <wire x1="99.06" y1="-45.72" x2="104.14" y2="-45.72" width="0.1524" layer="91"/>
 <label x="109.22" y="-45.72" size="1.016" layer="95" xref="yes"/>
@@ -15429,14 +15548,6 @@ If either side is low, device is in tri-state anyway</text>
 <label x="332.74" y="177.8" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U11" gate="G$1" pin="VOUT"/>
-<wire x1="355.6" y1="157.48" x2="368.3" y2="157.48" width="0.1524" layer="91"/>
-<label x="373.38" y="157.48" size="1.27" layer="95" xref="yes"/>
-<pinref part="C12" gate="G$1" pin="1"/>
-<wire x1="368.3" y1="157.48" x2="373.38" y2="157.48" width="0.1524" layer="91"/>
-<junction x="368.3" y="157.48"/>
-</segment>
-<segment>
 <wire x1="182.88" y1="175.26" x2="182.88" y2="177.8" width="0.1524" layer="91"/>
 <label x="182.88" y="177.8" size="0.8128" layer="95" rot="R90" xref="yes"/>
 <pinref part="R8" gate="G$1" pin="2"/>
@@ -15466,15 +15577,6 @@ If either side is low, device is in tri-state anyway</text>
 <pinref part="U10" gate="G$1" pin="3A"/>
 <wire x1="307.34" y1="182.88" x2="302.26" y2="182.88" width="0.1524" layer="91"/>
 <label x="299.72" y="182.88" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="3V3_SD_EN" class="0">
-<segment>
-<pinref part="U11" gate="G$1" pin="EN"/>
-<wire x1="330.2" y1="152.4" x2="327.66" y2="152.4" width="0.1524" layer="91"/>
-<label x="327.66" y="152.4" size="1.27" layer="95" rot="R180" xref="yes"/>
-<pinref part="R14" gate="G$1" pin="2"/>
-<junction x="330.2" y="152.4"/>
 </segment>
 </net>
 <net name="N$17" class="0">
@@ -15514,23 +15616,12 @@ If either side is low, device is in tri-state anyway</text>
 <wire x1="104.14" y1="-35.56" x2="109.22" y2="-35.56" width="0.1524" layer="91"/>
 <junction x="104.14" y="-35.56"/>
 </segment>
-<segment>
-<pinref part="U6" gate="G$1" pin="SENSE4+"/>
-<wire x1="99.06" y1="-48.26" x2="104.14" y2="-48.26" width="0.1524" layer="91"/>
-<label x="109.22" y="-48.26" size="1.016" layer="95" xref="yes"/>
-<pinref part="R7" gate="G$1" pin="2"/>
-<junction x="104.14" y="-48.26"/>
-<wire x1="104.14" y1="-48.26" x2="109.22" y2="-48.26" width="0.1524" layer="91"/>
-</segment>
 </net>
-<net name="3V3_BULK" class="0">
+<net name="3V3_TALON" class="0">
 <segment>
 <pinref part="U6" gate="G$1" pin="SENSE4-"/>
-<wire x1="99.06" y1="-58.42" x2="104.14" y2="-58.42" width="0.1524" layer="91"/>
 <label x="109.22" y="-58.42" size="1.016" layer="95" xref="yes"/>
-<pinref part="R7" gate="G$1" pin="1"/>
-<junction x="104.14" y="-58.42"/>
-<wire x1="104.14" y1="-58.42" x2="109.22" y2="-58.42" width="0.1524" layer="91"/>
+<wire x1="99.06" y1="-58.42" x2="109.22" y2="-58.42" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="3V3_CORE+" class="0">
@@ -15625,11 +15716,6 @@ If either side is low, device is in tri-state anyway</text>
 <wire x1="210.82" y1="55.88" x2="215.9" y2="55.88" width="0.1524" layer="91"/>
 <label x="213.106" y="56.388" size="0.8128" layer="95"/>
 </segment>
-<segment>
-<pinref part="D2" gate="G$1" pin="D+"/>
-<wire x1="307.34" y1="111.76" x2="304.8" y2="111.76" width="0.1524" layer="91"/>
-<label x="304.8" y="111.76" size="0.8128" layer="95" rot="R180" xref="yes"/>
-</segment>
 </net>
 <net name="D-_IN" class="0">
 <segment>
@@ -15639,11 +15725,6 @@ If either side is low, device is in tri-state anyway</text>
 <pinref part="R10" gate="G$1" pin="2"/>
 <wire x1="213.36" y1="48.26" x2="210.82" y2="48.26" width="0.1524" layer="91"/>
 <label x="213.106" y="53.848" size="0.8128" layer="95"/>
-</segment>
-<segment>
-<pinref part="D2" gate="G$1" pin="D-"/>
-<wire x1="307.34" y1="109.22" x2="304.8" y2="109.22" width="0.1524" layer="91"/>
-<label x="304.8" y="109.22" size="0.8128" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="D+" class="0">
@@ -15702,6 +15783,13 @@ If either side is low, device is in tri-state anyway</text>
 <pinref part="U28" gate="G$1" pin="B2"/>
 <wire x1="144.78" y1="162.56" x2="142.24" y2="162.56" width="0.1524" layer="91"/>
 <label x="144.78" y="162.56" size="1.016" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="3V3_TALON+" class="0">
+<segment>
+<pinref part="U6" gate="G$1" pin="SENSE4+"/>
+<label x="109.22" y="-48.26" size="1.016" layer="95" xref="yes"/>
+<wire x1="99.06" y1="-48.26" x2="109.22" y2="-48.26" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
@@ -16917,6 +17005,307 @@ Low when using USB</text>
 <pinref part="BT1" gate="G$1" pin="+"/>
 <pinref part="R18" gate="G$1" pin="2"/>
 <wire x1="99.06" y1="78.74" x2="99.06" y2="81.28" width="0.1524" layer="91"/>
+</segment>
+</net>
+</nets>
+</sheet>
+<sheet>
+<plain>
+<text x="40.64" y="73.66" size="1.778" layer="91">Change to load switch with lower limit and/or fault status indication??</text>
+</plain>
+<instances>
+<instance part="C11" gate="G$1" x="48.26" y="101.6" smashed="yes">
+<attribute name="NAME" x="49.784" y="101.981" size="1.778" layer="95"/>
+<attribute name="VALUE" x="49.784" y="96.901" size="1.778" layer="96"/>
+</instance>
+<instance part="GND72" gate="1" x="48.26" y="91.44" smashed="yes">
+<attribute name="VALUE" x="45.72" y="88.9" size="1.778" layer="96"/>
+</instance>
+<instance part="GND73" gate="1" x="99.06" y="93.98" smashed="yes">
+<attribute name="VALUE" x="96.52" y="91.44" size="1.778" layer="96"/>
+</instance>
+<instance part="C12" gate="G$1" x="109.22" y="101.6" smashed="yes">
+<attribute name="NAME" x="110.744" y="101.981" size="1.778" layer="95"/>
+<attribute name="VALUE" x="110.744" y="96.901" size="1.778" layer="96"/>
+</instance>
+<instance part="GND74" gate="1" x="109.22" y="91.44" smashed="yes">
+<attribute name="VALUE" x="106.68" y="88.9" size="1.778" layer="96"/>
+</instance>
+<instance part="R14" gate="G$1" x="71.12" y="93.98" smashed="yes" rot="R90">
+<attribute name="NAME" x="69.6214" y="90.17" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="74.422" y="90.17" size="1.778" layer="96" rot="R90"/>
+</instance>
+<instance part="GND83" gate="1" x="71.12" y="83.82" smashed="yes">
+<attribute name="VALUE" x="68.58" y="81.28" size="1.778" layer="96"/>
+</instance>
+<instance part="D2" gate="G$1" x="60.96" y="55.88" smashed="yes">
+<attribute name="NAME" x="60.96" y="49.276" size="1.778" layer="95" ratio="15" align="center"/>
+<attribute name="DISP" x="60.96" y="62.484" size="1.778" layer="95" ratio="15" align="center"/>
+</instance>
+<instance part="GND54" gate="1" x="76.2" y="48.26" smashed="yes">
+<attribute name="VALUE" x="73.66" y="45.72" size="1.778" layer="96"/>
+</instance>
+<instance part="U30" gate="G$1" x="195.58" y="101.6" smashed="yes">
+<attribute name="DISP" x="195.58" y="108.204" size="1.778" layer="95" ratio="15" align="center"/>
+<attribute name="NAME" x="195.58" y="94.996" size="1.778" layer="95" ratio="15" align="center"/>
+</instance>
+<instance part="U31" gate="G$1" x="195.58" y="78.74" smashed="yes">
+<attribute name="DISP" x="196.85" y="87.63" size="1.778" layer="95" ratio="15" align="center"/>
+<attribute name="NAME" x="197.104" y="67.31" size="1.778" layer="95" ratio="15" align="center"/>
+</instance>
+<instance part="GND57" gate="1" x="213.36" y="66.04" smashed="yes">
+<attribute name="VALUE" x="210.82" y="63.5" size="1.778" layer="96"/>
+</instance>
+<instance part="GND58" gate="1" x="210.82" y="93.98" smashed="yes">
+<attribute name="VALUE" x="208.28" y="91.44" size="1.778" layer="96"/>
+</instance>
+<instance part="R68" gate="G$1" x="213.36" y="76.2" smashed="yes" rot="R90">
+<attribute name="NAME" x="211.8614" y="72.39" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="216.662" y="72.39" size="1.778" layer="96" rot="R90"/>
+</instance>
+<instance part="C44" gate="G$1" x="167.64" y="81.28" smashed="yes">
+<attribute name="NAME" x="169.164" y="81.661" size="1.778" layer="95"/>
+<attribute name="VALUE" x="169.164" y="76.581" size="1.778" layer="96"/>
+</instance>
+<instance part="C45" gate="G$1" x="223.52" y="81.28" smashed="yes">
+<attribute name="NAME" x="225.044" y="81.661" size="1.778" layer="95"/>
+<attribute name="VALUE" x="225.044" y="76.581" size="1.778" layer="96"/>
+</instance>
+<instance part="U32" gate="G1" x="165.1" y="58.42" smashed="yes">
+<attribute name="NAME" x="162.56" y="64.262" size="1.778" layer="95" font="vector"/>
+<attribute name="VALUE" x="162.56" y="50.8" size="1.778" layer="95" font="vector"/>
+</instance>
+<instance part="U32" gate="G2" x="142.24" y="83.82" smashed="yes">
+<attribute name="NAME" x="138.938" y="78.74" size="1.778" layer="95" font="vector" rot="R90"/>
+<attribute name="VALUE" x="147.32" y="78.74" size="1.778" layer="95" font="vector" rot="R90"/>
+</instance>
+<instance part="C53" gate="G$1" x="160.02" y="101.6" smashed="yes">
+<attribute name="NAME" x="161.544" y="101.981" size="1.778" layer="95"/>
+<attribute name="VALUE" x="161.544" y="96.901" size="1.778" layer="96"/>
+</instance>
+<instance part="C54" gate="G$1" x="218.44" y="101.6" smashed="yes">
+<attribute name="NAME" x="219.964" y="101.981" size="1.778" layer="95"/>
+<attribute name="VALUE" x="219.964" y="96.901" size="1.778" layer="96"/>
+</instance>
+<instance part="GND67" gate="1" x="160.02" y="91.44" smashed="yes">
+<attribute name="VALUE" x="157.48" y="88.9" size="1.778" layer="96"/>
+</instance>
+<instance part="GND70" gate="1" x="167.64" y="71.12" smashed="yes">
+<attribute name="VALUE" x="165.1" y="68.58" size="1.778" layer="96"/>
+</instance>
+<instance part="GND71" gate="1" x="142.24" y="71.12" smashed="yes">
+<attribute name="VALUE" x="139.7" y="68.58" size="1.778" layer="96"/>
+</instance>
+<instance part="GND89" gate="1" x="223.52" y="71.12" smashed="yes">
+<attribute name="VALUE" x="220.98" y="68.58" size="1.778" layer="96"/>
+</instance>
+<instance part="R7" gate="G$1" x="241.3" y="93.98" smashed="yes">
+<attribute name="NAME" x="237.49" y="95.4786" size="1.778" layer="95"/>
+<attribute name="VALUE" x="237.49" y="90.678" size="1.778" layer="96"/>
+</instance>
+<instance part="U11" gate="G$1" x="83.82" y="101.6" smashed="yes">
+<attribute name="DISP" x="83.82" y="108.204" size="1.778" layer="95" ratio="15" align="center"/>
+<attribute name="NAME" x="83.82" y="94.996" size="1.778" layer="95" ratio="15" align="center"/>
+</instance>
+</instances>
+<busses>
+</busses>
+<nets>
+<net name="GND" class="0">
+<segment>
+<pinref part="GND72" gate="1" pin="GND"/>
+<pinref part="C11" gate="G$1" pin="2"/>
+<wire x1="48.26" y1="93.98" x2="48.26" y2="96.52" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="GND73" gate="1" pin="GND"/>
+<wire x1="99.06" y1="96.52" x2="99.06" y2="99.06" width="0.1524" layer="91"/>
+<wire x1="99.06" y1="99.06" x2="96.52" y2="99.06" width="0.1524" layer="91"/>
+<pinref part="U11" gate="G$1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="C12" gate="G$1" pin="2"/>
+<pinref part="GND74" gate="1" pin="GND"/>
+<wire x1="109.22" y1="93.98" x2="109.22" y2="96.52" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="GND83" gate="1" pin="GND"/>
+<pinref part="R14" gate="G$1" pin="1"/>
+<wire x1="71.12" y1="86.36" x2="71.12" y2="88.9" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="D2" gate="G$1" pin="GND"/>
+<wire x1="73.66" y1="53.34" x2="76.2" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="76.2" y1="53.34" x2="76.2" y2="50.8" width="0.1524" layer="91"/>
+<pinref part="GND54" gate="1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="U30" gate="G$1" pin="GND"/>
+<wire x1="208.28" y1="99.06" x2="210.82" y2="99.06" width="0.1524" layer="91"/>
+<pinref part="GND58" gate="1" pin="GND"/>
+<wire x1="210.82" y1="99.06" x2="210.82" y2="96.52" width="0.1524" layer="91"/>
+<pinref part="C54" gate="G$1" pin="2"/>
+<wire x1="218.44" y1="96.52" x2="210.82" y2="96.52" width="0.1524" layer="91"/>
+<junction x="210.82" y="96.52"/>
+</segment>
+<segment>
+<pinref part="U31" gate="G$1" pin="GND"/>
+<wire x1="210.82" y1="71.12" x2="213.36" y2="71.12" width="0.1524" layer="91"/>
+<pinref part="GND57" gate="1" pin="GND"/>
+<wire x1="213.36" y1="71.12" x2="213.36" y2="68.58" width="0.1524" layer="91"/>
+<pinref part="R68" gate="G$1" pin="1"/>
+<junction x="213.36" y="71.12"/>
+</segment>
+<segment>
+<pinref part="C53" gate="G$1" pin="2"/>
+<wire x1="160.02" y1="96.52" x2="160.02" y2="93.98" width="0.1524" layer="91"/>
+<pinref part="GND67" gate="1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="GND70" gate="1" pin="GND"/>
+<pinref part="C44" gate="G$1" pin="2"/>
+<wire x1="167.64" y1="73.66" x2="167.64" y2="76.2" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="U32" gate="G2" pin="P$V-"/>
+<wire x1="142.24" y1="76.2" x2="142.24" y2="73.66" width="0.1524" layer="91"/>
+<pinref part="GND71" gate="1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="GND89" gate="1" pin="GND"/>
+<pinref part="C45" gate="G$1" pin="2"/>
+<wire x1="223.52" y1="73.66" x2="223.52" y2="76.2" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="VUSB" class="0">
+<segment>
+<pinref part="D2" gate="G$1" pin="VBUS"/>
+<wire x1="73.66" y1="58.42" x2="76.2" y2="58.42" width="0.1524" layer="91"/>
+<label x="76.2" y="58.42" size="0.8128" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="3V3_AUX" class="1">
+<segment>
+<wire x1="71.12" y1="104.14" x2="48.26" y2="104.14" width="0.1524" layer="91"/>
+<label x="45.72" y="104.14" size="1.27" layer="95" rot="R180" xref="yes"/>
+<pinref part="C11" gate="G$1" pin="1"/>
+<wire x1="48.26" y1="104.14" x2="45.72" y2="104.14" width="0.1524" layer="91"/>
+<junction x="48.26" y="104.14"/>
+<pinref part="U11" gate="G$1" pin="VIN"/>
+</segment>
+</net>
+<net name="3V3_SD" class="0">
+<segment>
+<wire x1="96.52" y1="104.14" x2="109.22" y2="104.14" width="0.1524" layer="91"/>
+<label x="114.3" y="104.14" size="1.27" layer="95" xref="yes"/>
+<pinref part="C12" gate="G$1" pin="1"/>
+<wire x1="109.22" y1="104.14" x2="114.3" y2="104.14" width="0.1524" layer="91"/>
+<junction x="109.22" y="104.14"/>
+<pinref part="U11" gate="G$1" pin="VOUT"/>
+</segment>
+</net>
+<net name="3V3_SD_EN" class="0">
+<segment>
+<wire x1="71.12" y1="99.06" x2="68.58" y2="99.06" width="0.1524" layer="91"/>
+<label x="68.58" y="99.06" size="1.27" layer="95" rot="R180" xref="yes"/>
+<pinref part="R14" gate="G$1" pin="2"/>
+<pinref part="U11" gate="G$1" pin="EN"/>
+<junction x="71.12" y="99.06"/>
+</segment>
+</net>
+<net name="D+_IN" class="0">
+<segment>
+<pinref part="D2" gate="G$1" pin="D+"/>
+<wire x1="48.26" y1="58.42" x2="45.72" y2="58.42" width="0.1524" layer="91"/>
+<label x="45.72" y="58.42" size="0.8128" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="D-_IN" class="0">
+<segment>
+<pinref part="D2" gate="G$1" pin="D-"/>
+<wire x1="48.26" y1="55.88" x2="45.72" y2="55.88" width="0.1524" layer="91"/>
+<label x="45.72" y="55.88" size="0.8128" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="N$19" class="0">
+<segment>
+<pinref part="U31" gate="G$1" pin="ILIM"/>
+<pinref part="R68" gate="G$1" pin="2"/>
+<wire x1="210.82" y1="81.28" x2="213.36" y2="81.28" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="3V3_CORE" class="0">
+<segment>
+<pinref part="U31" gate="G$1" pin="IN"/>
+<pinref part="C44" gate="G$1" pin="1"/>
+<wire x1="182.88" y1="83.82" x2="167.64" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="167.64" y1="83.82" x2="162.56" y2="83.82" width="0.1524" layer="91"/>
+<junction x="167.64" y="83.82"/>
+<label x="162.56" y="83.82" size="0.8128" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U32" gate="G2" pin="P$V+"/>
+<wire x1="142.24" y1="91.44" x2="142.24" y2="93.98" width="0.1524" layer="91"/>
+<wire x1="142.24" y1="93.98" x2="139.7" y2="93.98" width="0.1524" layer="91"/>
+<label x="139.7" y="93.98" size="0.8128" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="N$28" class="0">
+<segment>
+<pinref part="U32" gate="G1" pin="Y"/>
+<wire x1="172.72" y1="58.42" x2="177.8" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="177.8" y1="58.42" x2="177.8" y2="78.74" width="0.1524" layer="91"/>
+<pinref part="U31" gate="G$1" pin="EN"/>
+<wire x1="177.8" y1="78.74" x2="182.88" y2="78.74" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="3V3_BULK+" class="0">
+<segment>
+<pinref part="U30" gate="G$1" pin="VIN"/>
+<pinref part="C53" gate="G$1" pin="1"/>
+<wire x1="182.88" y1="104.14" x2="160.02" y2="104.14" width="0.1524" layer="91"/>
+<wire x1="160.02" y1="104.14" x2="157.48" y2="104.14" width="0.1524" layer="91"/>
+<junction x="160.02" y="104.14"/>
+<label x="157.48" y="104.14" size="0.8128" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="3V3_AUX_EN" class="0">
+<segment>
+<pinref part="U30" gate="G$1" pin="EN"/>
+<wire x1="182.88" y1="99.06" x2="180.34" y2="99.06" width="0.1524" layer="91"/>
+<label x="180.34" y="99.06" size="0.8128" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U32" gate="G1" pin="A"/>
+<wire x1="160.02" y1="58.42" x2="157.48" y2="58.42" width="0.1524" layer="91"/>
+<label x="157.48" y="58.42" size="0.8128" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="3V3_TALON+" class="0">
+<segment>
+<pinref part="U30" gate="G$1" pin="VOUT"/>
+<pinref part="C54" gate="G$1" pin="1"/>
+<wire x1="208.28" y1="104.14" x2="218.44" y2="104.14" width="0.1524" layer="91"/>
+<wire x1="218.44" y1="104.14" x2="231.14" y2="104.14" width="0.1524" layer="91"/>
+<junction x="218.44" y="104.14"/>
+<pinref part="U31" gate="G$1" pin="OUT"/>
+<wire x1="210.82" y1="83.82" x2="223.52" y2="83.82" width="0.1524" layer="91"/>
+<pinref part="C45" gate="G$1" pin="1"/>
+<wire x1="223.52" y1="83.82" x2="231.14" y2="83.82" width="0.1524" layer="91"/>
+<junction x="223.52" y="83.82"/>
+<wire x1="231.14" y1="104.14" x2="231.14" y2="93.98" width="0.1524" layer="91"/>
+<wire x1="231.14" y1="93.98" x2="231.14" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="231.14" y1="93.98" x2="236.22" y2="93.98" width="0.1524" layer="91"/>
+<junction x="231.14" y="93.98"/>
+<pinref part="R7" gate="G$1" pin="1"/>
+<label x="225.806" y="104.648" size="0.8128" layer="95"/>
+</segment>
+</net>
+<net name="3V3_TALON" class="0">
+<segment>
+<pinref part="R7" gate="G$1" pin="2"/>
+<wire x1="246.38" y1="93.98" x2="248.92" y2="93.98" width="0.1524" layer="91"/>
+<label x="248.92" y="93.98" size="0.8128" layer="95" xref="yes"/>
 </segment>
 </net>
 </nets>
@@ -19125,7 +19514,7 @@ Test 4.7k (or more) for reduced power consumption </text>
 <label x="101.6" y="208.28" size="1.016" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="3V3_BULK" class="0">
+<net name="3V3_TALON" class="0">
 <segment>
 <portref moduleinst="P1" port="3V3"/>
 <wire x1="27.94" y1="167.64" x2="30.48" y2="167.64" width="0.1524" layer="91"/>
