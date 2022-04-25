@@ -20,6 +20,7 @@ void setup();
 void loop();
 void TestCell();
 void TestGPS();
+void GetGPSTime();
 void TestALS();
 void TestAtmos();
 void TestMag(bool Set, bool Reset);
@@ -39,6 +40,9 @@ void TestI2C();
 void SensorDemo1();
 void SensorDemo2();
 void SensorDemo3();
+void TalonEEPROMTest();
+void TalonEEPROMRead();
+void PortTest();
 void SendBreak();
 void Mark(unsigned long Period);
 void Space(unsigned long Period);
@@ -294,7 +298,7 @@ void setup()
 
 	I2C_OnBoardEn(true); //RESTORE
 	// Wire.setClock(10000); //DEBUG!
-	Wire.setClock(400000); //Confirm operation in fast mode
+	// Wire.setClock(400000); //Confirm operation in fast mode
 	Wire.begin();
 	// pinSetDriveStrength(D0, DriveStrength::HIGH);
 	// pinSetDriveStrength(D1, DriveStrength::HIGH);
@@ -318,6 +322,7 @@ void setup()
 	// ioTalonSDI12.digitalWrite( Dir, HIGH); //Set to transmit 
 //  io.digitalWrite( FOut, LOW); //DEBUG!
 	// Serial1.begin(1200, SERIAL_7E1);
+	// Serial1.begin(115200); //High speed serial test
 	Serial1.begin(1200, SERIAL_8N1);
 	delay(1000);
 	Serial.println("Begin I2C Demo...");
@@ -416,6 +421,10 @@ void loop()
 			TestGPS(); //Call GPS test
 		}
 
+		if(ReadString.equalsIgnoreCase("GPSTime")) {
+			GetGPSTime(); //Grab current GPS time
+		}
+
 		if(ReadString.equalsIgnoreCase("ALS")) {
 			TestALS(); //Call ALS test
 		}
@@ -505,6 +514,18 @@ void loop()
 
 		if(ReadString.equalsIgnoreCase("Sensor3")) {
 			SensorDemo3(); //Run sensor 3 demo  
+		}
+
+		if(ReadString.equalsIgnoreCase("TalonEEPROM")) {
+			TalonEEPROMTest(); //Run test for EEPROM on Talon
+		}
+
+		if(ReadString.equalsIgnoreCase("TalonEEPROMRead")) {
+			TalonEEPROMRead(); //Run test for EEPROM on Talon
+		}
+
+		if(ReadString.equalsIgnoreCase("PortTest")) {
+			PortTest(); //Run custom port test
 		}
 
 	}
@@ -741,7 +762,8 @@ void TestCell()
 	}
 	Serial.println("Done");
 	Serial.print("\tParticle Publish... ");
-	Particle.publish("Kestrel - Bang");
+	// Particle.publish("Kestrel - Bang");
+	Particle.publish("Data-CSV", "Time,MV,TV,MD,MN,WD\n1646435100,2.8,22.2,2.9,0.0,0.0"); //DEBUG!
 	Serial.println("Done");
 	Serial.print("\tGet Cell Stats... ");
 	CellularSignal sig = Cellular.RSSI();
@@ -765,15 +787,48 @@ void TestGPS()
 	
 	I2C_GlobalEn(false);
 	I2C_OnBoardEn(true);
+	ioAlpha.pinMode(PinsIOAlpha::AUX_EN, OUTPUT);
+	// ioAlpha.digitalWrite(PinsIOAlpha::AUX_EN, LOW);
+	// delay(30000);
+	ioAlpha.digitalWrite(PinsIOAlpha::AUX_EN, HIGH);
+	delay(100);
 	if (GPS.begin() == false) //Connect to the Ublox module using Wire port
 	{
 		Serial.println("\tERROR: MAX-M8W");
 		// while (1);
 	}
 	else { //If connected, read position
-		Wire.setClock(400000); //Confirm operation in fast mode
+		// Wire.setClock(400000); //Confirm operation in fast mode
 		GPS.setI2COutput(COM_TYPE_UBX); //Set the I2C port to output UBX only (turn off NMEA noise)
-	  	GPS.saveConfiguration(); //Save the current settings to flash and BBR
+	  	// GPS.saveConfiguration(); //Save the current settings to flash and BBR
+		//CUSTOM PACKET TO READ TIME ERROR
+		uint8_t customPayload[MAX_PAYLOAD_SIZE]; // This array holds the payload data bytes
+		// The next line creates and initialises the packet information which wraps around the payload
+		ubxPacket customCfg = {0, 0, 0, 0, 0, customPayload, 0, 0, SFE_UBLOX_PACKET_VALIDITY_NOT_DEFINED, SFE_UBLOX_PACKET_VALIDITY_NOT_DEFINED};
+		customCfg.cls = UBX_CLASS_NAV; // This is the message Class
+		customCfg.id = UBX_NAV_CLOCK; // This is the message ID
+		customCfg.len = 0; // Setting the len (length) to zero let's us poll the current settings
+		customCfg.startingSpot = 0; // Always set the startingSpot to zero (unless you really know what you are doing)
+
+		// We also need to tell sendCommand how long it should wait for a reply
+		uint16_t maxWait = 250; // Wait for up to 250ms (Serial may need a lot longer e.g. 1100)
+
+		// Now let's read the current navigation rate. The results will be loaded into customCfg.
+		do { //Update status every 1 second while waiting for full fix
+			Serial.print("\tFIX: ");
+			Serial.println(GPS.getFixType());
+			Serial.print("\tTime Valid: ");
+			Serial.println(GPS.getTimeValid());
+			GPS.sendCommand(&customCfg, maxWait); //Grab time data
+			Serial.print("\tUBX-NAV-CLOCK: 0x");
+			for(int i = 0; i < 20; i++) {
+				Serial.print(customPayload[i], HEX); //Print out result in hex
+			}
+			Serial.println("");
+			delay(1000); 
+		}
+		while(GPS.getFixType() != 3);
+		
 		unsigned long LocalTime = millis();
 		// while((millis() - LocalTime) < 5000) //Wait up to 5 seconds for a reading
 		// {
@@ -811,6 +866,34 @@ void TestGPS()
 
 			// Serial.println();
 		// }
+	}
+	I2C_GlobalEn(true);
+}
+
+void GetGPSTime()
+{
+	I2C_GlobalEn(false);
+	I2C_OnBoardEn(true);
+	ioAlpha.pinMode(PinsIOAlpha::AUX_EN, OUTPUT);
+	ioAlpha.digitalWrite(PinsIOAlpha::AUX_EN, HIGH);
+	if (GPS.begin() == false) //Connect to the Ublox module using Wire port
+	{
+		Serial.println("\tERROR: MAX-M8W");
+	}
+	else {
+		Serial.print("\tTime Valid: ");
+		Serial.println(GPS.getTimeValid());
+		Serial.print("\tTime DOP: ");
+		Serial.println(GPS.getTimeDOP());
+		// Serial.println("\t#"); //Used as a "mark" point to indicate when time is measured  
+		int Seconds = GPS.getSecond();
+		int Millis = GPS.getMillisecond();
+		String MillisPaded = "";
+		if(Millis < 10) MillisPaded = "00" + String(Millis);
+		else if(Millis < 100) MillisPaded = "0" + String(Millis);
+		String Time = String(GPS.getYear()) + "/" + String(GPS.getMonth()) + "/" + String(GPS.getDay()) + " " + String(GPS.getHour()) + ":" + String(GPS.getMinute()) + ":" + String(Seconds) + "." + MillisPaded;
+		Serial.print("\tTime: ");
+		Serial.println(Time);
 	}
 	I2C_GlobalEn(true);
 }
@@ -1187,6 +1270,11 @@ void TestCSA()
 
 	int ErrorAlpha = CSA_Alpha.begin();
 	int ErrorBeta = CSA_Beta.begin();
+	CSA_Beta.EnableChannel(CH1, true); //Eanble all channels (in case disabled elsewhere)
+	CSA_Beta.EnableChannel(CH2, true);
+	CSA_Beta.EnableChannel(CH3, true);
+	CSA_Beta.EnableChannel(CH4, true);
+	
 	if(ErrorAlpha == 1 && ErrorBeta == 1) { //Only proceed if both passed initialization 
 		CSA_Alpha.SetCurrentDirection(CH1, BIDIRECTIONAL); //Battery charge, bidirectional
 		CSA_Alpha.SetCurrentDirection(CH2, UNIDIRECTIONAL); //System voltage, unidirectional
@@ -1280,8 +1368,11 @@ boolean TestSD()
 	I2C_OnBoardEn(true);
 	ioAlpha.pinMode(PinsIOAlpha::SD_CD, INPUT);
 	ioAlpha.pinMode(PinsIOAlpha::SD_EN, OUTPUT);
-
+	ioAlpha.setIntConfig(true, false, true, false); //Setup ganged inerrupts with push pull output, active high, cleared by reading GPIO regs 
 	ioAlpha.digitalWrite(PinsIOAlpha::SD_EN, HIGH); //Turn on 3v3 to SD
+	ioAlpha.setIntPinConfig(PinsIOAlpha::SD_CD, false, LOW); //Interrupt if SD_CD goes HIGH
+	ioAlpha.setInterrupt(PinsIOAlpha::SD_CD, true); //turn on interrupt for OVF1 pin
+	ioAlpha.clearInterrupt(BOTH); //Clean both interrupts 
 
 	boolean SDError = false;
 	pinMode(Pins::SD_CS, OUTPUT);
@@ -1923,47 +2014,49 @@ void SensorDemo1()
 
 	ioTalonI2C.pinMode(POS_DETECT, INPUT); //Set position detect as normal pullup (has external pullup)
 	ioTalonI2C.pinMode(SENSE_EN, OUTPUT); //Set sense control as output
+	Serial.print("\tPos Detect: ");
+	Serial.println(ioTalonI2C.digitalRead(POS_DETECT)); //Read state of position detect pin and print result
 	
 
 	// for(int i = 8; i < 12; i++) { //Set FAULT lines as input pullups
 	// 	ioTalonI2C.pinMode(i, INPUT_PULLUP);
 	// }
 	// BYPASS - START ////////////////////////////////////////////////////////////////////////////////////////
-	// ioTalonI2C.digitalWrite(SENSE_EN, LOW); //Default sense to off
-	// for(int i = 0; i < 4; i++) { //Default power off
-	// 	ioTalonI2C.pinMode(i, OUTPUT);
-	// 	ioTalonI2C.digitalWrite(i, LOW);
-	// }
+	ioTalonI2C.digitalWrite(SENSE_EN, LOW); //Default sense to off
+	for(int i = 0; i < 4; i++) { //Default power off
+		ioTalonI2C.pinMode(i, OUTPUT);
+		ioTalonI2C.digitalWrite(i, LOW);
+	}
 	
-	// for(int i = 8; i < 12; i++) { //Set FAULT lines as output //DEBUG!
-	// 	ioTalonI2C.pinMode(i, OUTPUT);
-	// 	ioTalonI2C.digitalWrite(i, LOW);
-	// }
+	for(int i = 8; i < 12; i++) { //Set FAULT lines as output //DEBUG!
+		ioTalonI2C.pinMode(i, OUTPUT);
+		ioTalonI2C.digitalWrite(i, LOW);
+	}
 
-	// for(int i = 0; i < 4; i++) { //Enable all power, release if fault
-	// 	ioTalonI2C.pinMode(i, OUTPUT);
-	// 	ioTalonI2C.digitalWrite(i, HIGH);
-	// 	delay(1);
-	// 	I2C_GlobalEn(false);
-	// 	I2C_OnBoardEn(true);
-	// 	float IBulk = CSA_Beta.GetCurrent(CH1, false);
-	// 	I2C_OnBoardEn(false);
-	// 	I2C_GlobalEn(true);
-	// 	if(ioTalonI2C.digitalRead(i + 8) || IBulk > 500) { //If fault, turn back off
-	// 		ioTalonI2C.digitalWrite(i, LOW);
-	// 		isFault[i] = true;
-	// 		Serial.print("\tPort ");
-	// 		Serial.print(i);
-	// 		Serial.print(" FAULT - ");
-	// 		Serial.print(IBulk);
-	// 		Serial.println("mA");
-	// 	}
-	// 	Serial.print("\tPort ");
-	// 	Serial.print(i);
-	// 	Serial.print(" - ");
-	// 	Serial.print(IBulk);
-	// 	Serial.println("mA");
-	// } 
+	for(int i = 0; i < 4; i++) { //Enable all power, release if fault
+		ioTalonI2C.pinMode(i, OUTPUT);
+		ioTalonI2C.digitalWrite(i, HIGH);
+		delay(1);
+		I2C_GlobalEn(false);
+		I2C_OnBoardEn(true);
+		float IBulk = CSA_Beta.GetCurrent(CH1, false);
+		I2C_OnBoardEn(false);
+		I2C_GlobalEn(true);
+		if(ioTalonI2C.digitalRead(i + 8) || IBulk > 500) { //If fault, turn back off
+			ioTalonI2C.digitalWrite(i, LOW);
+			isFault[i] = true;
+			Serial.print("\tPort ");
+			Serial.print(i);
+			Serial.print(" FAULT - ");
+			Serial.print(IBulk);
+			Serial.println("mA");
+		}
+		Serial.print("\tPort ");
+		Serial.print(i);
+		Serial.print(" - ");
+		Serial.print(IBulk);
+		Serial.println("mA");
+	} 
 	// BYPASS - END ////////////////////////////////////////////////////////////////////////////////////////
 
 	ioTalonI2C.digitalWrite(SENSE_EN, HIGH); //Turn sense back on
@@ -2098,11 +2191,11 @@ void SensorDemo1()
 	// ioTalonI2C.digitalWrite(0, LOW); //Disable port 0 power //DEBUG!
 	digitalWrite(Pins::TALON2_GPIOB, LOW); //Connect to external I2C
 	uint8_t error_dps368A = 0; //DEBUG! FIX! Change library to return stuff properly
-	pressureSenseA.begin(Wire, 0x77); //Initialize DPS368 sensor //DEBUG! FIX! Change library to return stuff properly
+	pressureSenseA.begin(Wire, 0x76); //Initialize DPS368 sensor //DEBUG! FIX! Change library to return stuff properly
 	uint8_t error_sht31A = rhSenseA.begin(0x44); //Initialize SHT31 sensor
 
 	uint8_t error_dps368B = 0; //DEBUG! FIX! Change library to return stuff properly
-	pressureSenseB.begin(Wire, 0x78); //Initialize DPS368 sensor //DEBUG! FIX! Change library to return stuff properly
+	pressureSenseB.begin(Wire, 0x77); //Initialize DPS368 sensor //DEBUG! FIX! Change library to return stuff properly
 	uint8_t error_sht31B = rhSenseB.begin(0x45); //Initialize SHT31 sensor
 
 	uint8_t error_sgp30 = sgp.begin();
@@ -2161,7 +2254,7 @@ void SensorDemo1()
 
 	error1 = pressureSenseB.measureTempOnce(temp_dps368B, dps368_oversampling); //Grab new temp values [°C]
 	error2 = pressureSenseB.measurePressureOnce(pressureB, dps368_oversampling); //Grab new pressure values [Pa]
-	pressureA = pressureB/100.0f; //Convert from Pa to mBar, because Pa is a stupid unit, and hPa is more stupid. 
+	pressureB = pressureB/100.0f; //Convert from Pa to mBar, because Pa is a stupid unit, and hPa is more stupid. 
 
 	float humidityB = rhSenseB.readHumidity(); //Grab new humidity values [%]
 	float temp_sht31B = rhSenseB.readTemperature(); //Grab new temp values [°C]
@@ -2208,6 +2301,39 @@ void SensorDemo1()
 	Serial.print("\tCO2: "); Serial.print(CO2_SCD30); Serial.print(" ppm\tTemp: "); Serial.print(Temp_SCD30); Serial.print(" °C\tRH: "); Serial.print(RH_SCD30); Serial.println("%");
 
 	// BUS READING TEST - END /////////////////////////////////////////////////////////////////////////////////////////////////
+	// LOOPBACK TEST - BEGIN ///////////////////////////////////////////////////
+	digitalWrite(Pins::TALON2_GPIOB, HIGH); //Connect to internal I2C
+	ioTalonI2C.pinMode(15, OUTPUT); //Set Loopback control as output
+	ioTalonI2C.digitalWrite(15, LOW); //Disable loopback output
+	digitalWrite(Pins::TALON2_GPIOB, LOW); //Turn off I2C OB
+	Serial.println("LOOPBACK TEST:");
+	Wire.beginTransmission(0x30); //Request ACK from EEPROM
+	Wire.write(0x00);
+	int Error = Wire.endTransmission(); 
+	Serial.print("\tExt - Loopback Disabled: ");
+	Serial.println(Error);
+	digitalWrite(Pins::TALON2_GPIOB, HIGH); //Connect to internal I2C
+	ioTalonI2C.digitalWrite(15, HIGH); //Enable loopback output
+	digitalWrite(Pins::TALON2_GPIOB, LOW); //Turn off I2C OB
+	Wire.beginTransmission(0x30); //Request ACK from EEPROM
+	Wire.write(0x00);
+	Error = Wire.endTransmission(); 
+	Serial.print("\tExt - Loopback Enabled: ");
+	Serial.println(Error);
+	digitalWrite(Pins::TALON2_GPIOB, HIGH); //Connect to internal I2C
+	ioTalonI2C.digitalWrite(15, HIGH); //Enable loopback output
+	Wire.beginTransmission(0x30); //Request ACK from EEPROM
+	Wire.write(0x00);
+	Error = Wire.endTransmission(); 
+	Serial.print("\tOB - Loopback Enabled: ");
+	Serial.println(Error);
+	ioTalonI2C.digitalWrite(15, LOW); //Disable loopback output
+	// digitalWrite(Pins::TALON2_GPIOB, LOW); //Turn off I2C OB
+	Wire.beginTransmission(0x30); //Request ACK from EEPROM
+	Wire.write(0x00);
+	Error = Wire.endTransmission(); 
+	Serial.print("\tOB - Loopback Disabled: ");
+	Serial.println(Error);
 
 }
 
@@ -2223,21 +2349,33 @@ void SensorDemo2()
 	ioBeta.pinMode(PinsIOBeta::FAULT2, INPUT_PULLUP);
 
 	ioBeta.digitalWrite(PinsIOBeta::EN2, HIGH); //Toggle output in case tripped
+	delayMicroseconds(10);
 	ioBeta.digitalWrite(PinsIOBeta::EN2, LOW);
+	delayMicroseconds(10);
 	ioBeta.digitalWrite(PinsIOBeta::EN2, HIGH);
 	ioBeta.digitalWrite(PinsIOBeta::I2C_EN2, HIGH);
 	ioBeta.digitalWrite(PinsIOBeta::SEL2, HIGH);
 	int ErrorBeta = CSA_Beta.begin();
 	CSA_Beta.SetCurrentDirection(CH1, UNIDIRECTIONAL); //Bulk voltage, unidirectional
+	CSA_Beta.EnableChannel(CH1, true); //Disable all channels but 1
+	CSA_Beta.EnableChannel(CH2, false);
+	CSA_Beta.EnableChannel(CH3, false);
+	CSA_Beta.EnableChannel(CH4, false);
 
 	I2C_OnBoardEn(false);
 	I2C_GlobalEn(true);
 	Serial.print("\tIO Status: ");
 	Serial.println(ioTalonSDI12.begin()); //DEBUG!
 
+	ioTalonSDI12.digitalWrite(SENSE_EN, LOW); //Default sense to on - NOTE: For proper sequencing, this must be done BEFORE each enable line is driven high
 	ioTalonSDI12.pinMode(SENSE_EN, OUTPUT); //Set sense control as output
-	ioTalonSDI12.digitalWrite(SENSE_EN, HIGH); //Default sense to on - NOTE: For proper sequencing, this must be done BEFORE each enable line is driven high
 	
+	// ioTalonSDI12.digitalWrite(SENSE_EN, HIGH); //Default sense to on - NOTE: For proper sequencing, this must be done BEFORE each enable line is driven high
+	
+	ioTalonSDI12.pinMode(POS_DETECT, INPUT_PULLUP); //Set position detect as normal pullup (has external pullup)
+	Serial.print("\tPos Detect: ");
+	Serial.println(ioTalonSDI12.digitalRead(POS_DETECT)); //Read state of position detect pin and print result
+
 	ioTalonSDI12.pinMode(Dir, OUTPUT); //Set to output
 	ioTalonSDI12.pinMode(FOut, OUTPUT); //Set to output
 	ioTalonSDI12.digitalWrite( Dir, HIGH); //Set to transmit 
@@ -2369,6 +2507,7 @@ void SensorDemo2()
 		ioSense.pinMode(i, OUTPUT); 
 	}
 	ioSense.digitalWrite(MUX_EN, LOW); //Enable MUX
+	ioTalonSDI12.digitalWrite(FOut, LOW); //Set Data line HIGH to check for shorts
 	int SenseError = adcSense.Begin(); //Initialize ADC 
 	int ApogeeError = apogeeADC.begin();
 	if(SenseError == 0) { //Only proceed if ADC connects correctly
@@ -2411,7 +2550,7 @@ void SensorDemo2()
 	}
 	else Serial.println("FAIL!");
 	
-
+	//ISOLATION MODE - BEGIN
 	for(int i = 0; i < 4; i++) {
 		ioTalonSDI12.pinMode(i + 4, OUTPUT); 
 		ioTalonSDI12.digitalWrite(i + 4, HIGH); //Turn port data on
@@ -2430,11 +2569,44 @@ void SensorDemo2()
 		Serial.println(ID);
 		ioTalonSDI12.digitalWrite(i + 4, LOW); //Turn port data back off
 	}
+	//ISOLATION MODE - END
+
+	//PARTIAL BUS MODE - BEGIN 
+	// for(int p = 0; p < 4; p++) {
+	// 	ioTalonSDI12.pinMode(p + 4, OUTPUT);
+	// 	ioTalonSDI12.digitalWrite(p + 4, HIGH); //Turn on all data 
+	// }
+	// for(int i = 0; i < 4; i++) {
+	// 	ioTalonSDI12.digitalWrite(i + 4, LOW); //Turn off single port
+	// 	// delay(25); //DEBUG!
+	// 	// SendCommand("?"); //DEBUG!
+	// 	// String Data = SendCommand("?!");
+	// 	// Serial.println(Data); //DEBUG!
+	// 	// int Address = (Data.substring(0, 1)).toInt(); //Get address detected 
+	// 	Serial.print("\tPort ");
+	// 	Serial.print(i);
+	// 	Serial.println(" Off:");
+	// 	for(int Address = 0; Address < 10; Address++) {
+	// 		String ID = Command("I", Address); //Get ID string from device
+	// 		if(ID != "") {
+	// 			Serial.print("\t\tAddress: ");
+	// 			Serial.println(Address);
+	// 			Serial.print("\t\tID: ");
+	// 			Serial.println(ID);
+	// 		}
+	// 	}
+		
+	// 	ioTalonSDI12.digitalWrite(i + 4, HIGH); //Turn port data back on
+	// }
+	//PARTIAL BUS MODE - END
 
 	for(int i = 4; i < 8; i++) { //Default data to Enabled
 		ioTalonSDI12.pinMode(i, OUTPUT); 
 		ioTalonSDI12.digitalWrite(i, HIGH); 
 	} 
+
+	//DISABLE PORT 1
+	ioTalonSDI12.digitalWrite(4, LOW);
 
 	//Enable all but channel 4
 	// for(int i = 4; i < 7; i++) { 
@@ -2444,47 +2616,65 @@ void SensorDemo2()
 	// ioTalonSDI12.pinMode(7, OUTPUT); 
 	// ioTalonSDI12.digitalWrite(7, LOW); 
 	///////////////////////////
+
+	ioSense.digitalWrite(MUX_EN, LOW); //Enable loopback
+	Serial1.print("DEADBEEF");
+	Serial.println("LOOPBACK TEST:");
+	Serial.println("\tLoopback: ENABLED");
+	Serial.println("\tSent: DEADBEEF");
+	Serial.print("\tRead: ");
+	Serial.println(Serial1.readStringUntil('\n'));
+	ioSense.digitalWrite(MUX_EN, HIGH); //Disable loopback
+	Serial.println("\tLoopback: DISABLED");
+	Serial.println("\tSent: DEADBEEF");
+	Serial.print("\tRead: ");
+	Serial.println(Serial1.readStringUntil('\n'));
+
 }
 
 void SensorDemo3()
 {
-	const uint8_t MUX_EN = 11;
-	const uint8_t MUX_SEL2 = 10;
-	const uint8_t MUX_SEL1 = 9;
-	const uint8_t MUX_SEL0 = 8;
-	I2C_OnBoardEn(true);
-	I2C_GlobalEn(false);
-	ioBeta.pinMode(PinsIOBeta::EN4, OUTPUT);
-	ioBeta.pinMode(PinsIOBeta::I2C_EN4, OUTPUT);
-	ioBeta.pinMode(PinsIOBeta::SEL4, OUTPUT);
-	ioBeta.pinMode(PinsIOBeta::FAULT4, INPUT);
+	static bool HasRun = false;
 
-	ioBeta.digitalWrite(PinsIOBeta::EN4, HIGH);
-	ioBeta.digitalWrite(PinsIOBeta::I2C_EN4, HIGH);
-	ioBeta.digitalWrite(PinsIOBeta::SEL4, LOW);
+	if(!HasRun) {
+		const uint8_t MUX_EN = 11;
+		const uint8_t MUX_SEL2 = 10;
+		const uint8_t MUX_SEL1 = 9;
+		const uint8_t MUX_SEL0 = 8;
+		I2C_OnBoardEn(true);
+		I2C_GlobalEn(false);
+		ioBeta.pinMode(PinsIOBeta::EN4, OUTPUT);
+		ioBeta.pinMode(PinsIOBeta::I2C_EN4, OUTPUT);
+		ioBeta.pinMode(PinsIOBeta::SEL4, OUTPUT);
+		ioBeta.pinMode(PinsIOBeta::FAULT4, INPUT);
 
-	I2C_OnBoardEn(false);
-	I2C_GlobalEn(true);
-	ioAUXAlpha.begin();
-	ioAUXBeta.begin();
-	ioAUXGamma.begin();
-	ioAUXBeta.setIntConfig(false, false, true, false); //Setup individual inerrupts with push pull output, active high, cleared by reading GPIO regs 
-	//SETUP DEFAULT PINS
-	for(int i = 0; i < 16; i++) { //Set all Gamma pins to input
-		ioAUXGamma.pinMode(i, INPUT_PULLUP);
-	} 
+		ioBeta.digitalWrite(PinsIOBeta::EN4, HIGH);
+		ioBeta.digitalWrite(PinsIOBeta::I2C_EN4, HIGH);
+		ioBeta.digitalWrite(PinsIOBeta::SEL4, LOW);
 
-	for(int i = 12; i < 16; i++) { //Set all Alpha (not MUX_SEL) pins to input
-		ioAUXAlpha.pinMode(i, INPUT_PULLUP);
-		// ioAlpha.pinMode(i, OUTPUT);
-		// ioAlpha.digitalWrite(i, LOW);
-	} 
+		I2C_OnBoardEn(false);
+		I2C_GlobalEn(true);
+		ioAUXAlpha.begin();
+		ioAUXBeta.begin();
+		ioAUXGamma.begin();
+		ioAUXBeta.setIntConfig(false, false, true, false); //Setup individual inerrupts with push pull output, active high, cleared by reading GPIO regs 
+		//SETUP DEFAULT PINS
+		for(int i = 0; i < 16; i++) { //Set all Gamma pins to input
+			ioAUXGamma.pinMode(i, INPUT_PULLUP);
+		} 
 
-	for(int i = 11; i < 16; i++) { //Set all Beta pins to input
-		ioAUXBeta.pinMode(i, INPUT_PULLUP);
-		// ioBeta.pinMode(i, OUTPUT);
-		// ioBeta.digitalWrite(i, LOW);
-	} 
+		for(int i = 12; i < 16; i++) { //Set all Alpha (not MUX_SEL) pins to input
+			// ioAUXAlpha.pinMode(i, INPUT_PULLUP);
+			ioAlpha.pinMode(i, OUTPUT);
+			ioAlpha.digitalWrite(i, LOW);
+		} 
+
+		for(int i = 11; i < 16; i++) { //Set all Beta pins to input
+			ioAUXBeta.pinMode(i, INPUT_PULLUP);
+			// ioBeta.pinMode(i, OUTPUT);
+			// ioBeta.digitalWrite(i, LOW);
+		} 
+	}
 
 
 	for(int i = 0; i < 3; i++) { //Set each group of IO pins seperately
@@ -2519,6 +2709,9 @@ void SensorDemo3()
 	}
 	ioAUXAlpha.digitalWrite(MUX_EN, LOW); //Turn MUX on 
 	ads.begin();
+	ads.setGain(GAIN_SIXTEEN); //High resolution
+	// float VoltageScalar = 0.1875; //Low resolution
+	float VoltageScalar = 0.0078125; //High resolution
 
 	adcSense.SetResolution(18); //Set to max resolution (we paid for it right?) 
 
@@ -2530,14 +2723,14 @@ void SensorDemo3()
 		Serial.print("\tPort");
 		Serial.print(i);
 		Serial.print(" Input:");
-		Serial.print(ads.readADC_SingleEnded(3)*0.1875, 4); //Print high resolution voltage
+		Serial.print(ads.readADC_SingleEnded(3)*VoltageScalar, 4); //Print high resolution voltage
 		Serial.print(" mV\n");  
 	}
 	ioAUXAlpha.digitalWrite(MUX_SEL0, HIGH); //Set with lower bit
 	ioAUXAlpha.digitalWrite(MUX_SEL1, HIGH); //Set with high bit
 	delay(1); //Wait for voltage to stabilize
 	Serial.print("\t5V Rail:");
-	Serial.print(ads.readADC_SingleEnded(3)*0.1875, 4); //Print high resolution voltage
+	Serial.print(ads.readADC_SingleEnded(3)*VoltageScalar, 4); //Print high resolution voltage
 	Serial.print(" mV\n");  
 	ioAUXAlpha.digitalWrite(MUX_SEL2, HIGH); //Read currents
 	for(int i = 0; i < 3; i++){ //Increment through 4 voltages
@@ -2547,7 +2740,7 @@ void SensorDemo3()
 		Serial.print("\tPort");
 		Serial.print(i);
 		Serial.print(" Output:");
-		Serial.print(ads.readADC_SingleEnded(3)*0.1875, 4); //Print high resolution voltage
+		Serial.print(ads.readADC_SingleEnded(3)*VoltageScalar, 4); //Print high resolution voltage
 		Serial.print(" mV\n");  
 	}
 
@@ -2556,10 +2749,38 @@ void SensorDemo3()
 	
 
 	for(int i = 0; i < 3; i++){ //Increment through 4 voltages
+		ads.readADC_SingleEnded(3); //Read 5V line to add float charge
   		Serial.print("\t\tPort");
   		Serial.print(i);
   		Serial.print(": ");
-  		Serial.print(ads.readADC_SingleEnded(i)*0.1875, 4); //Print high resolution voltage, Convert by standard gain 
+  		Serial.print(ads.readADC_SingleEnded(i)*VoltageScalar, 4); //Print high resolution voltage, Convert by standard gain 
+  		Serial.print(" mV\n");  
+	}
+	Serial.print("\tVoltage Sense - Discharged:\n");
+	float VoltageRead = 0;
+	for(int i = 0; i < 3; i++){ //Increment through 4 voltages
+		ioAUXAlpha.pinMode(13 + i, OUTPUT);
+		ioAUXAlpha.digitalWrite(13 + i, HIGH); //Turn discharge FET on
+		delay(250); //Wait for discharge 
+		ioAUXAlpha.digitalWrite(13 + i, LOW); //Turn discharge FET off
+		VoltageRead = ads.readADC_SingleEnded(i)*VoltageScalar; //Take sample imediately 
+  		Serial.print("\t\tPort");
+  		Serial.print(i);
+  		Serial.print(": ");
+  		Serial.print(VoltageRead, 4); //Print high resolution voltage, Convert by standard gain 
+  		Serial.print(" mV\n");  
+	}
+	Serial.print("\tVoltage Sense - Loaded:\n");
+	for(int i = 0; i < 3; i++){ //Increment through 4 voltages
+		ioAUXAlpha.pinMode(13 + i, OUTPUT);
+		ioAUXAlpha.digitalWrite(13 + i, HIGH); //Turn discharge FET on
+		delay(250);
+		VoltageRead = ads.readADC_SingleEnded(i)*VoltageScalar; //Take sample imediately 
+		ioAUXAlpha.digitalWrite(13 + i, LOW); //Turn discharge FET off
+  		Serial.print("\t\tPort");
+  		Serial.print(i);
+  		Serial.print(": ");
+  		Serial.print(VoltageRead, 4); //Print high resolution voltage, Convert by standard gain 
   		Serial.print(" mV\n");  
 	}
 
@@ -2596,6 +2817,114 @@ void SensorDemo3()
 	// }
 	// delay(5000);
 	// ioAUXAlpha.digitalWrite(REG_EN, LOW); //Turn 5V off
+
+	HasRun = true;
+}
+
+void TalonEEPROMTest()
+{
+	uint8_t ADR = 0x50; 
+	//////////// WRITE/READ EEPROM /////////////
+	randomSeed(millis()); //Seed with a random number to try to endsure randomness
+	uint8_t RandVal = random(231); //Generate a random number between 0 and 231 (pages in Soul of a New Machine)
+	static int RandPosEEPROM = random(0x80); //Generate a random offset
+
+	Wire.beginTransmission(ADR); //EEPROM address
+	Wire.write(RandPosEEPROM); //Command write to random position 
+	Wire.write(RandVal);
+	int Error = Wire.endTransmission();
+
+	Serial.print("\tEEPROM Write:\n");
+	Serial.print("\t\tData: 0x");
+	Serial.println(RandVal, HEX);
+	Serial.print("\t\tPos: 0x");
+	Serial.println(RandPosEEPROM, HEX);
+	Serial.print("\t\tError: ");
+	Serial.println(Error);
+
+	unsigned long LocalTime = millis();
+	//Poll for write cycle to complete (see page 41 of datasheet)
+	do { //Max EEPROM write time is 5ms, wait for cycle to finish or to timeout
+		Wire.beginTransmission(ADR); //EEPROM address
+		Wire.write(RandPosEEPROM); //Command write to random position 
+		Error = Wire.endTransmission();
+	} while(Error != 0 && (millis() - LocalTime) < 6);
+
+	if(Error != 0) Serial.println("\t\tERROR: Write Cycle Timeout"); //Throw error if timeout occoured 
+
+	Wire.beginTransmission(ADR); //EEPROM address
+	Wire.write(RandPosEEPROM); //Command write to random position 
+	Error = Wire.endTransmission();
+
+	Wire.requestFrom(ADR, 1);
+	RandVal = Wire.read(); //Read single byte back
+
+	Serial.print("\tEEPROM Read:\n");
+	Serial.print("\t\tData: 0x");
+	Serial.println(RandVal, HEX);
+	Serial.print("\t\tPos: 0x");
+	Serial.println(RandPosEEPROM, HEX);
+	Serial.print("\t\tError: ");
+	Serial.println(Error);
+}
+
+void TalonEEPROMRead()
+{
+	uint8_t ADR = 0x50; 
+	Serial.println("\tEEPROM Data");
+	Serial.println("\tPOS\tVAL");
+	for(int i = 0; i < 0xFF; i++) {
+		Wire.beginTransmission(ADR); //EEPROM address
+		Wire.write(i); //Command write to random position 
+		uint8_t Error = Wire.endTransmission();
+
+		Wire.requestFrom(ADR, 1);
+		uint8_t Val = Wire.read(); //Read single byte back
+
+		Serial.print("\t0x");
+		Serial.print(i, HEX);
+		Serial.print("\t0x");
+		Serial.println(Val, HEX);
+	}
+	Serial.println("HIDDEN DATA");
+	for(int i = 0; i < 0xFF; i++) {
+		Wire.beginTransmission(0x58); //EEPROM address
+		Wire.write(i); //Command write to random position 
+		uint8_t Error = Wire.endTransmission();
+
+		Wire.requestFrom(0x58, 1);
+		uint8_t Val = Wire.read(); //Read single byte back
+
+		Serial.print("\t0x");
+		Serial.print(i, HEX);
+		Serial.print("\t0x");
+		Serial.println(Val, HEX);
+	}
+
+	////////////////// READ UUID /////////////////
+	uint64_t UUID = 0; //Used to store UUID from EEPROM
+	Wire.beginTransmission(0x58); //EEPROM address
+	Wire.write(0x98); //Begining of EUI-64 data
+	Wire.endTransmission();
+
+	Serial.print("\tUUID:\n\t\t");
+	uint8_t Val = 0; 
+	Wire.requestFrom(0x58, 8); //EEPROM address
+	for(int i = 0; i < 8; i++) {
+		Val = Wire.read();
+		UUID = UUID | (Val << (8 - i)); //Concatonate into full UUID
+		Serial.print(Val, HEX); //Print each hex byte from left to right
+		if(i < 7) Serial.print('-'); //Print formatting chracter, don't print on last pass
+	}
+	Serial.print("\n");
+}
+
+void PortTest()
+{
+	Serial1.begin(115200); //High speed serial test
+	Serial1.println("DEADBEEF");
+	// pinMode(Pins::TALON1_GPIOB, OUTPUT);
+	// analogWrite(Pins::TALON1_GPIOB, 128);
 }
 
 void SendBreak()
@@ -2648,7 +2977,7 @@ String SendCommand(String Command)
 	Serial1.begin(1200, SERIAL_8N1);
 	Serial1.print(SerialConvert8N1to7E1(Command)); //Send converted value
 	Serial1.flush(); //Make sure data is transmitted before releasing the bus
-	delay(1); //DEBUG! Return to 1ms??
+	delay(2); //DEBUG! Return to 1ms??
 	ReleaseBus(); //Switch bus to recieve 
 
 	unsigned long LocalTime = millis();
