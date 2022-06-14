@@ -55,3 +55,9 @@
 [submodule "Software/KestrelSerialDemo_Particle/lib/MCP3221"]
 	path = Software/KestrelSerialDemo_Particle/lib/MCP3221
 	url = https://github.com/gemsiot/MCP3221.git
+[submodule "Software/KestrelSerialDemo_Particle/lib/PACL9535A_Library"]
+	path = Software/KestrelSerialDemo_Particle/lib/PACL9535A_Library
+	url = https://github.com/gemsiot/PACL9535A_Library.git
+[submodule "Software/KestrelSleepTest/lib/PACL9535A_Library"]
+	path = Software/KestrelSleepTest/lib/PACL9535A_Library
+	url = https://github.com/gemsiot/PACL9535A_Library.git

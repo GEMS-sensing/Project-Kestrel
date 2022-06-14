@@ -5,11 +5,14 @@
  * Date:
  */
 
-#include <MCP23018.h>
+// #include <MCP23018.h> //Use for <v1.5
+#include <PACL9535A.h> //Use for >=v1.5
 #include "SparkFun_Ublox_Arduino_Library.h"
 
 SFE_UBLOX_GPS myGPS;
-MCP23018 ioAlpha(0x20);
+PACL9535A ioAlpha(0x20); //Use for >=v1.5
+PACL9535A ioBeta(0x21); //Use for >=v1.5
+// MCP23018 ioAlpha(0x20); //Use for <v1.5
 
 const uint8_t RTC_INT = D22; //FIX!
 const uint8_t CSA_EN = 14; //FIX!
@@ -31,6 +34,8 @@ void setup() {
   Wire.begin();
   
   ioAlpha.begin();
+  ioBeta.begin();
+  ioBeta.clearInterrupt(PACL9535A::IntAge::CURRENT);
   ioAlpha.pinMode(12, OUTPUT); //LOW
   ioAlpha.pinMode(11, OUTPUT); //LOW
   ioAlpha.pinMode(10, OUTPUT); //LOW
@@ -59,6 +64,23 @@ void setup() {
 }
 
 void loop() {
+
+  //Clear Clock, config OSC
+  Wire.beginTransmission(0x6F);
+  Wire.write(0x07);
+  Wire.write(0x88); //Turn on EXT OSC, turn off alarms
+  Wire.endTransmission();
+
+  Wire.beginTransmission(0x6F);
+  Wire.write(0x0D);
+  Wire.write(0x88); //Clear ALARM0
+  Wire.endTransmission();
+
+  Wire.beginTransmission(0x6F);
+  Wire.write(0x14);
+  Wire.write(0x88); //Clear ALARM1
+  Wire.endTransmission();
+
   // //Shutdown Accel
 	Wire.beginTransmission(ACCEL_ADR);
 	Wire.write(0x0D); //Write to control register
@@ -72,16 +94,20 @@ void loop() {
 	Wire.beginTransmission(0x43);
 	Wire.endTransmission();
 
-  Wire.beginTransmission(0x20);
-  Wire.write(0x0A);
-  Wire.write(0b01000000); //Set INT pins to be ORed and driven
-  Wire.endTransmission();
+  //Use for <v1.5
+  // Wire.beginTransmission(0x20);
+  // Wire.write(0x0A);
+  // Wire.write(0b01000000); //Set INT pins to be ORed and driven
+  // Wire.endTransmission();
 
-  Wire.beginTransmission(0x21);
-  Wire.write(0x0A);
-  Wire.write(0b01000000); //Set INT pins to be ORed and driven
-  Wire.endTransmission();
+  // Wire.beginTransmission(0x21);
+  // Wire.write(0x0A);
+  // Wire.write(0b01000000); //Set INT pins to be ORed and driven
+  // Wire.endTransmission();
 
+  ioAlpha.digitalWrite(12, LOW);
+  ioAlpha.digitalWrite(11, LOW);
+  ioAlpha.digitalWrite(10, LOW);
   ioAlpha.digitalWrite(CSA_EN, LOW); //Turn off CSAs
   ioAlpha.digitalWrite(LED_EN, HIGH); //Turn off LEDs for ultra low power
   ioAlpha.digitalWrite(AUX_EN, LOW); //Turn off auxiliary power
