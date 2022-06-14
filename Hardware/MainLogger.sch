@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="mm" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -16471,12 +16471,6 @@ Low when using USB</text>
 <junction x="233.68" y="129.54"/>
 <label x="231.14" y="129.54" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
-<segment>
-<pinref part="D4" gate="G$1" pin="A2"/>
-<wire x1="124.46" y1="73.66" x2="124.46" y2="66.04" width="0.1524" layer="91"/>
-<wire x1="124.46" y1="66.04" x2="119.38" y2="66.04" width="0.1524" layer="91"/>
-<label x="119.38" y="66.04" size="1.016" layer="95" rot="R180" xref="yes"/>
-</segment>
 </net>
 <net name="REGN" class="0">
 <segment>
@@ -16524,6 +16518,12 @@ Low when using USB</text>
 <pinref part="D6" gate="G$1" pin="A1"/>
 <wire x1="248.92" y1="170.18" x2="251.46" y2="170.18" width="0.1524" layer="91"/>
 <label x="251.46" y="170.18" size="0.8128" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="D4" gate="G$1" pin="A2"/>
+<wire x1="124.46" y1="73.66" x2="124.46" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="124.46" y1="66.04" x2="119.38" y2="66.04" width="0.1524" layer="91"/>
+<label x="119.38" y="66.04" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="BTST" class="0">
@@ -18224,35 +18224,6 @@ Test 4.7k (or more) for reduced power consumption </text>
 <wire x1="213.36" y1="180.34" x2="215.9" y2="180.34" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="BAT_CHG" class="0">
-<segment>
-<pinref part="U25" gate="G$1" pin="VDD"/>
-<wire x1="241.3" y1="134.62" x2="238.76" y2="134.62" width="0.1524" layer="91"/>
-<label x="238.76" y="134.62" size="1.016" layer="95" rot="R180" xref="yes"/>
-</segment>
-<segment>
-<pinref part="C49" gate="G$1" pin="1"/>
-<wire x1="215.9" y1="132.08" x2="215.9" y2="134.62" width="0.1524" layer="91"/>
-<wire x1="215.9" y1="134.62" x2="213.36" y2="134.62" width="0.1524" layer="91"/>
-<label x="213.36" y="134.62" size="1.016" layer="95" rot="R180" xref="yes"/>
-</segment>
-<segment>
-<pinref part="R55" gate="G$1" pin="1"/>
-<wire x1="228.6" y1="172.72" x2="228.6" y2="175.26" width="0.1524" layer="91"/>
-<wire x1="228.6" y1="175.26" x2="231.14" y2="175.26" width="0.1524" layer="91"/>
-<label x="231.14" y="175.26" size="0.8128" layer="95" xref="yes"/>
-</segment>
-<segment>
-<pinref part="R54" gate="G$1" pin="1"/>
-<wire x1="215.9" y1="193.04" x2="218.44" y2="193.04" width="0.1524" layer="91"/>
-<label x="218.44" y="193.04" size="1.016" layer="95" xref="yes"/>
-</segment>
-<segment>
-<pinref part="U24" gate="G$1" pin="VCC"/>
-<wire x1="259.08" y1="157.48" x2="261.62" y2="157.48" width="0.1524" layer="91"/>
-<label x="261.62" y="157.48" size="1.016" layer="95" xref="yes"/>
-</segment>
-</net>
 <net name="N$30" class="0">
 <segment>
 <pinref part="U25" gate="G$1" pin="DELAY"/>
@@ -19195,6 +19166,35 @@ Test 4.7k (or more) for reduced power consumption </text>
 <pinref part="U29" gate="G$1" pin="CLK"/>
 <pinref part="U21" gate="G$1" pin="X1"/>
 <wire x1="152.4" y1="254" x2="137.922" y2="254" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="SYSCORE" class="0">
+<segment>
+<pinref part="U25" gate="G$1" pin="VDD"/>
+<wire x1="241.3" y1="134.62" x2="238.76" y2="134.62" width="0.1524" layer="91"/>
+<label x="238.76" y="134.62" size="1.016" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="U24" gate="G$1" pin="VCC"/>
+<wire x1="259.08" y1="157.48" x2="261.62" y2="157.48" width="0.1524" layer="91"/>
+<label x="261.62" y="157.48" size="1.016" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="R55" gate="G$1" pin="1"/>
+<wire x1="228.6" y1="172.72" x2="228.6" y2="175.26" width="0.1524" layer="91"/>
+<wire x1="228.6" y1="175.26" x2="231.14" y2="175.26" width="0.1524" layer="91"/>
+<label x="231.14" y="175.26" size="0.8128" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="R54" gate="G$1" pin="1"/>
+<wire x1="215.9" y1="193.04" x2="218.44" y2="193.04" width="0.1524" layer="91"/>
+<label x="218.44" y="193.04" size="1.016" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="C49" gate="G$1" pin="1"/>
+<wire x1="215.9" y1="132.08" x2="215.9" y2="134.62" width="0.1524" layer="91"/>
+<wire x1="215.9" y1="134.62" x2="213.36" y2="134.62" width="0.1524" layer="91"/>
+<label x="213.36" y="134.62" size="1.016" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 </nets>
