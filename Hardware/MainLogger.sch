@@ -6995,6 +6995,11 @@ push-push type</description>
 <attribute name="MF" value="TE Connectivity" constant="no"/>
 <attribute name="MPN" value="RCU-0C" constant="no"/>
 </technology>
+<technology name="_DNP_">
+<attribute name="DIGIKEY" value="DNP" constant="no"/>
+<attribute name="MF" value="N/A" constant="no"/>
+<attribute name="MPN" value="DNP" constant="no"/>
+</technology>
 </technologies>
 </device>
 </devices>
@@ -14491,13 +14496,13 @@ If either side is low, device is in tri-state anyway</text>
 <part name="GND52" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="U8" library="bschulz" deviceset="SN74AUP1G08" device="DCK"/>
 <part name="GND53" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="TP1" library="bschulz" deviceset="TESTPOINT" device="RCU"/>
-<part name="TP2" library="bschulz" deviceset="TESTPOINT" device="RCU"/>
-<part name="TP5" library="bschulz" deviceset="TESTPOINT" device="RCU"/>
-<part name="TP6" library="bschulz" deviceset="TESTPOINT" device="RCU"/>
-<part name="TP7" library="bschulz" deviceset="TESTPOINT" device="RCU"/>
-<part name="TP8" library="bschulz" deviceset="TESTPOINT" device="RCU"/>
-<part name="TP9" library="bschulz" deviceset="TESTPOINT" device="RCU"/>
+<part name="TP1" library="bschulz" deviceset="TESTPOINT" device="RCU" technology="_DNP_" value="TESTPOINT_DNP_RCU"/>
+<part name="TP2" library="bschulz" deviceset="TESTPOINT" device="RCU" technology="_DNP_" value="TESTPOINT_DNP_RCU"/>
+<part name="TP5" library="bschulz" deviceset="TESTPOINT" device="RCU" technology="_DNP_" value="TESTPOINT_DNP_RCU"/>
+<part name="TP6" library="bschulz" deviceset="TESTPOINT" device="RCU" technology="_DNP_" value="TESTPOINT_DNP_RCU"/>
+<part name="TP7" library="bschulz" deviceset="TESTPOINT" device="RCU" technology="_DNP_" value="TESTPOINT_DNP_RCU"/>
+<part name="TP8" library="bschulz" deviceset="TESTPOINT" device="RCU" technology="_DNP_" value="TESTPOINT_DNP_RCU"/>
+<part name="TP9" library="bschulz" deviceset="TESTPOINT" device="RCU" technology="_DNP_" value="TESTPOINT_DNP_RCU"/>
 <part name="R9" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="27" value="27R"/>
 <part name="R10" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="27" value="27R"/>
 <part name="D2" library="bschulz" deviceset="RCLAMP3654" device=""/>
@@ -17892,6 +17897,11 @@ Test 4.7k (or more) for reduced power consumption </text>
 <wire x1="48.26" y1="312.42" x2="48.26" y2="307.34" width="0.1524" layer="91"/>
 <wire x1="50.8" y1="312.42" x2="48.26" y2="312.42" width="0.1524" layer="91"/>
 <junction x="48.26" y="312.42"/>
+</segment>
+<segment>
+<pinref part="U26" gate="G$1" pin="DONE"/>
+<wire x1="274.32" y1="55.88" x2="276.86" y2="55.88" width="0.1524" layer="91"/>
+<label x="276.86" y="55.88" size="1.27" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="GPS_ANT" class="0">
