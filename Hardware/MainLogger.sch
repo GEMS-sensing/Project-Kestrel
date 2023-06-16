@@ -14767,6 +14767,11 @@ If either side is low, device is in tri-state anyway</text>
 <part name="C58" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="100PF" value="100pF"/>
 <part name="R43" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="1K" value="1k"/>
 <part name="GND92" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="D19" library="bschulz" deviceset="DIODE_SCHOTTKY" device="SOD-323" value="BAT54WS">
+<attribute name="DIGIKEY" value="BAT54WS-TPCT-ND"/>
+<attribute name="MF" value="Micro Commercial"/>
+<attribute name="MPN" value="BAT54WS-TP"/>
+</part>
 </parts>
 <sheets>
 <sheet>
@@ -16407,6 +16412,10 @@ Low when using USB</text>
 <instance part="GND92" gate="1" x="157.48" y="63.5" smashed="yes">
 <attribute name="VALUE" x="154.94" y="60.96" size="1.778" layer="96"/>
 </instance>
+<instance part="D19" gate="G$1" x="78.74" y="91.44" smashed="yes">
+<attribute name="NAME" x="73.914" y="88.265" size="1.778" layer="95"/>
+<attribute name="VALUE" x="73.914" y="95.631" size="1.778" layer="96"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -16929,17 +16938,13 @@ Low when using USB</text>
 <label x="99.06" y="96.52" size="1.016" layer="95" xref="yes"/>
 <pinref part="R18" gate="G$1" pin="1"/>
 <wire x1="83.82" y1="91.44" x2="99.06" y2="91.44" width="0.1524" layer="91"/>
-<junction x="83.82" y="91.44"/>
 <wire x1="99.06" y1="91.44" x2="99.06" y2="96.52" width="0.1524" layer="91"/>
 <junction x="99.06" y="91.44"/>
 <pinref part="D4" gate="G$1" pin="A1"/>
 <wire x1="99.06" y1="91.44" x2="99.06" y2="88.9" width="0.1524" layer="91"/>
-<pinref part="U13" gate="G$1" pin="VOUT"/>
-<pinref part="C20" gate="G$1" pin="1"/>
-<wire x1="63.5" y1="86.36" x2="73.66" y2="86.36" width="0.1524" layer="91"/>
-<wire x1="73.66" y1="86.36" x2="73.66" y2="91.44" width="0.1524" layer="91"/>
-<junction x="73.66" y="86.36"/>
-<wire x1="73.66" y1="91.44" x2="83.82" y2="91.44" width="0.1524" layer="91"/>
+<pinref part="D19" gate="G$1" pin="C"/>
+<wire x1="81.28" y1="91.44" x2="83.82" y2="91.44" width="0.1524" layer="91"/>
+<junction x="83.82" y="91.44"/>
 </segment>
 </net>
 <net name="BCKP_RTC" class="0">
@@ -17257,6 +17262,18 @@ Low when using USB</text>
 <wire x1="139.7" y1="76.2" x2="139.7" y2="81.28" width="0.1524" layer="91"/>
 <wire x1="139.7" y1="81.28" x2="142.24" y2="81.28" width="0.1524" layer="91"/>
 <label x="142.24" y="81.28" size="0.8128" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="BCKP_GPS_REG" class="0">
+<segment>
+<pinref part="C20" gate="G$1" pin="1"/>
+<pinref part="U13" gate="G$1" pin="VOUT"/>
+<wire x1="63.5" y1="86.36" x2="73.66" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="73.66" y1="86.36" x2="73.66" y2="91.44" width="0.1524" layer="91"/>
+<junction x="73.66" y="86.36"/>
+<label x="63.5" y="88.9" size="0.8128" layer="95"/>
+<pinref part="D19" gate="G$1" pin="A"/>
+<wire x1="76.2" y1="91.44" x2="73.66" y2="91.44" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
