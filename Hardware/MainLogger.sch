@@ -3214,6 +3214,12 @@ Soure: &lt;a href="http://www.ti.com/lit/ds/symlink/ads7042.pdf"&gt; Data sheet 
 <wire x1="0.5" y1="0.5" x2="-0.5" y2="0.5" width="0.127" layer="21"/>
 <wire x1="-0.508" y1="0" x2="0" y2="0.508" width="0.1016" layer="21"/>
 <text x="0" y="-1.016" size="0.6096" layer="25" font="vector" ratio="15" align="center">&gt;NAME</text>
+<polygon width="0" layer="29">
+<vertex x="-0.339" y="0"/>
+<vertex x="0" y="0.339"/>
+<vertex x="0.339" y="0"/>
+<vertex x="0" y="-0.339"/>
+</polygon>
 </package>
 <package name="DBV0005A">
 <description>SOT-23-5 Alternate &lt;br&gt;
