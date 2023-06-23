@@ -3,7 +3,7 @@
 <eagle version="9.6.2">
 <drawing>
 <settings>
-<setting alwaysvectorfont="yes"/>
+<setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
 <grid distance="50" unitdist="mil" unit="mm" style="lines" multiple="1" display="no" altdistance="5" altunitdist="mil" altunit="mil"/>
@@ -199,7 +199,7 @@
 <text x="13.716" y="10.668" size="1.27" layer="51" font="vector" ratio="15" rot="SR0" align="center">SOLAR
 IN</text>
 <text x="62.992" y="34.544" size="1.27" layer="51" font="vector" ratio="15" align="center-left">Project Kestrel
-v1.8
+v1.9
 Bobby
 Schulz</text>
 <text x="62.865" y="68.199" size="1.27" layer="51" font="vector" ratio="15" align="center-left">Safe
