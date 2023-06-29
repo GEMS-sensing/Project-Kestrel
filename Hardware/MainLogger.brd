@@ -2402,13 +2402,13 @@ Please make sure your boards conform to these design rules.
 <attribute name="MPN" value="PAC1934T-I/JQ" x="6.35" y="31.75" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="NAME" x="4.445" y="29.21" size="0.6096" layer="25" font="vector" ratio="15" align="center"/>
 </element>
-<element name="R3" library="bschulz_passives" package="R0402" value="13.3k" x="2.413" y="33.401" smashed="yes" rot="R270">
-<attribute name="DIGIKEY" value="YAG2974CT-ND" x="2.413" y="33.401" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="MF" value="Yageo" x="2.413" y="33.401" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="MPN" value="RC0402FR-0713K3L" x="2.413" y="33.401" size="1.778" layer="27" rot="R270" display="off"/>
+<element name="R3" library="bschulz_passives" package="R0402" value="20k" x="2.413" y="33.401" smashed="yes" rot="R270">
+<attribute name="DIGIKEY" value="CR0402-FX-2002GLFCT-ND" x="2.413" y="33.401" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="MF" value="Bourns" x="2.413" y="33.401" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="MPN" value="CR0402-FX-2002GLF" x="2.413" y="33.401" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="NAME" x="2.413" y="34.925" size="0.6096" layer="25" font="vector" ratio="15" align="center"/>
 <attribute name="VALUE" x="1.016" y="33.401" size="0.6096" layer="27" font="vector" ratio="15" rot="R270" align="center"/>
-<attribute name="VALUE_PART" value="13.3k" x="2.413" y="33.401" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="VALUE_PART" value="20k" x="2.413" y="33.401" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
 <element name="C4" library="bschulz_passives" package="C0402" value="0.1uF" x="6.35" y="35.433" smashed="yes" rot="R180">
 <attribute name="DIGIKEY" value="490-4759-1-ND" x="6.35" y="35.433" size="1.778" layer="27" rot="R180" display="off"/>
