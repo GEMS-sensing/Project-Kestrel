@@ -14464,7 +14464,7 @@ If either side is low, device is in tri-state anyway</text>
 </part>
 <part name="GND19" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="U5" library="bschulz" deviceset="PAC1934" device="QFN"/>
-<part name="R3" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="13.3K" value="13.3k"/>
+<part name="R3" library="bschulz_passives" deviceset="R-EU_" device="R0402" technology="20K" value="20k"/>
 <part name="GND20" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="C4" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="0.1UF" value="0.1uF"/>
 <part name="C6" library="bschulz_passives" deviceset="C-EU" device="C0402" technology="0.1UF" value="0.1uF"/>
