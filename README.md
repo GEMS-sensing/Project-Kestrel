@@ -5,7 +5,7 @@
 Core board for a Flight data logger, featuring interfaces to Talon boards ([SDI-12 Talon](https://github.com/GEMS-sensing/Talon-SDI12), [I2C Talon](https://github.com/GEMS-sensing/Talon-I2C), [Auxiliary Talon](https://github.com/GEMS-sensing/Talon-Auxiliary)) and external battery board ([Gonk](https://github.com/GEMS-sensing/Project-Gonk)). This is the core component of [Flight data logger](https://github.com/GEMS-sensing/DFM_-_Flight?tab=readme-ov-file).
 
 # Repo Roadmap
-#### [Documents](Documents/) 
+#### [Documents](Documentation/) 
 
 General document and image storage for repo and README
 
@@ -155,10 +155,10 @@ Scripts and results from the testing process and development process. Contains m
 
 **Version Affected:** All
 
-**Issue:** Solar input does not support very low impedance sources (e.g. lead acid battery) - see details in issue #20
+**Issue:** Solar input does not support very low impedance sources (e.g. lead acid battery) - see details in issue [#20](https://github.com/GEMS-sensing/Project-Kestrel/issues/20)
 
 **Workaround:** 
 
 * Avoid use of low impedance batteries for input
 * Include series impedance to prevent current spikes (not desirable)
-* Perform board patch described in issue #20
+* Perform board patch described in issue [#20](https://github.com/GEMS-sensing/Project-Kestrel/issues/20)
