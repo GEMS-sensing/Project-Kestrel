@@ -6,7 +6,8 @@
 #include <Particle.h>
 #include "dct.h"
 #include <MCP23018.h>
-#include <PACL9535A.h>
+#include <PCAL9535A.h>
+#include <arduino_bma456.h>
 
 // #define NUM_MCP2301x_ICs   1
 
@@ -96,8 +97,8 @@ char ReadArray[25] = {0};
 
  // Adafruit_MCP23008 io;
 // Adafruit_MCP23X17 io;
-PACL9535A ioAlpha(0x20);
-PACL9535A ioBeta(0x21);
+PCAL9535A ioAlpha(0x20);
+PCAL9535A ioBeta(0x21);
 // MCP2301x io;
 
 // #define IOEXP_MODE  (IOCON_INTCC | IOCON_INTPOL | IOCON_ODR | IOCON_MIRROR)
@@ -115,7 +116,6 @@ PACL9535A ioBeta(0x21);
 // #define LAT 0x14
 // #define PU 0x0C
 // #define ADR 0x20
-
 
 //////////////// GPS /////////////////
 #include "SparkFun_Ublox_Arduino_Library.h" //http://librarymanager/All#SparkFun_Ublox_GPS
@@ -174,7 +174,7 @@ const uint8_t RX_SDI12 = 10;
 const uint8_t FOut = 14;
 const uint8_t Dir = 15;
 
-PACL9535A ioTalonSDI12(0x25);
+PCAL9535A ioTalonSDI12(0x25);
 
 #define MARKING_PERIOD 9 //>8.33ms for standard marking period
 const unsigned long TimeoutStandard = 380; //Standard timeout period for most commands is 380ms 
@@ -184,9 +184,9 @@ const unsigned long TimeoutStandard = 380; //Standard timeout period for most co
 
 Adafruit_ADS1115 ads(0x49); 
 
-PACL9535A ioAUXAlpha(0x20);
-PACL9535A ioAUXBeta(0x23);
-PACL9535A ioAUXGamma(0x24);
+PCAL9535A ioAUXAlpha(0x20);
+PCAL9535A ioAUXBeta(0x23);
+PCAL9535A ioAUXGamma(0x24);
 
 //IO Expander Pins - ALPHA
 const uint8_t REG_EN = 7;
@@ -220,7 +220,7 @@ const uint8_t OD1 = 13;
 #include <Adafruit_SGP30.h>
 
 
-PACL9535A ioTalonI2C(0x22);
+PCAL9535A ioTalonI2C(0x22);
 
 MCP3421 adcSense(0x6B); //Initialize MCP3421 with A3 address
 
@@ -271,6 +271,7 @@ void setup()
 	// pinSetDriveStrength(D1, DriveStrength::HIGH);
 	ioAlpha.begin(); //RESTORE
 	ioBeta.begin(); //RESTORE
+	// bma456.initialize();
 	// ioAlpha.pinMode(PinsIOAlpha::CE, OUTPUT);
 	// ioAlpha.digitalWrite(PinsIOAlpha::CE, HIGH); //DEBUG! Turn off charging 
 
@@ -1135,110 +1136,128 @@ void TestAccel()
 	const uint8_t ADR = 0x15; 
 	I2C_GlobalEn(false);
 	I2C_OnBoardEn(true);
-
-	//Initialize
-	Wire.beginTransmission(ADR);
-	Wire.write(0x0D); //Write to control register
-	Wire.write(0x00); //Make sure register is cleared - Self test off, FSR = 2g, Power down false
-	Wire.endTransmission();
-
-	// ////// RUN SELF TEST ///////
-	// Wire.beginTransmission(ADR);
-	// Wire.write(0x0B); 
-	// Wire.write(0x80); //Disable temp comp
-	// Wire.endTransmission();
-
-	// Wire.beginTransmission(ADR);
-	// Wire.write(0x0D);
-	// Wire.write(0xC0); //Activate self test, 8G mode
-	// Wire.endTransmission();
-	// ////// RUN SELF TEST ///////
-
-	int16_t DataRaw[3] = {0}; //X, Y, Z accel data, raw
-	float Data[3] = {0}; //Converted X, Y, Z accel data [g]
-
-	Wire.beginTransmission(ADR);
-	Wire.write(0x03); //Address XOut register, increment from there
-	Wire.endTransmission(); 
-
-	Wire.requestFrom(ADR, 6); //Get all bytes at once
-	for(int i = 0; i < 3; i++) {
-		DataRaw[i] = (Wire.read() << 8); //Read in high byte 
-		DataRaw[i] = DataRaw[i] | Wire.read(); //Read in low byte 
-		DataRaw[i] = DataRaw[i] >> 4; //Shift out empty bits
-		Data[i] = (float(DataRaw[i]/2048.0))*2; //Divide by 12 bit resolution, multiply by FSR
-		// Data[i] = (float(DataRaw[i]/2048.0))*8; //Divide by 12 bit resolution, multiply by FSR = 8
+	bma456.initialize();
+	delay(100);
+	float x = 0, y = 0, z = 0;
+	int32_t temp = 0;
+	for(int i = 0; i < 25; i++) {
+		bma456.getAcceleration(&x, &y, &z);
+		delay(10);
 	}
-	//Grab Tilt/orientation bits //DEBUG!
-	Wire.beginTransmission(ADR);
-	Wire.write(0x01);
-	Wire.endTransmission();
-	Serial.print("\tINT_SRC1: ");
-	Wire.requestFrom(ADR, 1);
-	Serial.println(Wire.read(), BIN);
+    temp = bma456.getTemperature();
 
-	Wire.beginTransmission(ADR);
-	Wire.write(0x02);
-	Wire.endTransmission();
-	Serial.print("\tSTATUS: ");
-	Wire.requestFrom(ADR, 1);
-	Serial.println(Wire.read(), BIN);
+    Serial.print("X: ");
+    Serial.print(x);
+    Serial.print(", Y: ");
+    Serial.print(y);
+    Serial.print(", Z: ");
+    Serial.print(z);
+    Serial.print(", T: ");
+    Serial.println(temp);
 
-	//Grab raw Z axis regs //DEBUG!
-	Wire.beginTransmission(ADR);
-	Wire.write(0x07);
-	Wire.endTransmission();
-	Serial.print("\tZOUT_Upper: ");
-	Wire.requestFrom(ADR, 1);
-	Serial.println(Wire.read(), HEX);
-
-	Wire.beginTransmission(ADR);
-	Wire.write(0x08);
-	Wire.endTransmission();
-	Serial.print("\tZOUT_Lower: ");
-	Wire.requestFrom(ADR, 1);
-	Serial.println(Wire.read(), HEX);
-
-
-
-	//Print out results 
-	Serial.print("\tX: ");
-	Serial.print(Data[0], 6);
-	Serial.print("g\t");
-	Serial.println(DataRaw[0], HEX);
-
-	Serial.print("\tY: ");
-	Serial.print(Data[1], 6);
-	Serial.print("g\t");
-	Serial.println(DataRaw[1], HEX);
-
-	Serial.print("\tZ: ");
-	Serial.print(Data[2], 6);
-	Serial.print("g\t");
-	Serial.println(DataRaw[2], HEX);
-
-	
-	// DataRaw[1] = Wire.read() << 8; //Read in high byte of Y
-	// DataRaw[1] = DataRaw[1] | Wire.read(); //Read in low byte of Y
-	// DataRaw[2] = Wire.read() << 8; //Read in high byte of Z
-	// DataRaw[2] = DataRaw[2] | Wire.read(); //Read in low byte of Z
-
-	
-	// DataRaw[1] = DataRaw[1] >> 4; //Shift out empty bits
-	// DataRaw[2] = DataRaw[2] >> 4; //Shift out empty bits
-
-	// Data[0] = (float(DataRaw[0]/2048.0))*2; //Divide by 12 bit resolution, multiply by FSR
-
-	// //Shutdown
+	// //Initialize
 	// Wire.beginTransmission(ADR);
 	// Wire.write(0x0D); //Write to control register
-	// Wire.write(0x01); //Set power down
+	// Wire.write(0x00); //Make sure register is cleared - Self test off, FSR = 2g, Power down false
 	// Wire.endTransmission();
 
-	Wire.beginTransmission(ADR);
-	Wire.write(0x0B); //Write to control register
-	Wire.write(0x80); //Turn off temp compensation 
-	Wire.endTransmission();
+	// // ////// RUN SELF TEST ///////
+	// // Wire.beginTransmission(ADR);
+	// // Wire.write(0x0B); 
+	// // Wire.write(0x80); //Disable temp comp
+	// // Wire.endTransmission();
+
+	// // Wire.beginTransmission(ADR);
+	// // Wire.write(0x0D);
+	// // Wire.write(0xC0); //Activate self test, 8G mode
+	// // Wire.endTransmission();
+	// // ////// RUN SELF TEST ///////
+
+	// int16_t DataRaw[3] = {0}; //X, Y, Z accel data, raw
+	// float Data[3] = {0}; //Converted X, Y, Z accel data [g]
+
+	// Wire.beginTransmission(ADR);
+	// Wire.write(0x03); //Address XOut register, increment from there
+	// Wire.endTransmission(); 
+
+	// Wire.requestFrom(ADR, 6); //Get all bytes at once
+	// for(int i = 0; i < 3; i++) {
+	// 	DataRaw[i] = (Wire.read() << 8); //Read in high byte 
+	// 	DataRaw[i] = DataRaw[i] | Wire.read(); //Read in low byte 
+	// 	DataRaw[i] = DataRaw[i] >> 4; //Shift out empty bits
+	// 	Data[i] = (float(DataRaw[i]/2048.0))*2; //Divide by 12 bit resolution, multiply by FSR
+	// 	// Data[i] = (float(DataRaw[i]/2048.0))*8; //Divide by 12 bit resolution, multiply by FSR = 8
+	// }
+	// //Grab Tilt/orientation bits //DEBUG!
+	// Wire.beginTransmission(ADR);
+	// Wire.write(0x01);
+	// Wire.endTransmission();
+	// Serial.print("\tINT_SRC1: ");
+	// Wire.requestFrom(ADR, 1);
+	// Serial.println(Wire.read(), BIN);
+
+	// Wire.beginTransmission(ADR);
+	// Wire.write(0x02);
+	// Wire.endTransmission();
+	// Serial.print("\tSTATUS: ");
+	// Wire.requestFrom(ADR, 1);
+	// Serial.println(Wire.read(), BIN);
+
+	// //Grab raw Z axis regs //DEBUG!
+	// Wire.beginTransmission(ADR);
+	// Wire.write(0x07);
+	// Wire.endTransmission();
+	// Serial.print("\tZOUT_Upper: ");
+	// Wire.requestFrom(ADR, 1);
+	// Serial.println(Wire.read(), HEX);
+
+	// Wire.beginTransmission(ADR);
+	// Wire.write(0x08);
+	// Wire.endTransmission();
+	// Serial.print("\tZOUT_Lower: ");
+	// Wire.requestFrom(ADR, 1);
+	// Serial.println(Wire.read(), HEX);
+
+
+
+	// //Print out results 
+	// Serial.print("\tX: ");
+	// Serial.print(Data[0], 6);
+	// Serial.print("g\t");
+	// Serial.println(DataRaw[0], HEX);
+
+	// Serial.print("\tY: ");
+	// Serial.print(Data[1], 6);
+	// Serial.print("g\t");
+	// Serial.println(DataRaw[1], HEX);
+
+	// Serial.print("\tZ: ");
+	// Serial.print(Data[2], 6);
+	// Serial.print("g\t");
+	// Serial.println(DataRaw[2], HEX);
+
+	
+	// // DataRaw[1] = Wire.read() << 8; //Read in high byte of Y
+	// // DataRaw[1] = DataRaw[1] | Wire.read(); //Read in low byte of Y
+	// // DataRaw[2] = Wire.read() << 8; //Read in high byte of Z
+	// // DataRaw[2] = DataRaw[2] | Wire.read(); //Read in low byte of Z
+
+	
+	// // DataRaw[1] = DataRaw[1] >> 4; //Shift out empty bits
+	// // DataRaw[2] = DataRaw[2] >> 4; //Shift out empty bits
+
+	// // Data[0] = (float(DataRaw[0]/2048.0))*2; //Divide by 12 bit resolution, multiply by FSR
+
+	// // //Shutdown
+	// // Wire.beginTransmission(ADR);
+	// // Wire.write(0x0D); //Write to control register
+	// // Wire.write(0x01); //Set power down
+	// // Wire.endTransmission();
+
+	// Wire.beginTransmission(ADR);
+	// Wire.write(0x0B); //Write to control register
+	// Wire.write(0x80); //Turn off temp compensation 
+	// Wire.endTransmission();
 
 	I2C_GlobalEn(true);
 }
@@ -1998,7 +2017,7 @@ void SensorDemo1()
 	pinMode(Pins::TALON2_GPIOB, OUTPUT);
 	digitalWrite(Pins::TALON2_GPIOB, HIGH); //Connect to internal I2C
 	Serial.println(ioTalonI2C.begin());
-	ioTalonI2C.safeMode(PACL9535A::SAFEOFF);
+	ioTalonI2C.safeMode(PCAL9535A::SAFEOFF);
 
 	ioTalonI2C.pinMode(POS_DETECT, INPUT); //Set position detect as normal pullup (has external pullup)
 	ioTalonI2C.pinMode(SENSE_EN, OUTPUT); //Set sense control as output
@@ -2674,7 +2693,7 @@ void SensorDemo3()
 		// ioAUXBeta.setLatch(0, true); //Turn on latching to ensure visability 
 		ioAUXBeta.setInterrupt(7, true); //Turn on interrupt for /OVF1
 		ioAUXBeta.setLatch(7, true); //Turn on latching to ensure visability 
-		ioAUXBeta.clearInterrupt(PACL9535A::IntAge::CURRENT);
+		ioAUXBeta.clearInterrupt(PCAL9535A::IntAge::CURRENT);
 		//SETUP DEFAULT PINS
 		for(int i = 0; i < 16; i++) { //Set all Gamma pins to input
 			ioAUXGamma.pinMode(i, INPUT_PULLUP);
@@ -2760,7 +2779,7 @@ void SensorDemo3()
 	// ioAUXBeta.setIntPinConfig(OUT1, true); //Interrupt if OUT1 changes
 	ioAUXBeta.setInterrupt(OVF1, true); //turn on interrupt for OVF1 pin
 	ioAUXBeta.setInterrupt(OUT1, false); //turn on interrupt for OUT1 pin
-	ioAUXBeta.clearInterrupt(PACL9535A::IntAge::BOTH); //Clean both interrupts 
+	ioAUXBeta.clearInterrupt(PCAL9535A::IntAge::BOTH); //Clean both interrupts 
 
 	ioAUXAlpha.pinMode(REG_EN, OUTPUT);
 	ioAUXAlpha.digitalWrite(REG_EN, HIGH); //Default 5V to on
