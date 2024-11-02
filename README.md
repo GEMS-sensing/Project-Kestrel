@@ -143,7 +143,15 @@ Scripts and results from the testing process and development process. Contains m
 &dagger; SHT31 = `0x44`, DPS368 = `0x76`
 
 &Dagger; SHT31 = `0x44`, DPS368 = `0x77`
+
  -->
+
+## Version History
+
+v1.7 updates:
+- Connected DONE line on U26 to ensure consistent trip (prevent factory reset while using hall effect control)
+- Changed label for 'STAT' led in upper right corner to 'SYS', this was done to reflect the current usage of the indicator and to eliminate confusion between this indicator and the indicator lamp for the battery charge (also labeled 'STAT')
+- Switched amber LEDs to yellow
 
 ![PCB trace CAD image, top](Documentation/Images/Copper_TOP.png)
 
